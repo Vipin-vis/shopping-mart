@@ -1,0 +1,41 @@
+.search-div {
+    .search-box {
+        width: 90%;
+        top: 55px;
+    }
+    .search-btn {
+        margin-left: 12px;
+        top: 50px;
+    }
+}
+
+.search-icon {
+    margin-right: 12px;
+}
+
+.product-card {
+    width: 220px;
+    margin: 24px;
+    min-height: 200px;
+    background-color: #d9dfeb9e;
+}
+
+.product-action-footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 10px;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 24px;
+}
+
+.fixed-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px; 
+}

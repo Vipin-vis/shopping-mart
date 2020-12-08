@@ -1,0 +1,34 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+.main-drawer {
+  min-width: 250px;
+  min-height: 500px;
+}
+.main-content {
+  min-height: 500px;
+  padding: 12px;
+}
+
+.user-span {
+  min-height: 25px;
+  min-width: 250px;
+  background-color: #3f51b557;
+}
+
+.header-tool-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+.user {
+  display: flex;
+  &__name {
+    padding: 10px;
+  }
+  &__icon {
+    padding: 12px;
+  }
+}

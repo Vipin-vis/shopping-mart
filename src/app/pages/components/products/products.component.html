@@ -1,0 +1,29 @@
+<div class="search-div">
+    <mat-form-field class="search-box" appearance="fill">
+        <mat-icon matPrefix class="search-icon">search</mat-icon>
+        <mat-label>Search Products</mat-label>
+        <input matInput #search>
+    </mat-form-field>
+    <button class="search-btn" mat-stroked-button color="primary">Search</button>
+</div>
+<br>
+<div class="container">
+    <mat-card class="product-card" *ngFor="let item of productList">
+        <span>{{item.name}}</span>
+        <div class="product-action-footer">
+            <button mat-icon-button color="primary">
+                <mat-icon>add_circle_outline</mat-icon>
+            </button>
+            <button mat-mini-fab color="primary">
+                <mat-icon [matBadge]="item.quantity" matBadgeColor="accent">add_shopping_cart</mat-icon>
+            </button>
+            <button mat-icon-button color="primary">
+                <mat-icon>remove_circle_outline</mat-icon>
+            </button>
+        </div>
+    </mat-card>
+</div>
+
+<button *ngIf="showSearchButton" mat-fab color="primary" class="fixed-btn" (click)="gotoSearch()">
+    <mat-icon>search</mat-icon>
+</button>

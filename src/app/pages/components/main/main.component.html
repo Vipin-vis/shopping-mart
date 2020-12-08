@@ -1,0 +1,32 @@
+<mat-drawer-container class="main-container">
+    <mat-drawer class="main-drawer" #drawer>
+        <div class="user">
+            <mat-icon class="user__icon">account_box</mat-icon>
+            <h2 class="user__name"> Hi, {{user}}</h2>
+        </div>
+        <mat-selection-list #shoes [multiple]="false">
+            <mat-list-option *ngFor="let item of listItems" [value]="item">
+                {{item}}
+                <mat-divider></mat-divider>
+            </mat-list-option>
+        </mat-selection-list>
+    </mat-drawer>
+    <mat-drawer-content>
+        <mat-toolbar color="primary" class="header-tool-bar">
+            <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+                <mat-icon (click)="drawer.toggle()">menu</mat-icon>
+            </button>
+            <span>Shopping Mart</span>
+            <span class="example-spacer"></span>
+            <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+                <mat-icon matBadge="5" matBadgeColor="accent">shopping_cart</mat-icon>
+            </button>
+            <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+                <mat-icon>account_circle</mat-icon>
+            </button>
+        </mat-toolbar>
+        <div class="main-content">
+            <app-products></app-products>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>
