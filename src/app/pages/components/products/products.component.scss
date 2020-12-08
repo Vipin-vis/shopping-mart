@@ -18,13 +18,24 @@
     margin: 24px;
     min-height: 200px;
     background-color: #d9dfeb9e;
-}
-
-.product-action-footer {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    padding: 10px;
+    .product-action-footer {
+        position: absolute;
+        display: flex;
+        bottom: 0;
+        right: 0;
+        padding: 10px;
+        .prod-qty {
+            display: none;
+        }
+    }
+    &:hover {
+        transform: scale(1.03);
+        .product-action-footer {
+            .prod-qty {
+                display: block;
+            }
+        }
+    }
 }
 
 .container {
@@ -37,5 +48,5 @@
 .fixed-btn {
     position: fixed;
     bottom: 24px;
-    right: 24px; 
+    right: 24px;
 }
