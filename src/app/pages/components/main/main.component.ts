@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { APP_CONSTANTS } from 'src/app/core/constants/constants';
 
 @Component({
   selector: 'app-main',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
   user:string = "Vipin";
-  listItems = ["Home","Order", "Category", "Cart", "Settings"];
+  listItems = APP_CONSTANTS.sideNavItems;
   constructor() { }
   ngOnInit(): void {
   }
 
 }
+

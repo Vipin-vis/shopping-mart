@@ -1,11 +1,15 @@
 .search-div {
+    top: 64px;
+    position: relative;
+    display: flex;
     .search-box {
         width: 90%;
-        top: 55px;
     }
     .search-btn {
         margin-left: 12px;
-        top: 50px;
+        height: 36px;
+        margin-top: 14px;
+        width: 10%;
     }
 }
 
@@ -14,7 +18,7 @@
 }
 
 .product-card {
-    width: 220px;
+    width: 230px;
     margin: 24px;
     min-height: 200px;
     background-color: #d9dfeb9e;
@@ -23,7 +27,7 @@
         display: flex;
         bottom: 0;
         right: 0;
-        padding: 10px;
+        padding: 12px;
         .prod-qty {
             display: none;
         }

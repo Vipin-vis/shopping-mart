@@ -39,6 +39,7 @@ export class ProductsComponent implements OnInit {
    * @param {number} scrollY 
    */
   onScroll(scrollY: number) {
+    console.log(scrollY)
     if (scrollY >= 100) {
       this.showSearchButton = true;
     } else {

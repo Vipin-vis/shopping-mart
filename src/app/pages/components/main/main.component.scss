@@ -3,11 +3,13 @@
 }
 .main-drawer {
   min-width: 250px;
-  min-height: 500px;
+  max-height: 100vh;
+  position: fixed;
 }
 .main-content {
-  min-height: 500px;
+  min-height: 95vh;
   padding: 12px;
+  overflow: hidden;
 }
 
 .user-span {

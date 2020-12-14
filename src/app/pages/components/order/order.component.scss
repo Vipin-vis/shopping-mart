@@ -1,0 +1,46 @@
+.order-main {
+    margin-bottom: 150px;
+    .order-header {
+        display: flex;
+        top: 64px;
+        position: fixed;
+        width: 100%;
+        justify-content: space-between;
+        .my-order {
+            padding: 12px;
+            font-size: 36px;
+        }
+        .my-order-filter {
+            margin-right: 24px;
+            padding: 12px;
+        }
+    }
+    .order-list {
+        top: 120px;
+        position: relative;
+    }
+}
+
+.order-table {
+    width: 100%;
+}
+
+.payment-chip {
+    margin-right: 24px !important;
+}
+.order,.agent {
+    max-width: 300px;
+}
+.mat-radio-button ~ .mat-radio-button {
+    margin-left: 16px;
+  }
+
+  .order-options {
+      display: flex;
+      justify-content: space-between;
+      width: 96%;
+      .order-save{
+          margin-left: 24px;
+          cursor: pointer;
+      }
+  }

@@ -5,8 +5,8 @@
             <h2 class="user__name"> Hi, {{user}}</h2>
         </div>
         <mat-selection-list #shoes [multiple]="false">
-            <mat-list-option *ngFor="let item of listItems" [value]="item">
-                {{item}}
+            <mat-list-option (click)="drawer.toggle()"  [routerLink]="item.path"*ngFor="let item of listItems" [value]="item">
+                {{item.name}}
                 <mat-divider></mat-divider>
             </mat-list-option>
         </mat-selection-list>
@@ -16,12 +16,15 @@
             <button mat-icon-button class="example-icon">
                 <mat-icon (click)="drawer.toggle()">menu</mat-icon>
             </button>
-            <span>Fab Mart</span>
+            <span>Fab One Mart</span>
             <span class="example-spacer"></span>
-            <button mat-icon-button>
+            <button mat-icon-button [routerLink]="'/home'">
                 <mat-icon>home</mat-icon>
             </button>
-            <button mat-icon-button>
+            <button mat-icon-button [routerLink]="'/order'">
+                <mat-icon>text_snippet</mat-icon>
+            </button>
+            <button mat-icon-button [routerLink]="'/cart'">
                 <mat-icon matBadge="5" matBadgeColor="accent">shopping_cart</mat-icon>
             </button>
             <button mat-icon-button class="example-icon">
@@ -29,7 +32,8 @@
             </button>
         </mat-toolbar>
         <div class="main-content">
-            <app-products></app-products>
+            <router-outlet></router-outlet>
+            <!-- <app-products></app-products> -->
         </div>
     </mat-drawer-content>
 </mat-drawer-container>
