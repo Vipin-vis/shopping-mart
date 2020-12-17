@@ -12,23 +12,23 @@
         </mat-selection-list>
     </mat-drawer>
     <mat-drawer-content>
-        <mat-toolbar color="primary" class="header-tool-bar">
+        <mat-toolbar *ngIf="route !== '/login'" color="primary" class="header-tool-bar">
             <button mat-icon-button class="example-icon">
                 <mat-icon (click)="drawer.toggle()">menu</mat-icon>
             </button>
             <span>Fab One Mart</span>
             <span class="example-spacer"></span>
             <button mat-icon-button [routerLink]="'/home'">
-                <mat-icon>home</mat-icon>
+                <mat-icon matTooltip="Home">home</mat-icon>
             </button>
             <button mat-icon-button [routerLink]="'/order'">
-                <mat-icon>text_snippet</mat-icon>
+                <mat-icon matTooltip="Order">text_snippet</mat-icon>
             </button>
             <button mat-icon-button [routerLink]="'/cart'">
-                <mat-icon matBadge="5" matBadgeColor="accent">shopping_cart</mat-icon>
+                <mat-icon matTooltip="Cart" matBadge="5" matBadgeColor="accent">shopping_cart</mat-icon>
             </button>
             <button mat-icon-button class="example-icon">
-                <mat-icon>account_circle</mat-icon>
+                <mat-icon matTooltip="Account" >account_circle</mat-icon>
             </button>
         </mat-toolbar>
         <div class="main-content">

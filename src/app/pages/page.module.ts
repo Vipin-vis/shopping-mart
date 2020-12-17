@@ -27,6 +27,7 @@ import { PageRoutingModule } from './page-routing.module';
 import { CartComponent } from './components/cart/cart.component';
 import { SharedModule } from '../shared/shared/shared.module';
 import { OrderComponent } from './components/order/order.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 
@@ -35,7 +36,8 @@ import { OrderComponent } from './components/order/order.component';
     MainComponent,
     ProductsComponent,
     CartComponent,
-    OrderComponent
+    OrderComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,

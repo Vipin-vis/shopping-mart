@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { HttpService } from 'src/app/core/services/http.service';
 
 @Component({
   selector: 'app-products',
@@ -20,15 +21,19 @@ export class ProductsComponent implements OnInit {
   }
   @ViewChild('search') searchElement!: ElementRef;
 
-  constructor() {
+  constructor(private _httpService: HttpService) {
     this.showSearchButton = false;
   }
 
   ngOnInit(): void {
-    this.productList = products;
+    //this.productList = products;
     this.scroll
       .pipe(debounceTime(200))
       .subscribe((y) => this.onScroll(window.scrollY));
+
+    this._httpService.getProducts("all").subscribe((res) => {
+      this.productList = res;
+    })
   }
 
   ngOnDestroy() {
@@ -50,102 +55,11 @@ export class ProductsComponent implements OnInit {
    * 
    */
   gotoSearch() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
     this.searchElement.nativeElement.focus();
   }
 }
-
-
-const products = [
-  {
-    name: "Nike",
-    quantity: "",
-  },
-  {
-    name: "Nike",
-    quantity: "",
-  },
-  {
-    name: "Nike",
-    quantity: "",
-  },
-  {
-    name: "Nike",
-    quantity: "",
-  },
-  {
-    name: "Nike",
-    quantity: "",
-  },
-  {
-    name: "Nike",
-    quantity: "",
-  },
-  {
-    name: "Nike",
-    quantity: "",
-  },
-  {
-    name: "Nike",
-    quantity: "",
-  },
-  {
-    name: "Nike",
-    quantity: "",
-  },
-  {
-    name: "Nike",
-    quantity: "",
-  },
-  {
-    name: "Nike",
-    quantity: "",
-  },
-  {
-    name: "Nike",
-    quantity: "",
-  },
-  {
-    name: "Nike",
-    quantity: "",
-  },
-  {
-    name: "Nike",
-    quantity: "",
-  },
-  {
-    name: "Nike"
-  },
-  {
-    name: "Nike",
-    quantity: "",
-  },
-  {
-    name: "Nike",
-    quantity: "",
-  },
-  {
-    name: "Nike",
-    quantity: "",
-  },
-  {
-    name: "Nike",
-    quantity: "",
-  },
-  {
-    name: "Nike",
-    quantity: "",
-  },
-  {
-    name: "Nike",
-    quantity: "",
-  },
-  {
-    name: "Nike",
-    quantity: "",
-  }
-]

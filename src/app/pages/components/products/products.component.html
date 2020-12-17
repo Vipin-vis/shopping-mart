@@ -12,6 +12,7 @@
         <mat-icon>shopping_bag_outline</mat-icon>
         <h2><span>{{item.name}}</span></h2>
         <div class="product-action-footer">
+            <!-- <img src="item.imageUrl" > -->
             <button mat-icon-button color="primary" class="prod-qty">
                 <mat-icon>add_circle_outline</mat-icon>
             </button>
@@ -19,7 +20,7 @@
                 <mat-icon>remove_circle_outline</mat-icon>
             </button>
             <button mat-mini-fab color="primary">
-                <mat-icon [matBadge]="item.quantity" matBadgeColor="accent">add_shopping_cart</mat-icon>
+                <mat-icon>add_shopping_cart</mat-icon>
             </button>
         </div>
     </mat-card>
