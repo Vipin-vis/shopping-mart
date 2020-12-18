@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Orders, Product } from 'src/app/core/data/dummyData';
+import { SharedService } from 'src/app/core/services/shared.service';
 
 @Component({
   selector: 'app-order',
@@ -8,9 +9,31 @@ import { Orders, Product } from 'src/app/core/data/dummyData';
 })
 export class OrderComponent implements OnInit {
 
-  constructor() { }
   displayedColumns = ['item', 'category', 'quantity', 'cost', 'tCost'];
   orders = Orders;
+  displayPayment: boolean = true;
+  displayOrderStatus = true;
+  displayDeleteOrder = true;
+
+  constructor(private _sharedService: SharedService) {
+    let userType: string = this._sharedService.getUserType();
+    if (userType === "admin") {
+      this.displayPayment = true;
+      this.displayOrderStatus = true;
+      this.displayDeleteOrder = true;
+    } else if (userType === "agent") {
+      this.displayPayment = false;
+      this.displayOrderStatus = false;
+      this.displayDeleteOrder = true;
+    }
+    else if (userType === "accountant") {
+      this.displayPayment = true;
+      this.displayOrderStatus = true;
+      this.displayDeleteOrder = false;
+    }
+
+  }
+
   products: any[] = [
     { item: 'Beach ball', category: "Sports", cost: 250, qty: 1 },
     { item: 'Towel', category: "Clothings", cost: 500, qty: 1 },

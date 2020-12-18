@@ -2,8 +2,10 @@ export const Orders = [
     {
         "id": "123",
         "number": "12345",
-        "status": 1, //paid
+        "status": 1,
+        "paid": 0,
         "agent": "John",
+        "customer": "Vijay",
         "products": [
             { item: 'Beach ball', category: "Sports", cost: 250, qty: 1 },
             { item: 'Towel', category: "Clothings", cost: 500, qty: 1 },
@@ -16,8 +18,10 @@ export const Orders = [
     {
         "id": "12546",
         "number": "4564694",
-        "status": 0, //not paid
+        "status": 2,
+        "paid": 1,
         "agent": "Kiran",
+        "customer": "Surya",
         "products": [
             { item: 'Beach ball', category: "Sports", cost: 250, qty: 1 },
             { item: 'Towel', category: "Clothings", cost: 500, qty: 1 },
@@ -30,7 +34,8 @@ export const Orders = [
     {
         "id": "4654",
         "number": "45265",
-        "status": 0,
+        "status": 3,
+        "paid": 1,
         "agent": "John",
         "products": [
             { item: 'Beach ball', category: "Sports", cost: 250, qty: 1 },
@@ -44,8 +49,10 @@ export const Orders = [
     {
         "id": "989",
         "number": "87854",
-        "status": 2,
+        "status": 1,
+        "paid": 2,
         "agent": "Rahul",
+        "customer": "Ajith",
         "products": [
             { item: 'Beach ball', category: "Sports", cost: 250, qty: 1 },
             { item: 'Towel', category: "Clothings", cost: 500, qty: 1 },
@@ -58,8 +65,10 @@ export const Orders = [
     {
         "id": "985656",
         "number": "87854",
-        "status": 2, //in progress
+        "status": 0,
+        "paid": 0,
         "agent": "Rahul",
+        "customer": "Dhanush",
         "products": [
             { item: 'Beach ball', category: "Sports", cost: 250, qty: 1 },
             { item: 'Towel', category: "Clothings", cost: 500, qty: 1 },
@@ -72,8 +81,10 @@ export const Orders = [
     {
         "id": "45465",
         "number": "85489",
-        "status": 3,  //cancelled
+        "status": 2,
+        "paid": 1,
         "agent": "Rahul",
+        "customer": "Rajni",
         "products": [
             { item: 'Beach ball', category: "Sports", cost: 250, qty: 1 },
             { item: 'Towel', category: "Clothings", cost: 500, qty: 1 },

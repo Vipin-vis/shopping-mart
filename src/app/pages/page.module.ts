@@ -20,6 +20,9 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatRippleModule } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { MainComponent } from './components/main/main.component';
 import { ProductsComponent } from './components/products/products.component';
@@ -62,7 +65,10 @@ import { LoginComponent } from './components/login/login.component';
     MatRadioModule,
     MatTooltipModule,
     MatRippleModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatSlideToggleModule,
+    MatSelectModule,
+    MatDividerModule
   ],
   exports: [
     MainComponent

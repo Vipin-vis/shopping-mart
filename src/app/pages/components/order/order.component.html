@@ -2,13 +2,13 @@
     <div class="order-header">
         <mat-icon class="my-order">text_snippet</mat-icon>
 
-        <mat-button-toggle-group class="my-order-filter" name="fontStyle" aria-label="Font Style">
+        <!-- <mat-button-toggle-group class="my-order-filter" name="fontStyle" aria-label="Font Style">
             <mat-button-toggle value="all">All</mat-button-toggle>
             <mat-button-toggle value="paid">Paid</mat-button-toggle>
             <mat-button-toggle value="not_paid">Not Paid</mat-button-toggle>
             <mat-button-toggle value="in_progress">In Progress</mat-button-toggle>
-            <mat-button-toggle value="cancelled">Cencelled</mat-button-toggle>
-        </mat-button-toggle-group>
+            <mat-button-toggle value="cancelled">Cancelled</mat-button-toggle>
+        </mat-button-toggle-group> -->
     </div>
     <div class="order-list">
 
@@ -22,29 +22,61 @@
                         <span class="label-title">Agent: </span> {{order.agent}}
                     </mat-panel-title>
                     <mat-chip-list class="payment-chip-list" aria-label="Fish selection">
-                        <mat-chip class="payment-chip paid" *ngIf="order.status === 1"
-                            style="background-color: rgb(7, 126, 100);" selected>Paid</mat-chip>
-                        <mat-chip class="payment-chip not-paid" *ngIf="order.status === 0"
-                            style="background-color: rgb(219, 64, 59);" selected>Not Paid</mat-chip>
-                        <mat-chip class="payment-chip in-progress" *ngIf="order.status === 2"
-                            style="background-color: rgb(243, 135, 12);" selected>In Progress</mat-chip>
-                        <mat-chip class="payment-chip cancelled" *ngIf="order.status === 3"
-                            style="background-color: rgb(126, 124, 102);" selected>Cancelled</mat-chip>
+                        <mat-chip class="payment-chip paid" *ngIf="order.paid === 1"
+                            style="background-color: rgb(7, 126, 100);" selected>Paid
+                        </mat-chip>
+                        <mat-chip class="payment-chip not-paid" *ngIf="order.paid === 0"
+                            style="background-color: rgb(219, 64, 59);" selected>Not Paid
+                        </mat-chip>
+                        <mat-chip class="payment-chip not-paid" *ngIf="order.paid === 2"
+                            style="background-color:  rgb(146, 144, 9);" selected>In Progress
+                        </mat-chip>
+
+                    </mat-chip-list>
+                    <mat-chip-list class="shipment-chip-list" aria-label="Fish selection">
+                        <mat-chip class="shipment-chip" *ngIf="order.status === 1"
+                            style="background-color: rgb(175, 97, 66);" selected>Ordered
+                        </mat-chip>
+                        <mat-chip class="shipment-chip" *ngIf="order.status === 2"
+                            style="background-color: rgb(146, 144, 9);" selected>Shipped
+                        </mat-chip>
+                        <mat-chip class="shipment-chip" *ngIf="order.status === 3"
+                            style="background-color:  rgb(7, 126, 100);" selected>Delivered
+                        </mat-chip>
+                        <mat-chip class="shipment-chip" *ngIf="order.status === 0"
+                            style="background-color: rgb(77, 8, 5);" selected>Cancelled
+                        </mat-chip>
+
                     </mat-chip-list>
                 </mat-expansion-panel-header>
+                <mat-divider style="margin-bottom: 12px;"></mat-divider>
                 <div class="order-options">
-
-                    <mat-radio-group *ngIf="true" aria-label="Select an option">
-                        <mat-radio-button value="1">Paid</mat-radio-button>
-                        <mat-radio-button value="0">Not Paid</mat-radio-button>
-                        <mat-radio-button value="2">In Progress</mat-radio-button>
-                        <mat-radio-button value="3">Cancelled</mat-radio-button>
-                    </mat-radio-group>
+                    <mat-panel-title class="order">
+                        <span class="label-title">Customer:</span> {{order.customer}}
+                    </mat-panel-title>
+                    <!-- <mat-slide-toggle class="payment-toggle"[ngModel]="order.paid" *ngIf="displayPayment">Payment</mat-slide-toggle> -->
+                    <mat-form-field *ngIf="displayPayment" appearance="fill">
+                        <mat-label>Payment Status</mat-label>
+                        <mat-select [(value)]="order.paid">
+                            <mat-option  [value]="1">Paid</mat-option>
+                            <mat-option [value]="0">Not Paid</mat-option>
+                            <mat-option [value]="2">In Progress</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field *ngIf="displayOrderStatus" appearance="fill">
+                        <mat-label>Order Status</mat-label>
+                        <mat-select [(value)]="order.status">
+                            <mat-option  [value]="1">Ordered</mat-option>
+                            <mat-option [value]="2">Shipped</mat-option>
+                            <mat-option [value]="3">Delivered</mat-option>
+                            <mat-option [value]="0">Cancelled</mat-option>
+                        </mat-select>
+                    </mat-form-field>
                     <div>
                         <button class="order-save" mat-mini-fab>
-                            <mat-icon matRipple matTooltip="Save changes">save_alt</mat-icon>
+                            <mat-icon matRipple matTooltip="Save changes">save</mat-icon>
                         </button>
-                        <button class="order-save" mat-mini-fab>
+                        <button *ngIf="displayDeleteOrder" class="order-save" mat-mini-fab>
                             <mat-icon matRipple matTooltip="Delete Order">clear</mat-icon>
                         </button>
 

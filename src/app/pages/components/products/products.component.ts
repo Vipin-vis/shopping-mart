@@ -2,6 +2,7 @@ import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { HttpService } from 'src/app/core/services/http.service';
+import { SharedService } from 'src/app/core/services/shared.service';
 
 @Component({
   selector: 'app-products',
@@ -21,7 +22,7 @@ export class ProductsComponent implements OnInit {
   }
   @ViewChild('search') searchElement!: ElementRef;
 
-  constructor(private _httpService: HttpService) {
+  constructor(private _httpService: HttpService, private _sharedService: SharedService) {
     this.showSearchButton = false;
   }
 
@@ -33,6 +34,9 @@ export class ProductsComponent implements OnInit {
 
     this._httpService.getProducts("all").subscribe((res) => {
       this.productList = res;
+      this.productList.forEach((product: any) => {
+        product.tempQuan = 0;
+      });
     })
   }
 
@@ -61,5 +65,42 @@ export class ProductsComponent implements OnInit {
       behavior: 'smooth'
     });
     this.searchElement.nativeElement.focus();
+  }
+
+  addProduct(item:any) {
+    console.log(item)
+    let itemToadd = {
+      "item": item.name,
+      "category": "category",
+      "cost":item.price,
+      "qty":item.tempQuan,
+      "id":item.id
+    }
+    this._sharedService.setCartData(itemToadd);
+  }
+
+  incrementProd(item: any) {
+    this.productList.forEach((product: any) => {
+      if (product.id === item.id) {
+        if (item.tempQuan < 0) {
+          return;
+        } else if (item.tempQuan == 0) {
+          item.tempQuan = item.tempQuan + 2;
+        } else {
+          item.tempQuan++;
+        }
+      }
+    });
+  }
+  decrementProd(item: any) {
+    this.productList.forEach((product: any) => {
+      if (product.id === item.id) {
+        if (item.tempQuan < 0) {
+          return
+        } else {
+          item.tempQuan--;
+        }
+      }
+    });
   }
 }

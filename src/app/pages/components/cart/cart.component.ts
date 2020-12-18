@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { SharedService } from 'src/app/core/services/shared.service';
 
 @Component({
   selector: 'app-cart',
@@ -7,19 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _sharedService: SharedService,
+    private changeDetectorRefs: ChangeDetectorRef) { }
 
   ngOnInit(): void {
   }
   displayedColumns = ['item', 'category', 'quantity', 'cost', 'tCost'];
-  products: Product[] = [
-    { item: 'Beach ball', category: "Sports", cost: 250, qty: 1 },
-    { item: 'Towel', category: "Clothings", cost: 500, qty: 1 },
-    { item: 'Frisbee', category: "Sports", cost: 200, qty: 1 },
-    { item: 'Sunscreen', category: "Skin", cost: 150, qty: 1 },
-    { item: 'Cooler', category: "Clothings", cost: 1500, qty: 1 },
-    { item: 'tees', category: "Clothings", cost: 999, qty: 1 },
-  ];
+  products: Product[] = JSON.parse(JSON.stringify(this._sharedService.cartData));
 
   /** Gets the total cost of all Products. */
   getTotalCost() {
@@ -32,6 +27,14 @@ export class CartComponent implements OnInit {
   gotoProductSearch() {
 
   }
+
+  removeItem(id: any) {
+    if (this._sharedService.removeItemFromCart(id)) {
+      this.products = JSON.parse(JSON.stringify(this._sharedService.cartData)) ;
+     // this.changeDetectorRefs.detectChanges();
+    }
+  }
+
 }
 
 export interface Product {

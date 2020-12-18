@@ -27,9 +27,18 @@
 
 .payment-chip {
     margin-right: 24px !important;
+    width: 100px;
+    justify-content: center;
 }
-.order,.agent {
+.shipment-chip {
+    margin-right: 24px !important;
+    width: 100px;
+    justify-content: center;
+}
+.order,.agent, .payment-toggle {
     max-width: 300px;
+    top: 12px;
+    position: relative;
 }
 .mat-radio-button ~ .mat-radio-button {
     margin-left: 16px;

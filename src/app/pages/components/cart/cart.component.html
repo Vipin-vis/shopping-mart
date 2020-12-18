@@ -37,7 +37,7 @@
             <th mat-header-cell *matHeaderCellDef> Total Cost</th>
             <td mat-cell class="tcost-td" *matCellDef="let product"> {{product.cost * product.qty | currency:'INR'}}
                 <button mat-mini-fab class="del-prod" color="accent">
-                    <mat-icon>remove</mat-icon>
+                    <mat-icon (click)="removeItem(product.id)">remove</mat-icon>
                 </button>
             </td>
             <td mat-footer-cell *matFooterCellDef> {{getTotalCost() | currency:'INR'}} </td>

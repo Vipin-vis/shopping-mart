@@ -14,13 +14,13 @@
         <div class="product-action-footer">
             <!-- <img src="item.imageUrl" > -->
             <button mat-icon-button color="primary" class="prod-qty">
-                <mat-icon>add_circle_outline</mat-icon>
+                <mat-icon (click)="incrementProd(item)">add_circle_outline</mat-icon>
             </button>
             <button mat-icon-button color="primary" class="prod-qty">
-                <mat-icon>remove_circle_outline</mat-icon>
+                <mat-icon (click)="decrementProd(item)">remove_circle_outline</mat-icon>
             </button>
             <button mat-mini-fab color="primary">
-                <mat-icon>add_shopping_cart</mat-icon>
+                <mat-icon (click)="addProduct(item)" [matBadge]="item.tempQuan" matBadgeColor="accent">add_shopping_cart</mat-icon>
             </button>
         </div>
     </mat-card>
