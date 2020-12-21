@@ -48,7 +48,6 @@ export class ProductsComponent implements OnInit {
    * @param {number} scrollY 
    */
   onScroll(scrollY: number) {
-    console.log(scrollY)
     if (scrollY >= 100) {
       this.showSearchButton = true;
     } else {
@@ -68,7 +67,6 @@ export class ProductsComponent implements OnInit {
   }
 
   addProduct(item:any) {
-    console.log(item)
     let itemToadd = {
       "item": item.name,
       "category": "category",

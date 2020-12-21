@@ -50,7 +50,7 @@ export const Orders = [
         "id": "989",
         "number": "87854",
         "status": 1,
-        "paid": 2,
+        "paid": 1,
         "agent": "Rahul",
         "customer": "Ajith",
         "products": [

@@ -16,7 +16,7 @@ export class OrderComponent implements OnInit {
   displayDeleteOrder = true;
 
   constructor(private _sharedService: SharedService) {
-    let userType: string = this._sharedService.getUserType();
+    let userType: string = this._sharedService.userTypeValue;
     if (userType === "admin") {
       this.displayPayment = true;
       this.displayOrderStatus = true;

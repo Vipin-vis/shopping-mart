@@ -4,9 +4,25 @@
             <mat-icon class="user__icon" color="accent">mood</mat-icon>
             <h2 class="user__name"> Hi, {{user}}</h2>
         </div>
-        <mat-selection-list #shoes [multiple]="false">
-            <mat-list-option (click)="drawer.toggle()"  [routerLink]="item.path"*ngFor="let item of listItems" [value]="item">
-                {{item.name}}
+        <mat-selection-list [multiple]="false">
+            <mat-list-option *ngIf="(userType === 'admin') || (userType === 'agent')"  (click)="drawer.toggle()"  [routerLink]="'/home'" >
+                Home
+                <mat-divider></mat-divider>
+            </mat-list-option>
+            <mat-list-option (click)="drawer.toggle()"  [routerLink]="'/order'" >
+                Order
+                <mat-divider></mat-divider>
+            </mat-list-option>
+            <mat-list-option *ngIf="(userType === 'admin') || (userType === 'agent')"  (click)="drawer.toggle()"  [routerLink]="'/cart'" >
+                Cart
+                <mat-divider></mat-divider>
+            </mat-list-option>
+            <mat-list-option (click)="drawer.toggle()"  >
+                Settings
+                <mat-divider></mat-divider>
+            </mat-list-option>
+            <mat-list-option (click)="drawer.toggle()"  [routerLink]="'/login'" >
+                Logout
                 <mat-divider></mat-divider>
             </mat-list-option>
         </mat-selection-list>
@@ -18,14 +34,14 @@
             </button>
             <span>Fab One Mart</span>
             <span class="example-spacer"></span>
-            <button mat-icon-button [routerLink]="'/home'">
+            <button mat-icon-button *ngIf="(userType === 'admin') || (userType === 'agent')" [routerLink]="'/home'">
                 <mat-icon matTooltip="Home">home</mat-icon>
             </button>
             <button mat-icon-button [routerLink]="'/order'">
                 <mat-icon matTooltip="Order">text_snippet</mat-icon>
             </button>
-            <button mat-icon-button [routerLink]="'/cart'">
-                <mat-icon matTooltip="Cart">shopping_cart</mat-icon>
+            <button mat-icon-button *ngIf="(userType === 'admin') || (userType === 'agent')" [routerLink]="'/cart'">
+                <mat-icon [matBadge]="cartLength" matBadgeColor="accent" matTooltip="Cart">shopping_cart</mat-icon>
             </button>
             <button mat-icon-button class="example-icon">
                 <mat-icon matTooltip="Account" >account_circle</mat-icon>

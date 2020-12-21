@@ -1,20 +1,20 @@
 <div class="main-div">
     <mat-card class="login-card">
         <img class="user-img" src="../../../../assets/user.png" alt="user" width="150" height="160">
-        <div class="login-form">
+        <form class="login-form">
             <mat-form-field class="input-full-width">
                 <mat-label>Username</mat-label>
                 <mat-icon matSuffix>account_circle</mat-icon>
-                <input [(ngModel)]="userName" matInput>
+                <input [(ngModel)]="userName" matInput name="userName">
             </mat-form-field>
             <br>
             <mat-form-field class="input-full-width">
                 <mat-label>Password</mat-label>
                 <mat-icon matSuffix>vpn_key</mat-icon>
-                <input [(ngModel)]="password" type="password" matInput>
+                <input [(ngModel)]="password" type="password" matInput name="password">
             </mat-form-field>
-            <button (click) = "onLogin()" class="login-btn" mat-raised-button color="accent">login</button>
-        </div>
+            <button type="submit" (click) = "onLogin()" class="login-btn" mat-raised-button color="accent">login</button>
+        </form>
 
     </mat-card>
 </div>

@@ -28,10 +28,6 @@
                         <mat-chip class="payment-chip not-paid" *ngIf="order.paid === 0"
                             style="background-color: rgb(219, 64, 59);" selected>Not Paid
                         </mat-chip>
-                        <mat-chip class="payment-chip not-paid" *ngIf="order.paid === 2"
-                            style="background-color:  rgb(146, 144, 9);" selected>In Progress
-                        </mat-chip>
-
                     </mat-chip-list>
                     <mat-chip-list class="shipment-chip-list" aria-label="Fish selection">
                         <mat-chip class="shipment-chip" *ngIf="order.status === 1"
@@ -60,7 +56,6 @@
                         <mat-select [(value)]="order.paid">
                             <mat-option  [value]="1">Paid</mat-option>
                             <mat-option [value]="0">Not Paid</mat-option>
-                            <mat-option [value]="2">In Progress</mat-option>
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field *ngIf="displayOrderStatus" appearance="fill">
