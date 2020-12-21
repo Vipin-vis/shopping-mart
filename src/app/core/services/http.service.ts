@@ -24,7 +24,7 @@ export class HttpService {
         'Authorization': 'Basic ' + btoa(authString)
       })
     };
-    return this.http.get(this.serviceURI + '/login', httpOptions);
+    return this.http.get(this.serviceURI + '/Login', httpOptions);
   }
   getProducts(searchKey: string): Observable<any> {
     const httpOptions = {
