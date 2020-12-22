@@ -2,15 +2,18 @@
     <mat-form-field class="search-box" appearance="fill">
         <mat-icon matPrefix class="search-icon">search</mat-icon>
         <mat-label>Search Products</mat-label>
-        <input matInput #search>
+        <input matInput  [(ngModel)]="searchKey"  #search>
     </mat-form-field>
-    <button class="search-btn" mat-flat-button color="accent">Search</button>
+    <button class="search-btn"mat-flat-button color="accent" (click)="searchProduct()">Search</button>
 </div>
 <br>
 <div class="container">
     <mat-card class="product-card" *ngFor="let item of productList">
         <mat-icon>shopping_bag_outline</mat-icon>
-        <h2><span>{{item.name}}</span></h2>
+        <h2><span>{{item.prod_name}}</span></h2>
+        <br>
+        <br>
+        <h4>Rs. {{item.prod_price}}</h4>
         <div class="product-action-footer">
             <!-- <img src="item.imageUrl" > -->
             <button mat-icon-button color="primary" class="prod-qty">

@@ -16,16 +16,30 @@ export class HttpService {
   constructor(private http: HttpClient, private _auth: AuthService) {
 
   }
+  /**
+   * 
+   * @param username 
+   * @param password 
+   */
   getLogin(username: string, password: string) {
-    let authString:string = username + ":" + password;
+    let authString: string = username + ":" + password;
+    let requestbody = {
+      "username": username,
+      "password": password
+    }
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': 'Basic ' + btoa(authString)
+        //'Authorization': 'Basic ' + btoa(authString)
+        'Authorization': authString
       })
     };
-    return this.http.get(this.serviceURI + '/Login', httpOptions);
+    return this.http.post(this.serviceURI + '/Login', requestbody, httpOptions);
   }
+  /**
+   * 
+   * @param searchKey 
+   */
   getProducts(searchKey: string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -34,12 +48,34 @@ export class HttpService {
         'x-access-token': this._auth.getToken()
       })
     };
-    //return this.http.get(this.serviceURI + '/products', httpOptions);
+    //return this.http.post(this.serviceURI + '/searchProducts', { "search_str": searchKey }, httpOptions);
     return this.http.get(this.serviceURI + '/products');
   }
-
+  /**
+   * 
+   */
   getAllOrders(): Observable<any> {
-    return this.http.get(this.serviceURI + 'getallorders');
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ',
+        'x-access-token': this._auth.getToken()
+      })
+    };
+    return this.http.get(this.serviceURI + 'getallOrders', httpOptions);
   }
-
+  /**
+   * 
+   */
+  getOrderDetails(id: string) {
+    let reqParam = { "order_id": id }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ',
+        'x-access-token': this._auth.getToken()
+      })
+    };
+    return this.http.post(this.serviceURI + 'getallOrders', reqParam, httpOptions);
+  }
 }

@@ -17,6 +17,8 @@ export class ProductsComponent implements OnInit {
 
   showSearchButton: boolean;
 
+  searchKey: string;
+
   @HostListener('window:scroll') watchScroll() {
     this.scroll.next(window.scrollY);
   }
@@ -24,6 +26,7 @@ export class ProductsComponent implements OnInit {
 
   constructor(private _httpService: HttpService, private _sharedService: SharedService) {
     this.showSearchButton = false;
+    this.searchKey = "";
   }
 
   ngOnInit(): void {
@@ -31,13 +34,6 @@ export class ProductsComponent implements OnInit {
     this.scroll
       .pipe(debounceTime(200))
       .subscribe((y) => this.onScroll(window.scrollY));
-
-    this._httpService.getProducts("all").subscribe((res) => {
-      this.productList = res;
-      this.productList.forEach((product: any) => {
-        product.tempQuan = 0;
-      });
-    })
   }
 
   ngOnDestroy() {
@@ -57,6 +53,18 @@ export class ProductsComponent implements OnInit {
   /**
    * 
    */
+  searchProduct() {
+    this._httpService.getProducts(this.searchKey).subscribe((res) => {
+      //this.productList = JSON.parse(JSON.stringify(res["prod_data"]));
+      this.productList = JSON.parse(JSON.stringify(res));
+      this.productList.forEach((product: any) => {
+        product.tempQuan = 0;
+      });
+    });
+  }
+  /**
+   * 
+   */
   gotoSearch() {
     window.scroll({
       top: 0,
@@ -66,13 +74,14 @@ export class ProductsComponent implements OnInit {
     this.searchElement.nativeElement.focus();
   }
 
-  addProduct(item:any) {
+  addProduct(item: any) {
     let itemToadd = {
-      "item": item.name,
+      "item": item.prod_name,
       "category": "category",
-      "cost":item.price,
-      "qty":item.tempQuan,
-      "id":item.id
+      "cost": item.prod_price,
+      "qty": item.tempQuan,
+      "id": item.prod_id,
+      "descp": item.prod_description
     }
     this._sharedService.setCartData(itemToadd);
   }
@@ -82,9 +91,7 @@ export class ProductsComponent implements OnInit {
       if (product.id === item.id) {
         if (item.tempQuan < 0) {
           return;
-        } else if (item.tempQuan == 0) {
-          item.tempQuan = item.tempQuan + 2;
-        } else {
+        }  else {
           item.tempQuan++;
         }
       }
@@ -92,8 +99,9 @@ export class ProductsComponent implements OnInit {
   }
   decrementProd(item: any) {
     this.productList.forEach((product: any) => {
-      if (product.id === item.id) {
+      if (product.id === item.id) { 
         if (item.tempQuan < 0) {
+          item.temQuan=0;
           return
         } else {
           item.tempQuan--;

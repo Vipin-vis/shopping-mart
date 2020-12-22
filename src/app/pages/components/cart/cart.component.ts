@@ -42,4 +42,5 @@ export interface Product {
   cost: number;
   qty: number;
   category: string;
+  descp?: string;
 }
