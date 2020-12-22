@@ -55,8 +55,8 @@ export class ProductsComponent implements OnInit {
    */
   searchProduct() {
     this._httpService.getProducts(this.searchKey).subscribe((res) => {
-      //this.productList = JSON.parse(JSON.stringify(res["prod_data"]));
-      this.productList = JSON.parse(JSON.stringify(res));
+      this.productList = JSON.parse(JSON.stringify(res["prod_data"]));
+      //this.productList = JSON.parse(JSON.stringify(res));
       this.productList.forEach((product: any) => {
         product.tempQuan = 0;
       });
