@@ -100,16 +100,16 @@
                     <!-- Cost Column -->
                     <ng-container matColumnDef="cost">
                         <th mat-header-cell *matHeaderCellDef> Cost per piece</th>
-                        <td mat-cell *matCellDef="let product"> {{product.prod_price | currency:'INR'}} </td>
+                        <td mat-cell *matCellDef="let product"> {{product.prod_price | currency:'AED'}} </td>
                         <td mat-footer-cell *matFooterCellDef> Total </td>
                     </ng-container>
                     <!-- Total Cost Column -->
                     <ng-container matColumnDef="tCost">
                         <th mat-header-cell *matHeaderCellDef> Total Cost</th>
                         <td mat-cell class="tcost-td" *matCellDef="let product">
-                            {{product.prod_price * product.prod_quantity | currency:'INR'}}
+                            {{product.prod_price * product.prod_quantity | currency:'AED'}}
                         </td>
-                        <td mat-footer-cell *matFooterCellDef> {{getTotalCost() | currency:'INR'}} </td>
+                        <td mat-footer-cell *matFooterCellDef> {{getTotalCost() | currency:'AED'}} </td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

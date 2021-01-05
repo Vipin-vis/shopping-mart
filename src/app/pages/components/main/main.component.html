@@ -28,7 +28,7 @@
         </mat-selection-list>
     </mat-drawer>
     <mat-drawer-content>
-        <mat-toolbar *ngIf="route !== '/login'" color="primary" class="header-tool-bar">
+        <mat-toolbar *ngIf="route !== '/login' && !route.includes('/userConfirmation')" color="primary" class="header-tool-bar">
             <button mat-icon-button class="example-icon">
                 <mat-icon (click)="drawer.toggle()">menu</mat-icon>
             </button>
@@ -36,6 +36,9 @@
             <span class="example-spacer"></span>
             <button mat-icon-button *ngIf="(userType === 'admin') || (userType === 'agent')" [routerLink]="'/home'">
                 <mat-icon matTooltip="Home">home</mat-icon>
+            </button>
+            <button mat-icon-button *ngIf="(userType === 'admin')" [routerLink]="'/admin-panel'">
+                <mat-icon matTooltip="Admin Panel">admin_panel_settings</mat-icon>
             </button>
             <button mat-icon-button [routerLink]="'/order'">
                 <mat-icon matTooltip="Order">text_snippet</mat-icon>
@@ -48,6 +51,7 @@
             </button>
         </mat-toolbar>
         <div class="main-content">
+            <!-- <mat-progress-bar style="top:55px" color="accent" mode="query"></mat-progress-bar> -->
             <router-outlet></router-outlet>
             <!-- <app-products></app-products> -->
         </div>

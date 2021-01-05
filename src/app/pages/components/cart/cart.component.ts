@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { HttpService } from 'src/app/core/services/http.service';
 import { SharedService } from 'src/app/core/services/shared.service';
 
 @Component({
@@ -8,13 +9,18 @@ import { SharedService } from 'src/app/core/services/shared.service';
 })
 export class CartComponent implements OnInit {
 
+  displayedColumns = ['item', 'category', 'quantity', 'cost', 'tCost'];
+
+  products: Product[] = JSON.parse(JSON.stringify(this._sharedService.cartData));
+
+  orderLink: string = "";
+
   constructor(private _sharedService: SharedService,
-    private changeDetectorRefs: ChangeDetectorRef) { }
+    private changeDetectorRefs: ChangeDetectorRef,
+    private _http: HttpService) { }
 
   ngOnInit(): void {
   }
-  displayedColumns = ['item', 'category', 'quantity', 'cost', 'tCost'];
-  products: Product[] = JSON.parse(JSON.stringify(this._sharedService.cartData));
 
   /** Gets the total cost of all Products. */
   getTotalCost() {
@@ -30,9 +36,32 @@ export class CartComponent implements OnInit {
 
   removeItem(id: any) {
     if (this._sharedService.removeItemFromCart(id)) {
-      this.products = JSON.parse(JSON.stringify(this._sharedService.cartData)) ;
-     // this.changeDetectorRefs.detectChanges();
+      this.products = JSON.parse(JSON.stringify(this._sharedService.cartData));
+      // this.changeDetectorRefs.detectChanges();
     }
+  }
+  /**
+   * 
+   */
+  generateOrder() {
+    let orderProductData: any = [];
+    this.products.forEach((product: any) => {
+      let productData = {
+        "prod_quantity": product.qty,
+        "prod_id": product.prod_id
+      }
+      orderProductData.push(productData);
+    });
+
+    this._http.generateOrder(this._sharedService.loggedUser, orderProductData)
+      .subscribe((res: any) => {
+        if (!!res["order_link"]) {
+          this.orderLink = res["order_link"];
+        }
+      },
+        (er) => {
+          console.log("Error:", er);
+        })
   }
 
 }

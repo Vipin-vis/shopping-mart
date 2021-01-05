@@ -141,3 +141,32 @@ export const Product =
             { item: 'tees', category: "Clothings", cost: 999, qty: 1 },
         ]
     }]
+
+export const Users = [
+    {
+        "id": "1",
+        "userName": "Mohanlal",
+        "userType": "admin",
+        "userMail": "mohan@onefab.com"
+    }, {
+        "id": "2",
+        "userName": "Mammoty",
+        "userType": "accountant",
+        "userMail": "mammoss@onefab.com"
+    }, {
+        "id": "3",
+        "userName": "Fahad",
+        "userType": "agent",
+        "userMail": "fahad@onefab.com"
+    }, {
+        "id": "4",
+        "userName": "Prithviraj",
+        "userType": "agent",
+        "userMail": "raj@onefab.com"
+    }, {
+        "id": "5",
+        "userName": "Dulquar",
+        "userType": "agent",
+        "userMail": "dq@onefab.com"
+    }
+]

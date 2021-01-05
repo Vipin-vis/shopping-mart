@@ -23,6 +23,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { MainComponent } from './components/main/main.component';
 import { ProductsComponent } from './components/products/products.component';
@@ -31,6 +32,12 @@ import { CartComponent } from './components/cart/cart.component';
 import { SharedModule } from '../shared/shared/shared.module';
 import { OrderComponent } from './components/order/order.component';
 import { LoginComponent } from './components/login/login.component';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { UsersComponent } from './components/users/users.component';
+import { AddProductComponent } from './components/add-product/add-product.component';
+import { EndUserComponent } from './components/end-user/end-user.component';
+
+import { ClipboardModule } from 'ngx-clipboard';
 
 
 
@@ -40,7 +47,11 @@ import { LoginComponent } from './components/login/login.component';
     ProductsComponent,
     CartComponent,
     OrderComponent,
-    LoginComponent
+    LoginComponent,
+    AdminPanelComponent,
+    UsersComponent,
+    AddProductComponent,
+    EndUserComponent
   ],
   imports: [
     CommonModule,
@@ -68,7 +79,9 @@ import { LoginComponent } from './components/login/login.component';
     MatButtonToggleModule,
     MatSlideToggleModule,
     MatSelectModule,
-    MatDividerModule
+    MatDividerModule,
+    MatProgressBarModule,
+    ClipboardModule
   ],
   exports: [
     MainComponent

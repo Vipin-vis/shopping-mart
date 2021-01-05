@@ -8,11 +8,13 @@ export class SharedService {
 
   userType = new Subject();
   userTypeValue: string;
+  loggedUser: string;
   cartData: any = [];
   cartDataLength = new Subject();
 
   constructor() {
     this.userTypeValue = "";
+    this.loggedUser = "";
   }
 
   setCartData(cartData: any) {

@@ -22,16 +22,33 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    this._http.getLogin(this.userName, this.password).subscribe((res: any) => {
-      if (res) {
-        this._sharedService.setUserType(res.userType);
-        this._auth.setToken(res.token);
-        if (this._sharedService.userTypeValue === "accountant") {
-          this.router.navigate(['/order']);
-        } else {
-          this.router.navigate(['/home']);
-        }
+    //To-do: integrate api
+    if (this.userName === "admin" &&
+      this.password === "admin" ||
+      this.userName === "agent" &&
+      this.password === "agent" ||
+      this.userName === "accountant" &&
+      this.password === "accountant") {
+      this._sharedService.setUserType(this.userName);
+      this._sharedService.loggedUser = this.userName;
+      if (this._sharedService.userTypeValue === "accountant") {
+        this.router.navigate(['/order']);
+      } else {
+        this.router.navigate(['/home']);
       }
-    })
+    }
+    return;
+
+    // this._http.getLogin(this.userName, this.password).subscribe((res: any) => {
+    //   if (res) {
+    //     this._sharedService.setUserType(res.userType);
+    //     this._auth.setToken(res.body.token);
+    //     if (this._sharedService.userTypeValue === "accountant") {
+    //       this.router.navigate(['/order']);
+    //     } else {
+    //       this.router.navigate(['/home']);
+    //     }
+    //   }
+    // })
   }
 }

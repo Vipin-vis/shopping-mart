@@ -1,0 +1,28 @@
+<mat-card class="add-product">
+    <mat-label class="card-label">Add New Product</mat-label>
+    <br>
+    <br>
+    <mat-form-field class="User-full-width">
+        <mat-label>Product Name</mat-label>
+        <input matInput [(ngModel)]="product.prod_name">
+    </mat-form-field>
+    <br>
+    <mat-form-field class="User-full-width">
+        <mat-label>Category</mat-label>
+        <input matInput [(ngModel)]="product.prod_category">
+    </mat-form-field>
+    <br>
+    <mat-form-field class="User-full-width">
+        <mat-label>Price</mat-label>
+        <input matInput [(ngModel)]="product.prod_cost">
+    </mat-form-field>
+    <br>
+    <mat-form-field class="User-full-width">
+        <mat-label>Quantity</mat-label>
+        <input matInput [(ngModel)]="product.prod_quantity">
+    </mat-form-field>
+    <br>
+    <br>
+    <button mat-raised-button color="accent" (click)="addProduct()">Add Product</button>
+    <button style="margin-left: 12px;" (click)="cancel()" mat-raised-button color="secondary">Cancel</button>
+</mat-card>

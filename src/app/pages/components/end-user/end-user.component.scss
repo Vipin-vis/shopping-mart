@@ -1,0 +1,17 @@
+.cart-container {
+    position: relative;
+    overflow: auto;
+    max-height: calc(100vh - 250px);
+    width: 100%;
+}
+.add-product {
+    width: 50%;
+    margin-left: 250px;
+    margin-top: 24px;
+}
+.User-full-width {
+    width: 100%;
+}
+.address {
+    height: 64px;
+}
