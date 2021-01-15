@@ -54,6 +54,10 @@
         <mat-label>Description</mat-label>
         <input matInput>
     </mat-form-field>
+    <mat-form-field class="order-desc" appearance="fill">
+        <mat-label>Remarks</mat-label>
+        <input matInput [(ngModel)]="remarks">
+    </mat-form-field>
     <button class="order-btn" mat-raised-button color="primary">Generate Order</button>
     <mat-form-field class="example-full-width">
         <mat-label>Order Link</mat-label>

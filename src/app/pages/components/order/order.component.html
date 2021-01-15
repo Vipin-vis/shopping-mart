@@ -71,7 +71,7 @@
                         <button class="order-save" mat-mini-fab>
                             <mat-icon matRipple matTooltip="Save changes">save</mat-icon>
                         </button>
-                        <button *ngIf="displayDeleteOrder" class="order-save" mat-mini-fab>
+                        <button *ngIf="displayDeleteOrder" (click)="deleteOrder(order.order_id)" class="order-save" mat-mini-fab>
                             <mat-icon matRipple matTooltip="Delete Order">clear</mat-icon>
                         </button>
 

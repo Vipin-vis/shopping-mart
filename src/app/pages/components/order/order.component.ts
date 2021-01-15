@@ -66,4 +66,15 @@ export class OrderComponent implements OnInit {
       }
     });
   }
+
+  /**
+   * 
+   */
+  deleteOrder(id: string) {
+    this._http.deleteOrder(id).subscribe((res) => {
+      this._sharedService.openSnackBar("Order Dleted Successfully!!");
+    }, (er) => {
+      console.log("Error:", er);
+    })
+  }
 }

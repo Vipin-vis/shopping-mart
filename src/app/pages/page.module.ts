@@ -24,6 +24,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { MainComponent } from './components/main/main.component';
 import { ProductsComponent } from './components/products/products.component';
@@ -81,7 +82,8 @@ import { ClipboardModule } from 'ngx-clipboard';
     MatSelectModule,
     MatDividerModule,
     MatProgressBarModule,
-    ClipboardModule
+    ClipboardModule,
+    MatSnackBarModule
   ],
   exports: [
     MainComponent

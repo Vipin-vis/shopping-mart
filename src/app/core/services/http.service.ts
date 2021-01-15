@@ -166,10 +166,11 @@ export class HttpService {
   /**
   * 
   */
-  generateOrder(userName: string, productData: any) {
+  generateOrder(userName: string, productData: any, remarks: string) {
     let reqParam = {
       "userName": userName,
-      "order_product_data": productData
+      "order_product_data": productData,
+      "remarks": remarks
     }
     const httpOptions = {
       headers: new HttpHeaders({
@@ -179,5 +180,24 @@ export class HttpService {
       })
     };
     return this.http.post(this.serviceURI + '/generateOrder', reqParam, httpOptions);
+  }
+  /**
+   * 
+   */
+  getUserOrderDetails(custId: any, order_id: any) {
+    return this.http.get(this.serviceURI + `/userConfirmation?cus_id=${custId}&order_id=${order_id}`);
+  }
+  /**
+   * 
+   */
+  deleteOrder(id:string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ',
+        'x-access-token': this._auth.getToken()
+      })
+    };
+    return this.http.delete(this.serviceURI + `/deleteOrder?order_id=${id}`, httpOptions)
   }
 }

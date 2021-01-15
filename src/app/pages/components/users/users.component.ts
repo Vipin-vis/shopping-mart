@@ -106,6 +106,8 @@ export class UsersComponent implements OnInit {
   cancel() {
     this.userName = this.userType = this.userAge = this.userMail =
       this.userNewPassword = this.userConfirmPassword = "";
+
+      this._sharedService.openSnackBar("Cancelled");
   }
   /**
    * 

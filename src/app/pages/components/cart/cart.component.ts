@@ -14,6 +14,7 @@ export class CartComponent implements OnInit {
   products: Product[] = JSON.parse(JSON.stringify(this._sharedService.cartData));
 
   orderLink: string = "";
+  remarks: string = "";
 
   constructor(private _sharedService: SharedService,
     private changeDetectorRefs: ChangeDetectorRef,
@@ -53,7 +54,7 @@ export class CartComponent implements OnInit {
       orderProductData.push(productData);
     });
 
-    this._http.generateOrder(this._sharedService.loggedUser, orderProductData)
+    this._http.generateOrder(this._sharedService.loggedUser, orderProductData, this.remarks)
       .subscribe((res: any) => {
         if (!!res["order_link"]) {
           this.orderLink = res["order_link"];
