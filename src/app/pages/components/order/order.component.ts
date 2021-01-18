@@ -20,13 +20,8 @@ export class OrderComponent implements OnInit {
   constructor(private _sharedService: SharedService,
     private _http: HttpService) {
     let userType: string = this._sharedService.userTypeValue;
-    this.orders = Orders;
-    this._http.getAllOrders().subscribe((res: any) => {
-      this.orders = res['order'];
-      this.orders.forEach((order: any) => {
-        order.products = [];
-      });
-    })
+    // this.orders = Orders;
+
     if (userType === "admin") {
       this.displayPayment = true;
       this.displayOrderStatus = true;
@@ -45,13 +40,24 @@ export class OrderComponent implements OnInit {
   }
 
   products: any[] = [];
+  
+  getOrderData():void{
+    this._http.getAllOrders().subscribe((res: any) => {
+      this.orders = res['order'];
+      this.orders.forEach((order: any) => {
+        order.products = [];
+      });
+    })
+  
+  }
 
   /** Gets the total cost of all Products. */
-  getTotalCost() {
-    return this.products.map(prod => prod.prod_price * prod.prod_quantity).reduce((acc, value) => acc + value, 0);
+  getTotalCost(product:any) {
+    return product.map((prod:any) => prod.prod_price * prod.prod_quantity).reduce((acc:any, value:any) => acc + value, 0);
   }
 
   ngOnInit(): void {
+    this.getOrderData();
   }
 
   getProduct(oderID: any) {
@@ -62,18 +68,22 @@ export class OrderComponent implements OnInit {
     this.orders.forEach((order: any) => {
       if (order.order_id === id) {
         this._http.getOrderDetails(id).subscribe((res: any) => {
-          order.products = { ...res['order_product_data'] }
+
+
+          //order.products = { ...res['order_product_data'] }
+          order.products = JSON.parse(JSON.stringify(res['order_product_data']));
+          order.products['customer_name'] = JSON.parse(res['order_customer_data'])['cus_name'];
         })
       }
     });
   }
-
   /**
    * 
    */
   deleteOrder(id: string) {
     this._http.deleteOrder(id).subscribe((res) => {
-      this._sharedService.openSnackBar("Order Dleted Successfully!!");
+      this.getOrderData();
+      this._sharedService.openSnackBar("Order Deleted Successfully!!");     
     }, (er) => {
       console.log("Error:", er);
     })

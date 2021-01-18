@@ -11,13 +11,9 @@ import { SharedService } from 'src/app/core/services/shared.service';
 })
 export class UsersComponent implements OnInit {
 
-  users: any[] = Users;
+  users: any[]=[];
   newUserMode: boolean = false;
-  selectedUserID: string = "";
-  userDetails: any = {
-    "username": ""
-  };
-
+  userDetails: string =""
   userName: string = "";
   userType: string = "";
   userAge: string = "";
@@ -25,7 +21,7 @@ export class UsersComponent implements OnInit {
   userConfirmPassword: string = "";
   userNewPassword: string = "";
   userTypes: any = [];
-
+  selectedUserID: string = "";
   constructor(private _http: HttpService,
     private _sharedService: SharedService,
     private router: Router) {
@@ -70,7 +66,10 @@ export class UsersComponent implements OnInit {
       usertype: this.userType
     }
     this._http.editUSer(param).subscribe((res) => {
-      console.log("Succcessfully Updated", res)
+      console.log("Succcessfully Updated", res);
+      this.getUserData();
+      this._sharedService.openSnackBar("User role updated succesfully!!");
+
     },
       (err) => {
         console.log("ERROR:", err);
@@ -79,21 +78,34 @@ export class UsersComponent implements OnInit {
   /**
    * 
    */
+  getUserData():void{
+    this._http.getAllUSers().subscribe((res: any) => {
+      this.users = JSON.parse(JSON.stringify(res));
+    },
+      (err) => {
+        console.log("ERROR:", err);
+      })
+  }
+  /**
+   * 
+   */
   updateChanges() {
     if (this.newUserMode) {
       if (this.userNewPassword !== this.userConfirmPassword) {
-        alert("Password Mismatch!!!");
+        this._sharedService.openSnackBar("Password Mismatch!!!")
         return;
       }
       let newUser: any = {
-        "userName": this.userName,
-        "userType": this.userType,
-        "user_email_id": this.userMail,
-        "userAge": this.userAge,
-        "userPassword": ""
+        "username": this.userName,
+        "usertype": this.userType,
+        "details": this.userDetails,
+        "password": this.userConfirmPassword
       }
       this._http.addUSer(newUser).subscribe((res) => {
         console.log("New User Added", res);
+        this._sharedService.openSnackBar("New User Added!!");
+        this.cancel();
+        this.getUserData();
       }, (err) => {
         console.log("Error: ", err);
       })
@@ -107,28 +119,26 @@ export class UsersComponent implements OnInit {
   addNewUser() {
     this.newUserMode = true;
     this.cancel();
-    this.users = JSON.parse(JSON.stringify(Users));
+    //this.users = JSON.parse(JSON.stringify(Users));
   }
   /**
    * 
    */
   cancel() {
-    this.userName = this.userType = this.userAge = this.userMail =
+    this.userName = this.userType = this.userDetails =
       this.userNewPassword = this.userConfirmPassword = "";
-
-    this._sharedService.openSnackBar("Cancelled");
   }
   /**
    * 
    */
   onSelectUser(user: any) {
-    let userId = user["userId"];
+    let userId = user["user_id"];
     this.selectedUserID = userId;
     this.newUserMode = false;
     this._http.getUSer(userId).subscribe((res: any) => {
-      // this.userName = res["userName"];
-      // this.userType = res["userType"];
-      // this.userAge = res["userAge"];
+      this.userName = res["username"];
+       this.userType = res["usertype"];
+       this.userDetails = res["details"];
       // this.userMail = res["userMail"];
     })
     this.userName = user["userName"];

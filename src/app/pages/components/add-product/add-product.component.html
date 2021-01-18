@@ -4,16 +4,16 @@
     <br>
     <mat-form-field class="User-full-width">
         <mat-label>Product Name</mat-label>
-        <input matInput [(ngModel)]="product.prod_name">
+        <input matInput [(ngModel)]="product.product_name">
     </mat-form-field>
     <br>
     <mat-form-field *ngIf="newCategory" class="User-full-width">
         <mat-label>Category</mat-label>
-        <input matInput [(ngModel)]="product.prod_category">
+        <input matInput [(ngModel)]="product.product_category">
     </mat-form-field>
     <mat-form-field *ngIf="!newCategory" appearance="fill">
         <mat-label>Category</mat-label>
-        <mat-select [(value)]="product.prod_category">
+        <mat-select [(value)]="product.product_category">
             <mat-option *ngFor="let category of catergoriesList"  [value]="category">{{category}}</mat-option>
         </mat-select>
     </mat-form-field>
@@ -22,12 +22,12 @@
     <br>
     <mat-form-field class="User-full-width">
         <mat-label>Price</mat-label>
-        <input matInput [(ngModel)]="product.prod_cost">
+        <input matInput [(ngModel)]="product.product_price">
     </mat-form-field>
     <br>
     <mat-form-field class="User-full-width">
-        <mat-label>Quantity</mat-label>
-        <input matInput [(ngModel)]="product.prod_quantity">
+        <mat-label>Product Description</mat-label>
+        <input matInput [(ngModel)]="product.product_description">
     </mat-form-field>
     <br>
     <br>

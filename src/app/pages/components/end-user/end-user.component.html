@@ -1,4 +1,4 @@
-<p>
+<p *ngIf="!userAdded">
     <mat-toolbar color="primary">
         <span>Fab One Mart</span>
     </mat-toolbar>
@@ -58,7 +58,7 @@
     <br>
     <mat-form-field class="User-full-width">
         <mat-label>Phone Number</mat-label>
-        <input matInput type="tel" [(ngModel)]="userDetails.customer_phone">
+        <input matInput type="tel" [(ngModel)]="userDetails.customer_contact">
     </mat-form-field>
     <br>
     <mat-form-field class="User-full-width">
@@ -68,12 +68,12 @@
     <br>
     <mat-form-field class="User-full-width ">
         <mat-label>Billing Address</mat-label>
-        <textarea matInput class="address" [(ngModel)]="userDetails.billing_address"></textarea>
+        <textarea matInput class="address" [(ngModel)]="userDetails.customer_billing_address"></textarea>
     </mat-form-field>
     <br>
     <mat-form-field class="User-full-width ">
         <mat-label>Shipping Address</mat-label>
-        <textarea matInput class="address" [(ngModel)]="userDetails.shipping_address"></textarea>
+        <textarea matInput class="address" [(ngModel)]="userDetails.customer_shipping_address"></textarea>
     </mat-form-field>
     <br>
     <mat-radio-group aria-label="Select Shipment Mode" [(ngModel)]="userDetails.delivery_mode">
@@ -112,17 +112,21 @@
         <span style="color: rgb(165, 161, 161);">Billed to: </span>
         <mat-label>{{userDetails.customer_name}}</mat-label>
         <br>
+        <span style="color: rgb(165, 161, 161);">Email id: </span>
+        <mat-label>{{userDetails.customer_email_id}}</mat-label>
         <br>
+        <br>
+        
         <div style="display: flex;justify-content: flex-start;">
             <div class="left">
                 <span style="color: rgb(165, 161, 161);">Shipping Address</span>
                 <br>
-                <mat-label style="white-space: pre-wrap;">{{userDetails.shipping_address}}</mat-label>
+                <mat-label style="white-space: pre-wrap;">{{userDetails.customer_shipping_address}}</mat-label>
             </div>
             <div class="right" style="margin-left: 150px;">
                 <span style="color: rgb(165, 161, 161);">Billing Address</span>
                 <br>
-                <mat-label style="white-space: pre-wrap;">{{userDetails.billing_address}}</mat-label>
+                <mat-label style="white-space: pre-wrap;">{{userDetails.customer_billing_address}}</mat-label>
             </div>
         </div>
         <br>

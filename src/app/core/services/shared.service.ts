@@ -12,12 +12,13 @@ export class SharedService {
   loggedUser: string;
   cartData: any = [];
   cartDataLength = new Subject();
+  username: string = "";
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
-
   constructor(private _snackBar: MatSnackBar) {
     this.userTypeValue = "";
     this.loggedUser = "";
+    
   }
 
   setCartData(cartData: any) {
@@ -62,10 +63,9 @@ export class SharedService {
   getUserTypeValue() {
 
   }
-
   openSnackBar(message: string) {
     this._snackBar.open(message, "", {
-      duration: 1000,
+      duration: 3000,
       panelClass: ['snackbar-style'],
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,

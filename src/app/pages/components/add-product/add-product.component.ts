@@ -11,10 +11,10 @@ import { SharedModule } from 'src/app/shared/shared/shared.module';
 export class AddProductComponent implements OnInit {
 
   product: any = {
-    prod_name: "",
-    prod_category: "",
-    prod_cost: "",
-    prod_quantity: ""
+    product_name: "",
+    product_category: "",
+    product_price: "",
+    product_description: ""
   };
   newCategory: boolean = false;
 
@@ -36,22 +36,21 @@ export class AddProductComponent implements OnInit {
    */
   cancel() {
     this.product = {
-      prod_name: "",
-      prod_category: "",
-      prod_cost: "",
-      prod_quantity: ""
+      product_name: "",
+      product_category: "",
+      product_price: "",
+      product_description: ""
     };
   }
   /**
    * 
    */
   addProduct() {
-    const param = {
-      "username": this._sharedService.loggedUser,
-      "product_details": this.product
-    }
+    const param =  this.product;
     this._http.addProduct(param).subscribe((res) => {
-      console.log("Saved Successfully", res)
+      console.log("Saved Successfully", res);
+      this._sharedService.openSnackBar("Product added successfully!!");
+      this.cancel();
     },
       (err) => {
         console.log("Error", err);

@@ -64,8 +64,8 @@
         <mat-label>Remarks</mat-label>
         <input matInput  [(ngModel)]="remarks">
     </mat-form-field>
-    <button class="order-btn" mat-raised-button color="primary">Generate Order</button>
-    <mat-form-field class="example-full-width-2">
+    <button class="order-btn" mat-raised-button color="primary" (click)="generateOrder()">Generate Order</button>
+    <mat-form-field class="example-full-width">
         <mat-label>Order Link</mat-label>
         <input type="link" matInput [(ngModel)]="orderLink">
         <mat-icon matSuffix style="cursor: pointer;" matTooltip="Copy to clipboard" ngxClipboard [cbContent]="orderLink" matRipple >content_copy</mat-icon>

@@ -26,20 +26,15 @@
                 <input [(ngModel)]="userType" matInput>
             </mat-form-field> -->
             <mat-form-field appearance="fill" class="User-full-width">
-                <mat-label>Type</mat-label>
+                <mat-label>User type</mat-label>
                 <mat-select [(ngModel)]="userType">
                   <mat-option *ngFor="let type of userTypes" value="type">{{type}}</mat-option>
                 </mat-select>
-              </mat-form-field>
-            <br>
-            <mat-form-field class="User-full-width">
-                <mat-label>Age</mat-label>
-                <input matInput [(ngModel)]="userAge">
             </mat-form-field>
             <br>
             <mat-form-field class="User-full-width">
-                <mat-label>Email</mat-label>
-                <input [(ngModel)]="userMail" matInput>
+                <mat-label>User Details</mat-label>
+                <input [(ngModel)]="userDetails" matInput>
             </mat-form-field>
             <br>
             <mat-form-field *ngIf="newUserMode" class="User-full-width">

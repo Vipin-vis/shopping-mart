@@ -9,7 +9,7 @@ import { SharedService } from 'src/app/core/services/shared.service';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
-  user: string = "Vipin";
+  user: string = "";
   listItems = APP_CONSTANTS.sideNavItems;
   route: string = "";
   cartLength:number;
@@ -29,6 +29,7 @@ export class MainComponent implements OnInit {
       } else {
         this.route = "/home";
       }
+      this.user = this._sharedService.username;
     });
   }
 

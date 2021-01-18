@@ -22,7 +22,7 @@
                         <span class="label-title">Agent: </span> {{order.ordered_by}}
                     </mat-panel-title>
                     <mat-chip-list class="payment-chip-list" aria-label="Fish selection">
-                        <mat-chip class="payment-chip paid" *ngIf="order.payment_status === 'PAID'"
+                        <mat-chip class="payment-chip paid" *ngIf="order.payment_status === 'COMPLETED'"
                             style="background-color: rgb(7, 126, 100);" selected>Paid
                         </mat-chip>
                         <mat-chip class="payment-chip not-paid" *ngIf="order.payment_status === 'PENDING'"
@@ -33,28 +33,30 @@
                         <mat-chip class="shipment-chip" *ngIf="order.order_status === 'PENDING'"
                             style="background-color: rgb(175, 97, 66);" selected>Ordered
                         </mat-chip>
-                        <mat-chip class="shipment-chip" *ngIf="order.order_status === 2"
-                            style="background-color: rgb(146, 144, 9);" selected>Shipped
+                        <mat-chip class="shipment-chip" *ngIf="order.order_status === 'RD_PACK'"
+                            style="background-color: rgb(146, 144, 9);" selected>Packing
                         </mat-chip>
-                        <mat-chip class="shipment-chip" *ngIf="order.order_status === 3"
-                            style="background-color:  rgb(7, 126, 100);" selected>Delivered
+                        <mat-chip class="shipment-chip" *ngIf="order.order_status === 'RD_SHIP'"
+                            style="background-color:  rgb(20, 114, 94);" selected>Shipping
                         </mat-chip>
-                        <mat-chip class="shipment-chip" *ngIf="order.order_status === 0"
-                            style="background-color: rgb(77, 8, 5);" selected>Cancelled
+                        <mat-chip class="shipment-chip" *ngIf="order.order_status === 'SHIPPED'"
+                            style="background-color: rgb(26, 119, 14);" selected>Shipped
                         </mat-chip>
-
+                        <mat-chip class="shipment-chip" *ngIf="order.order_status === 'CANCELLED'"
+                            style="background-color: rgb(155, 15, 8);" selected>Cancelled
+                        </mat-chip>
                     </mat-chip-list>
                 </mat-expansion-panel-header>
                 <mat-divider style="margin-bottom: 12px;"></mat-divider>
                 <div class="order-options">
                     <mat-panel-title class="order">
-                        <span class="label-title">Customer:</span> {{order.ordered_by}}
+                        <span class="label-title">Customer:</span> {{order.products['customer_name']}}
                     </mat-panel-title>
                     <!-- <mat-slide-toggle class="payment-toggle"[ngModel]="order.paid" *ngIf="displayPayment">Payment</mat-slide-toggle> -->
                     <mat-form-field *ngIf="displayPayment" appearance="fill">
                         <mat-label>Payment Status</mat-label>
                         <mat-select [(value)]="order.payment_status">
-                            <mat-option  [value]="'PAID'">Paid</mat-option>
+                            <mat-option  [value]="'COMPLETED'">Paid</mat-option>
                             <mat-option [value]="'PENDING'">Not Paid</mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -62,9 +64,10 @@
                         <mat-label>Order Status</mat-label>
                         <mat-select [(value)]="order.order_status">
                             <mat-option  [value]="'PENDING'">Ordered</mat-option>
-                            <mat-option [value]="2">Shipped</mat-option>
-                            <mat-option [value]="3">Delivered</mat-option>
-                            <mat-option [value]="0">Cancelled</mat-option>
+                            <mat-option [value]="'RD_PACK'">Packing</mat-option>
+                            <mat-option [value]="'RD_SHIP'">Shipping</mat-option>
+                            <mat-option [value]="'SHIPPED'">Shipped</mat-option>
+                            <mat-option [value]="'CANCELLED'">Cancelled</mat-option>
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field class="User-full-width">
@@ -78,7 +81,7 @@
                         <button class="order-save" mat-mini-fab>
                             <mat-icon matRipple matTooltip="Save changes">save</mat-icon>
                         </button>
-                        <button *ngIf="displayDeleteOrder" (click)="deleteOrder(order.order_id)" class="order-save" mat-mini-fab>
+                        <button *ngIf="displayDeleteOrder" class="order-save" mat-mini-fab (click)="deleteOrder(order.order_id)">
                             <mat-icon matRipple matTooltip="Delete Order">clear</mat-icon>
                         </button>
 
@@ -116,7 +119,7 @@
                         <td mat-cell class="tcost-td" *matCellDef="let product">
                             {{product.prod_price * product.prod_quantity | currency:'AED'}}
                         </td>
-                        <td mat-footer-cell *matFooterCellDef> {{getTotalCost() | currency:'AED'}} </td>
+                        <td mat-footer-cell *matFooterCellDef> {{getTotalCost(order.products) | currency:'AED'}} </td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

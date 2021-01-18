@@ -34,13 +34,7 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._httpService.getProducts("","").subscribe((res) => {
-      //this.productList = JSON.parse(JSON.stringify(res["prod_data"]));
-      this.productList = JSON.parse(JSON.stringify(res));
-      this.productList.forEach((product: any) => {
-        product.tempQuan = 0;
-      });
-    });
+    //this.productList = products;
     this.scroll
       .pipe(debounceTime(200))
       .subscribe((y) => this.onScroll(window.scrollY));
@@ -98,7 +92,7 @@ export class ProductsComponent implements OnInit {
 
   incrementProd(item: any) {
     this.productList.forEach((product: any) => {
-      if (product.id === item.id) {
+      if (product.prod_id === item.prod_id) {
         if (item.tempQuan < 0) {
           return;
         }  else {
@@ -109,7 +103,7 @@ export class ProductsComponent implements OnInit {
   }
   decrementProd(item: any) {
     this.productList.forEach((product: any) => {
-      if (product.id === item.id) { 
+      if (product.prod_id === item.prod_id) { 
         if (item.tempQuan <= 0) {
           item.temQuan=0;
           return

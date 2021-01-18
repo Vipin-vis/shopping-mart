@@ -34,7 +34,7 @@
             <button mat-icon-button color="primary" class="prod-qty">
                 <mat-icon (click)="decrementProd(item)">remove_circle_outline</mat-icon>
             </button>
-            <button mat-mini-fab color="primary">
+            <button mat-mini-fab color="primary" matTooltip="Add to Cart">               
                 <mat-icon (click)="addProduct(item)" [matBadge]="item.tempQuan" matBadgeColor="accent">add_shopping_cart</mat-icon>
             </button>
         </div>
