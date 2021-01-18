@@ -67,7 +67,7 @@ export class CartComponent implements OnInit {
     this.products.forEach((product: any) => {
       let productData = {
         "prod_quantity": product.qty,
-        "prod_id": product.prod_id
+        "prod_id": product.id
       }
       orderProductData.push(productData);
     });
@@ -75,6 +75,7 @@ export class CartComponent implements OnInit {
     this._http.generateOrder(this._sharedService.loggedUser, orderProductData, this.remarks)
       .subscribe((res: any) => {
         if (!!res["order_link"]) {
+          this._sharedService.openSnackBar("Order added successfully!!");
           this.orderLink = res["order_link"];
         }
       },
