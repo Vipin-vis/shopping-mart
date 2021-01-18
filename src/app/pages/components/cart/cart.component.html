@@ -50,16 +50,22 @@
 </div>
 <div class="cart-footer">
      
-    <mat-form-field class="order-desc" appearance="fill">
+    <!-- <mat-form-field class="order-desc" appearance="fill">
         <mat-label>Description</mat-label>
         <input matInput>
-    </mat-form-field>
+    </mat-form-field> -->
+    <mat-form-field appearance="fill">
+        <mat-label>Add Presenter</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let presenter of presenters" value="presenter.user_name">{{presenter.user_name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
     <mat-form-field class="order-desc" appearance="fill">
         <mat-label>Remarks</mat-label>
-        <input matInput [(ngModel)]="remarks">
+        <input matInput  [(ngModel)]="remarks">
     </mat-form-field>
     <button class="order-btn" mat-raised-button color="primary">Generate Order</button>
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="example-full-width-2">
         <mat-label>Order Link</mat-label>
         <input type="link" matInput [(ngModel)]="orderLink">
         <mat-icon matSuffix style="cursor: pointer;" matTooltip="Copy to clipboard" ngxClipboard [cbContent]="orderLink" matRipple >content_copy</mat-icon>

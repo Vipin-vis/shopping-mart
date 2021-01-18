@@ -1,0 +1,18 @@
+<mat-card class="add-shipping">
+    <mat-label class="card-label">Update Shipping Charge</mat-label>
+    <br>
+    <br>
+    <mat-form-field class="User-full-width">
+        <mat-label>Express Charge</mat-label>
+        <input matInput [(ngModel)]="expressCharge">
+    </mat-form-field>
+    <br>
+    <mat-form-field class="User-full-width">
+        <mat-label>Normal Charge</mat-label>
+        <input matInput [(ngModel)]="normalCharge">
+    </mat-form-field>
+    <br>
+    <br>
+    <button mat-raised-button color="accent" (click)="saveCharge()">Add Product</button>
+    <button style="margin-left: 12px;" (click)="cancel()" mat-raised-button color="secondary">Cancel</button>
+</mat-card>

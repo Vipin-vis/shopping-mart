@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSliderModule } from '@angular/material/slider';
@@ -39,6 +39,8 @@ import { AddProductComponent } from './components/add-product/add-product.compon
 import { EndUserComponent } from './components/end-user/end-user.component';
 
 import { ClipboardModule } from 'ngx-clipboard';
+import { ShippingChargeComponent } from './components/shipping-charge/shipping-charge.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 
 
@@ -52,13 +54,16 @@ import { ClipboardModule } from 'ngx-clipboard';
     AdminPanelComponent,
     UsersComponent,
     AddProductComponent,
-    EndUserComponent
+    EndUserComponent,
+    ShippingChargeComponent,
+    ChangePasswordComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     PageRoutingModule,
     SharedModule,
+    ReactiveFormsModule,
     MatIconModule,
     MatToolbarModule,
     MatSliderModule,

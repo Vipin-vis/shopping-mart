@@ -21,10 +21,16 @@
                 <input [(ngModel)]="userName" matInput>
             </mat-form-field>
             <br>
-            <mat-form-field class="User-full-width">
+            <!-- <mat-form-field class="User-full-width">
                 <mat-label>Type</mat-label>
                 <input [(ngModel)]="userType" matInput>
-            </mat-form-field>
+            </mat-form-field> -->
+            <mat-form-field appearance="fill" class="User-full-width">
+                <mat-label>Type</mat-label>
+                <mat-select [(ngModel)]="userType">
+                  <mat-option *ngFor="let type of userTypes" value="type">{{type}}</mat-option>
+                </mat-select>
+              </mat-form-field>
             <br>
             <mat-form-field class="User-full-width">
                 <mat-label>Age</mat-label>
@@ -48,6 +54,7 @@
             <br>
             <br>
             <button mat-raised-button color="accent" (click)="updateChanges()">Update Changes</button>
+            <button style="margin-left: 12px;" (click)="DeleteUser()" mat-raised-button color="secondary">Delete user</button>
             <button style="margin-left: 12px;" (click)="cancel()" mat-raised-button color="secondary">Cancel</button>
         </mat-card>
 

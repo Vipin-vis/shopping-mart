@@ -13,15 +13,18 @@ export class UsersComponent implements OnInit {
 
   users: any[] = Users;
   newUserMode: boolean = false;
+  selectedUserID: string = "";
   userDetails: any = {
     "username": ""
   };
+
   userName: string = "";
   userType: string = "";
   userAge: string = "";
   userMail: string = "";
   userConfirmPassword: string = "";
   userNewPassword: string = "";
+  userTypes: any = [];
 
   constructor(private _http: HttpService,
     private _sharedService: SharedService,
@@ -37,7 +40,13 @@ export class UsersComponent implements OnInit {
     },
       (err) => {
         console.log("ERROR:", err);
-      })
+      });
+
+    this._http.getUserTypes().subscribe((res: any) => {
+      this.userTypes = { ...res };
+    })
+    //To Do: Remove
+    this.userTypes = ["agent", "admin", "shipping", "packing", "accountant"];
   }
 
   /**
@@ -107,13 +116,14 @@ export class UsersComponent implements OnInit {
     this.userName = this.userType = this.userAge = this.userMail =
       this.userNewPassword = this.userConfirmPassword = "";
 
-      this._sharedService.openSnackBar("Cancelled");
+    this._sharedService.openSnackBar("Cancelled");
   }
   /**
    * 
    */
   onSelectUser(user: any) {
     let userId = user["userId"];
+    this.selectedUserID = userId;
     this.newUserMode = false;
     this._http.getUSer(userId).subscribe((res: any) => {
       // this.userName = res["userName"];
@@ -125,5 +135,14 @@ export class UsersComponent implements OnInit {
     this.userType = user["userType"];
     this.userAge = user["userAge"];
     this.userMail = user["userMail"];
+  }
+
+  /**
+   * 
+   */
+  DeleteUser() {
+    this._http.deleteUser(this.selectedUserID).subscribe((res: any) => { 
+      this._sharedService.openSnackBar("User Deleted");
+    })
   }
 }

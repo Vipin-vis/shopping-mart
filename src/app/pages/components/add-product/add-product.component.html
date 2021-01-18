@@ -7,10 +7,18 @@
         <input matInput [(ngModel)]="product.prod_name">
     </mat-form-field>
     <br>
-    <mat-form-field class="User-full-width">
+    <mat-form-field *ngIf="newCategory" class="User-full-width">
         <mat-label>Category</mat-label>
         <input matInput [(ngModel)]="product.prod_category">
     </mat-form-field>
+    <mat-form-field *ngIf="!newCategory" appearance="fill">
+        <mat-label>Category</mat-label>
+        <mat-select [(value)]="product.prod_category">
+            <mat-option *ngFor="let category of catergoriesList"  [value]="category">{{category}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button *ngIf="!newCategory" mat-raised-button style="margin-left: 12px;"  (click)="selectNewCategory(true)">Add New category</button>
+    <button *ngIf="newCategory" mat-raised-button style="margin-left: 12px;"  (click)="selectNewCategory(false)">Select Category</button>
     <br>
     <mat-form-field class="User-full-width">
         <mat-label>Price</mat-label>

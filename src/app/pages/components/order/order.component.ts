@@ -15,11 +15,12 @@ export class OrderComponent implements OnInit {
   displayPayment: boolean = true;
   displayOrderStatus = true;
   displayDeleteOrder = true;
+  remarks: string = "";
 
   constructor(private _sharedService: SharedService,
     private _http: HttpService) {
     let userType: string = this._sharedService.userTypeValue;
-    // this.orders = Orders;
+    this.orders = Orders;
     this._http.getAllOrders().subscribe((res: any) => {
       this.orders = res['order'];
       this.orders.forEach((order: any) => {
@@ -75,6 +76,23 @@ export class OrderComponent implements OnInit {
       this._sharedService.openSnackBar("Order Dleted Successfully!!");
     }, (er) => {
       console.log("Error:", er);
+    })
+  }
+
+  /**
+   * 
+   */
+  addRemarks() {
+    let remarks = {
+      "user_name": this._sharedService.loggedUser,
+      "user_type": this._sharedService.userType,
+      "remarks": this.remarks
+    }
+
+    this._http.addRemarks(remarks).subscribe((res: any) => {
+      this._sharedService.openSnackBar("Remarks added Successfully!!");
+    }, (err: any) => {
+      console.error(err);
     })
   }
 }

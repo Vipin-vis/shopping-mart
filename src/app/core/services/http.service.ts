@@ -40,7 +40,7 @@ export class HttpService {
    * 
    * @param searchKey 
    */
-  getProducts(searchKey: string): Observable<any> {
+  getProducts(searchKey: string, categories: any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -48,8 +48,8 @@ export class HttpService {
         'x-access-token': this._auth.getToken()
       })
     };
-    //return this.http.post(this.serviceURI + '/searchProducts', { "search_str": searchKey }, httpOptions);
-    return this.http.get(this.serviceURI + '/products');
+    return this.http.post(this.serviceURI + '/searchProducts', { "search_str": searchKey, "product_category":  categories}, httpOptions);
+   // return this.http.get(this.serviceURI + '/products');
   }
   /**
    * 
@@ -134,7 +134,7 @@ export class HttpService {
     };
     return this.http.post(this.serviceURI + '/addUser', reqParam, httpOptions);
   }
-  
+
   /**
    * 
    */
@@ -169,8 +169,8 @@ export class HttpService {
   generateOrder(userName: string, productData: any, remarks: string) {
     let reqParam = {
       "userName": userName,
-      "order_product_data": productData,
-      "remarks": remarks
+      "remarks": remarks,
+      "order_product_data": productData
     }
     const httpOptions = {
       headers: new HttpHeaders({
@@ -190,7 +190,7 @@ export class HttpService {
   /**
    * 
    */
-  deleteOrder(id:string) {
+  deleteOrder(id: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -199,5 +199,102 @@ export class HttpService {
       })
     };
     return this.http.delete(this.serviceURI + `/deleteOrder?order_id=${id}`, httpOptions)
+  }
+  /**
+   * 
+   */
+  getAllPreseters() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ',
+        'x-access-token': this._auth.getToken()
+      })
+    };
+    return this.http.post(this.serviceURI + '/getAllPresenters', httpOptions);
+  }
+  /**
+   * 
+   */
+  getUserTypes() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ',
+        'x-access-token': this._auth.getToken()
+      })
+    };
+    return this.http.get(this.serviceURI + '/getUserTypes', httpOptions);
+  }
+
+  /**
+   * 
+   */
+  addRemarks(remarks: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ',
+        'x-access-token': this._auth.getToken()
+      })
+    };
+    return this.http.post(this.serviceURI + '/addRemarks', remarks, httpOptions);
+  }
+    /**
+   * 
+   */
+  updateShipppingCharge(shippingCharge: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ',
+        'x-access-token': this._auth.getToken()
+      })
+    };
+    return this.http.post(this.serviceURI + '/saveShippingCharges', shippingCharge, httpOptions);
+  }
+  /**
+   * 
+   */
+  getproductCategory () {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ',
+        'x-access-token': this._auth.getToken()
+      })
+    };
+    return this.http.get(this.serviceURI + '/getproductCategory ', httpOptions);
+  }
+
+  /**
+   * 
+   */
+  deleteUser(userID: string) {
+    let user = {"user_id": userID};
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ',
+        'x-access-token': this._auth.getToken()
+      })
+    };
+    return this.http.post(this.serviceURI + '/deleteUser', user, httpOptions);
+  
+  }
+
+  /**
+   * 
+   */
+  changePassword(param: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ',
+        'x-access-token': this._auth.getToken()
+      })
+    };
+    return this.http.post(this.serviceURI + '/changePassword', param, httpOptions);
+  
   }
 }

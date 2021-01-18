@@ -1,4 +1,5 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { HttpService } from 'src/app/core/services/http.service';
@@ -18,7 +19,10 @@ export class ProductsComponent implements OnInit {
   showSearchButton: boolean;
 
   searchKey: string;
+  categories = new FormControl();
 
+  categoryList: string[] = ['TV', 'Watch', 'Laptop', 'Grooming', 'Shoe', 'Desktop'];
+  
   @HostListener('window:scroll') watchScroll() {
     this.scroll.next(window.scrollY);
   }
@@ -30,7 +34,7 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._httpService.getProducts("").subscribe((res) => {
+    this._httpService.getProducts("","").subscribe((res) => {
       //this.productList = JSON.parse(JSON.stringify(res["prod_data"]));
       this.productList = JSON.parse(JSON.stringify(res));
       this.productList.forEach((product: any) => {
@@ -60,7 +64,7 @@ export class ProductsComponent implements OnInit {
    * 
    */
   searchProduct() {
-    this._httpService.getProducts(this.searchKey).subscribe((res) => {
+    this._httpService.getProducts(this.searchKey, this.categories.value).subscribe((res) => {
       this.productList = JSON.parse(JSON.stringify(res["prod_data"]));
       //this.productList = JSON.parse(JSON.stringify(res));
       this.productList.forEach((product: any) => {

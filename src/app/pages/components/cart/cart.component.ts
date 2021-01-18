@@ -13,14 +13,32 @@ export class CartComponent implements OnInit {
 
   products: Product[] = JSON.parse(JSON.stringify(this._sharedService.cartData));
 
-  orderLink: string = "";
   remarks: string = "";
+  orderLink: string = "";
+  presenters: any = [];
 
   constructor(private _sharedService: SharedService,
     private changeDetectorRefs: ChangeDetectorRef,
     private _http: HttpService) { }
 
   ngOnInit(): void {
+    this._http.getAllPreseters().subscribe((res) => {
+      // this.presenters = { ...res };
+
+    });
+    //To-DO: to remove
+    this.presenters = [
+      {
+        'user_name': "babu"
+      },
+      {
+        'user_name': "Sasi"
+      },
+      {
+        'user_name': "Soman"
+      }
+    ]
+
   }
 
   /** Gets the total cost of all Products. */

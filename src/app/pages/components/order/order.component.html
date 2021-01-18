@@ -67,7 +67,14 @@
                             <mat-option [value]="0">Cancelled</mat-option>
                         </mat-select>
                     </mat-form-field>
+                    <mat-form-field class="User-full-width">
+                        <mat-label>Remarks</mat-label>
+                        <input [(ngModel)]="remarks" matInput>
+                    </mat-form-field>
                     <div>
+                        <button class="order-save" mat-mini-fab>
+                            <mat-icon matRipple matTooltip="Add Remarks" (click)="addRemarks()">note_add</mat-icon>
+                        </button>
                         <button class="order-save" mat-mini-fab>
                             <mat-icon matRipple matTooltip="Save changes">save</mat-icon>
                         </button>

@@ -16,11 +16,20 @@ export class AddProductComponent implements OnInit {
     prod_cost: "",
     prod_quantity: ""
   };
+  newCategory: boolean = false;
+
+  catergoriesList: any = [];
 
   constructor(private _http: HttpService,
     private _sharedService: SharedService) { }
 
   ngOnInit(): void {
+    this._http.getproductCategory().subscribe((res: any) => {
+      this.catergoriesList = { ...res }
+    },
+      (err) => {
+        console.log("Error:", err);
+      });
   }
   /**
    * 
@@ -47,5 +56,11 @@ export class AddProductComponent implements OnInit {
       (err) => {
         console.log("Error", err);
       });
+  }
+  /**
+   * 
+   */
+  selectNewCategory(newCategory:boolean) {
+    this.newCategory = newCategory;
   }
 }
