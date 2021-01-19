@@ -41,7 +41,7 @@ export class HttpService {
    * 
    * @param searchKey 
    */
-  getProducts(searchKey: string, categories: any): Observable<any> {
+  getProducts(searchKey: string, category: any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ export class HttpService {
         'x-access-token': this._auth.getToken()
       })
     };
-    return this.http.post(this.serviceURI + '/searchProducts', { "search_str": searchKey, "product_category":  categories}, httpOptions);
+    return this.http.post(this.serviceURI + '/searchProducts', { "search_str": searchKey, "product_category":  category}, httpOptions);
    // return this.http.get(this.serviceURI + '/products');
   }
   /**
@@ -299,6 +299,64 @@ export class HttpService {
       })
     };
     return this.http.post(this.serviceURI + '/changePassword', param, httpOptions);
+  
+  }
+  
+  /**
+   * 
+   */
+  changePaymentStatus(param: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ',
+        'x-access-token': this._auth.getToken()
+      })
+    };
+    return this.http.post(this.serviceURI + '/changePaymentStatus', param, httpOptions);
+  
+  }
+  
+  /**
+   * 
+   */
+  changeOrderStatus(param: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ',
+        'x-access-token': this._auth.getToken()
+      })
+    };
+    return this.http.post(this.serviceURI + '/changeOrderStatus', param, httpOptions);
+  
+  }
+  /**
+   * 
+   */
+  editOrder(param: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ',
+        'x-access-token': this._auth.getToken()
+      })
+    };
+    return this.http.post(this.serviceURI + '/editOrder', param, httpOptions);
+  
+  }
+   /**
+   * 
+   */
+  getShipment() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ',
+        'x-access-token': this._auth.getToken()
+      })
+    };
+    return this.http.get(this.serviceURI + '/getShipment', httpOptions);
   
   }
 }

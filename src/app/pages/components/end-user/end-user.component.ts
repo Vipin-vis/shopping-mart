@@ -15,6 +15,10 @@ export class EndUserComponent implements OnInit {
 
   orderID: string;
   products: any = [];
+  shipment: any = {
+    mode: "Normal",
+    cost: 100
+  }
 
   userDetails: any = {
     username: "",
@@ -43,10 +47,16 @@ export class EndUserComponent implements OnInit {
       this.products = JSON.parse(JSON.stringify(res['order_product_data']));
       console.log(this.products)
     })
+    this._http.getShipment().subscribe((res: any) => {
+      this.shipment.mode = res.mode;
+      this.shipment.cost = res.cost;
+    })
+
   }
   /** Gets the total cost of all Products. */
   getTotalCost() {
-    return this.products.map((prod: any) => prod.prod_price * prod.prod_quantity).reduce((acc: any, value: any) => acc + value, 0);
+    let total = this.products.map((prod: any) => prod.prod_price * prod.prod_quantity).reduce((acc: any, value: any) => acc + value, 0);
+    return total + this.shipment.cost;
   }
 /**
    *  

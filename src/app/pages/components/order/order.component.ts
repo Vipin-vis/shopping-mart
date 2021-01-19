@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Orders, Product } from 'src/app/core/data/dummyData';
 import { HttpService } from 'src/app/core/services/http.service';
 import { SharedService } from 'src/app/core/services/shared.service';
+import { ConfirmDialogModel, ConfirmPopupComponent } from '../confirm-popup/confirm-popup.component';
+
 
 @Component({
   selector: 'app-order',
@@ -11,14 +14,15 @@ import { SharedService } from 'src/app/core/services/shared.service';
 export class OrderComponent implements OnInit {
 
   displayedColumns = ['item', 'category', 'quantity', 'cost', 'tCost'];
-  orders: any = [];
+  orders: any = Orders;
   displayPayment: boolean = true;
   displayOrderStatus = true;
   displayDeleteOrder = true;
   remarks: string = "";
 
   constructor(private _sharedService: SharedService,
-    private _http: HttpService) {
+    private _http: HttpService,
+    public dialog: MatDialog) {
     let userType: string = this._sharedService.userTypeValue;
     // this.orders = Orders;
 
@@ -40,20 +44,20 @@ export class OrderComponent implements OnInit {
   }
 
   products: any[] = [];
-  
-  getOrderData():void{
+
+  getOrderData(): void {
     this._http.getAllOrders().subscribe((res: any) => {
       this.orders = res['order'];
       this.orders.forEach((order: any) => {
         order.products = [];
       });
     })
-  
+
   }
 
   /** Gets the total cost of all Products. */
-  getTotalCost(product:any) {
-    return product.map((prod:any) => prod.prod_price * prod.prod_quantity).reduce((acc:any, value:any) => acc + value, 0);
+  getTotalCost(product: any) {
+    return product.map((prod: any) => prod.prod_price * prod.prod_quantity).reduce((acc: any, value: any) => acc + value, 0);
   }
 
   ngOnInit(): void {
@@ -81,12 +85,27 @@ export class OrderComponent implements OnInit {
    * 
    */
   deleteOrder(id: string) {
-    this._http.deleteOrder(id).subscribe((res) => {
-      this.getOrderData();
-      this._sharedService.openSnackBar("Order Deleted Successfully!!");     
-    }, (er) => {
-      console.log("Error:", er);
-    })
+
+    const message = `Are you sure you want to delete this Order?`;
+
+    const dialogData = new ConfirmDialogModel("Confirm Delete", message);
+
+    const dialogRef = this.dialog.open(ConfirmPopupComponent, {
+      maxWidth: "500px",
+      data: dialogData
+    });
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      if (dialogResult == true) {
+        this._http.deleteOrder(id).subscribe((res) => {
+          this.getOrderData();
+          this._sharedService.openSnackBar("Order Deleted Successfully!!");
+        }, (er) => {
+          console.log("Error:", er);
+        })
+      } else {
+        return;
+      }
+    });
   }
 
   /**
@@ -101,6 +120,46 @@ export class OrderComponent implements OnInit {
 
     this._http.addRemarks(remarks).subscribe((res: any) => {
       this._sharedService.openSnackBar("Remarks added Successfully!!");
+    }, (err: any) => {
+      console.error(err);
+    })
+  }
+  /**
+   * 
+   */
+  onChangePayment(order: any) {
+    let paymentStatus = {
+      "user_name": this._sharedService.loggedUser,
+      "usertype": this._sharedService.userTypeValue,
+      "order_id": order.id,
+      "payment_status": order.payment_status
+    }
+    this._http.changePaymentStatus(paymentStatus).subscribe((res: any) => {
+      console.log("Payment Status updated");
+    })
+  }
+
+  /**
+   * 
+   */
+  onChangeOrder(order: any) {
+    let orderStatus = {
+      "user_name": this._sharedService.loggedUser,
+      "usertype": this._sharedService.userTypeValue,
+      "order_id": order.id,
+      "order_status": order.order_status
+    }
+    this._http.changeOrderStatus(orderStatus).subscribe((res: any) => {
+      console.log("Order Status updated");
+    })
+  }
+  /**
+   * 
+   * @param order 
+   */
+  saveChanges(order: any) {
+    this._http.editOrder(order).subscribe((res: any) => {
+      this._sharedService.openSnackBar("Order edited successfully!!");
     }, (err: any) => {
       console.error(err);
     })

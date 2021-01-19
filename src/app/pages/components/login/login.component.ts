@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
         this._sharedService.setUserType(res.userType);
         this._auth.setToken(res.token);
         this._sharedService.username = this.userName;
-        this._sharedService.loggedUser= this.userName;
+        this._sharedService.loggedUser = this.userName;
         if (this._sharedService.userTypeValue === "accountant") {
           this.router.navigate(['/order']);
         } else {
@@ -35,5 +35,10 @@ export class LoginComponent implements OnInit {
         }
       }
     })
+
+    /**To remove */
+    this.router.navigate(['/home']);
+    this._sharedService.setUserType('admin');
+    this._sharedService.username =  this._sharedService.loggedUser = 'admin';
   }
 }

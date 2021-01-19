@@ -22,6 +22,7 @@ export class ProductsComponent implements OnInit {
   categories = new FormControl();
 
   categoryList: string[] = ['TV', 'Watch', 'Laptop', 'Grooming', 'Shoe', 'Desktop'];
+  selectedCategory: string = "";
   
   @HostListener('window:scroll') watchScroll() {
     this.scroll.next(window.scrollY);
@@ -38,6 +39,9 @@ export class ProductsComponent implements OnInit {
     this.scroll
       .pipe(debounceTime(200))
       .subscribe((y) => this.onScroll(window.scrollY));
+      this._httpService.getproductCategory().subscribe((res: any) => {
+        this.categoryList = JSON.parse(JSON.stringify(res));
+      })
   }
 
   ngOnDestroy() {
@@ -58,7 +62,7 @@ export class ProductsComponent implements OnInit {
    * 
    */
   searchProduct() {
-    this._httpService.getProducts(this.searchKey, this.categories.value).subscribe((res) => {
+    this._httpService.getProducts(this.searchKey, this.selectedCategory).subscribe((res) => {
       this.productList = JSON.parse(JSON.stringify(res["prod_data"]));
       //this.productList = JSON.parse(JSON.stringify(res));
       this.productList.forEach((product: any) => {

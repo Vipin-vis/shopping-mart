@@ -8,6 +8,7 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { EndUserComponent } from './components/end-user/end-user.component';
 import { LoginComponent } from './components/login/login.component';
 import { OrderComponent } from './components/order/order.component';
+import { PackingPanelComponent } from './components/packing-panel/packing-panel.component';
 import { ProductsComponent } from './components/products/products.component';
 import { ShippingChargeComponent } from './components/shipping-charge/shipping-charge.component';
 import { UsersComponent } from './components/users/users.component';
@@ -23,6 +24,7 @@ const routes: Routes = [
     { path: 'shippingCharge', component: ShippingChargeComponent },
     { path: 'changePassword', component: ChangePasswordComponent },
     { path: 'userConfirmation', component: EndUserComponent },
+    { path: 'packing-panel', component: PackingPanelComponent },
     { path: 'home', redirectTo: '/products', pathMatch: 'full' },
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page

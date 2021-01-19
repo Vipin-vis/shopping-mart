@@ -9,6 +9,7 @@ import { PageModule } from './pages/page.module';
 import { SharedModule } from './shared/shared/shared.module';
 import { AuthInterceptor } from './core/services/auth.interceptor.service';
 
+
 @NgModule({
   declarations: [
     AppComponent,

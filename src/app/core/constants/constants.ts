@@ -18,7 +18,7 @@ export const APP_CONSTANTS = {
         },
         {
           "name": "Settings",
-          "path": "/settings"
+          "path": "/changePassword"
         },
         {
           "name": "Logout",

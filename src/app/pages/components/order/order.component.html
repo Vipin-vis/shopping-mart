@@ -53,16 +53,16 @@
                         <span class="label-title">Customer:</span> {{order.products['customer_name']}}
                     </mat-panel-title>
                     <!-- <mat-slide-toggle class="payment-toggle"[ngModel]="order.paid" *ngIf="displayPayment">Payment</mat-slide-toggle> -->
-                    <mat-form-field *ngIf="displayPayment" appearance="fill">
+                    <mat-form-field  *ngIf="displayPayment" appearance="fill">
                         <mat-label>Payment Status</mat-label>
-                        <mat-select [(value)]="order.payment_status">
+                        <mat-select (selectionChange)="onChangePayment(order)" [(value)]="order.payment_status">
                             <mat-option  [value]="'COMPLETED'">Paid</mat-option>
                             <mat-option [value]="'PENDING'">Not Paid</mat-option>
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field *ngIf="displayOrderStatus" appearance="fill">
                         <mat-label>Order Status</mat-label>
-                        <mat-select [(value)]="order.order_status">
+                        <mat-select (selectionChange)="onChangeOrder(order)" [(value)]="order.order_status">
                             <mat-option  [value]="'PENDING'">Ordered</mat-option>
                             <mat-option [value]="'RD_PACK'">Packing</mat-option>
                             <mat-option [value]="'RD_SHIP'">Shipping</mat-option>
@@ -78,7 +78,7 @@
                         <button class="order-save" mat-mini-fab>
                             <mat-icon matRipple matTooltip="Add Remarks" (click)="addRemarks()">note_add</mat-icon>
                         </button>
-                        <button class="order-save" mat-mini-fab>
+                        <button class="order-save" (click)="saveChanges(order)" mat-mini-fab>
                             <mat-icon matRipple matTooltip="Save changes">save</mat-icon>
                         </button>
                         <button *ngIf="displayDeleteOrder" class="order-save" mat-mini-fab (click)="deleteOrder(order.order_id)">

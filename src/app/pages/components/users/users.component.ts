@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Users } from 'src/app/core/data/dummyData';
 import { HttpService } from 'src/app/core/services/http.service';
 import { SharedService } from 'src/app/core/services/shared.service';
+import { ConfirmDialogModel, ConfirmPopupComponent } from '../confirm-popup/confirm-popup.component';
 
 @Component({
   selector: 'app-users',
@@ -24,7 +26,8 @@ export class UsersComponent implements OnInit {
   selectedUserID: string = "";
   constructor(private _http: HttpService,
     private _sharedService: SharedService,
-    private router: Router) {
+    private router: Router,
+    public dialog: MatDialog) {
     router.events.subscribe((val) => {
       this.newUserMode = false;
     });
@@ -151,6 +154,15 @@ export class UsersComponent implements OnInit {
    * 
    */
   DeleteUser() {
+    const message = `Are you sure you want to delete this User?`;
+
+    const dialogData = new ConfirmDialogModel("Confirm Delete", message);
+
+    const dialogRef = this.dialog.open(ConfirmPopupComponent, {
+      maxWidth: "500px",
+      data: dialogData
+    });
+    dialogRef.afterClosed().subscribe
     this._http.deleteUser(this.selectedUserID).subscribe((res: any) => { 
       this._sharedService.openSnackBar("User Deleted");
     })

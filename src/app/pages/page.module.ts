@@ -41,6 +41,9 @@ import { EndUserComponent } from './components/end-user/end-user.component';
 import { ClipboardModule } from 'ngx-clipboard';
 import { ShippingChargeComponent } from './components/shipping-charge/shipping-charge.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { PackingPanelComponent } from './components/packing-panel/packing-panel.component';
+import { ConfirmPopupComponent } from './components/confirm-popup/confirm-popup.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -56,7 +59,9 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
     AddProductComponent,
     EndUserComponent,
     ShippingChargeComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    PackingPanelComponent,
+    ConfirmPopupComponent
   ],
   imports: [
     CommonModule,
@@ -88,10 +93,12 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
     MatDividerModule,
     MatProgressBarModule,
     ClipboardModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule
   ],
   exports: [
-    MainComponent
-  ]
+    MainComponent, MatButtonModule
+  ],
+  entryComponents: [ConfirmPopupComponent]
 })
 export class PageModule { }

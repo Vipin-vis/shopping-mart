@@ -17,7 +17,7 @@
                 Cart
                 <mat-divider></mat-divider>
             </mat-list-option>
-            <mat-list-option (click)="drawer.toggle()"  >
+            <mat-list-option (click)="drawer.toggle()" [routerLink]="'/changePassword'" >
                 Settings
                 <mat-divider></mat-divider>
             </mat-list-option>
@@ -39,6 +39,9 @@
             </button>
             <button mat-icon-button *ngIf="(userType === 'admin')" [routerLink]="'/admin-panel'">
                 <mat-icon matTooltip="Admin Panel">admin_panel_settings</mat-icon>
+            </button>
+            <button mat-icon-button *ngIf="(userType === 'admin')" [routerLink]="'/packing-panel'">
+                <mat-icon matTooltip="Packing Panel">all_inbox</mat-icon>
             </button>
             <button mat-icon-button [routerLink]="'/order'">
                 <mat-icon matTooltip="Order">text_snippet</mat-icon>

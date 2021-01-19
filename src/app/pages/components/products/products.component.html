@@ -2,21 +2,15 @@
     <mat-form-field class="search-box" appearance="fill">
         <mat-icon matPrefix class="search-icon">search</mat-icon>
         <mat-label>Search Products</mat-label>
-        <input matInput  [(ngModel)]="searchKey"  #search>
+        <input matInput [(ngModel)]="searchKey" #search>
     </mat-form-field>
     <mat-form-field style="padding-left: 12px;" appearance="fill">
-        <mat-label>categories</mat-label>
-        <mat-select [formControl]="categories" multiple>
-          <mat-select-trigger>
-            {{categories.value ? categories.value[0] : ''}}
-            <span *ngIf="categories.value?.length > 1" class="example-additional-selection">
-              (+{{categories.value.length - 1}} {{categories.value?.length === 2 ? 'other' : 'others'}})
-            </span>
-          </mat-select-trigger>
-          <mat-option *ngFor="let categories of categoryList" [value]="categories">{{categories}}</mat-option>
+        <mat-label>Order Status</mat-label>
+        <mat-select [(value)]="selectedCategory">
+            <mat-option *ngFor="let categories of categoryList" [value]="categories">{{categories}}</mat-option>
         </mat-select>
-      </mat-form-field>
-    <button class="search-btn"mat-flat-button color="accent" (click)="searchProduct()">Search</button>
+    </mat-form-field>
+    <button class="search-btn" mat-flat-button color="accent" (click)="searchProduct()">Search</button>
 </div>
 <br>
 <div class="container">
@@ -34,8 +28,9 @@
             <button mat-icon-button color="primary" class="prod-qty">
                 <mat-icon (click)="decrementProd(item)">remove_circle_outline</mat-icon>
             </button>
-            <button mat-mini-fab color="primary" matTooltip="Add to Cart">               
-                <mat-icon (click)="addProduct(item)" [matBadge]="item.tempQuan" matBadgeColor="accent">add_shopping_cart</mat-icon>
+            <button mat-mini-fab color="primary" matTooltip="Add to Cart">
+                <mat-icon (click)="addProduct(item)" [matBadge]="item.tempQuan" matBadgeColor="accent">add_shopping_cart
+                </mat-icon>
             </button>
         </div>
     </mat-card>
