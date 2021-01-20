@@ -49,8 +49,8 @@ export class HttpService {
         'x-access-token': this._auth.getToken()
       })
     };
-    return this.http.post(this.serviceURI + '/searchProducts', { "search_str": searchKey, "product_category":  category}, httpOptions);
-   // return this.http.get(this.serviceURI + '/products');
+    return this.http.post(this.serviceURI + '/searchProducts', { "search_str": searchKey, "product_category": category }, httpOptions);
+    // return this.http.get(this.serviceURI + '/products');
   }
   /**
    * 
@@ -138,7 +138,7 @@ export class HttpService {
     };
     return this.http.post(this.serviceURI + '/addUser', user, httpOptions);
   }
-  
+
   /**
    * 
    */
@@ -157,7 +157,7 @@ export class HttpService {
    * 
    */
   saveUserDetails(user: any) {
-        const httpOptions = {
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': 'Basic ',
@@ -169,10 +169,11 @@ export class HttpService {
   /**
   * 
   */
-  generateOrder(userName: string, productData: any, remarks: string) {
+  generateOrder(userName: string, productData: any, remarks: string, presenter: any) {
     let reqParam = {
       "userName": userName,
       "remarks": remarks,
+      "presenter": presenter,
       "order_product_data": productData
     }
     const httpOptions = {
@@ -182,7 +183,7 @@ export class HttpService {
         'x-access-token': this._auth.getToken()
       })
     };
-    console.log("reqpam:",reqParam)
+    console.log("reqpam:", reqParam)
     return this.http.post(this.serviceURI + '/generateOrder', reqParam, httpOptions);
   }
   /**
@@ -194,7 +195,7 @@ export class HttpService {
   /**
    * 
    */
-  deleteOrder(id:string) {
+  deleteOrder(id: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -202,7 +203,7 @@ export class HttpService {
         'x-access-token': this._auth.getToken()
       })
     };
-    return this.http.post(this.serviceURI + `/deleteOrder?order_id=${id}`,{}, httpOptions)
+    return this.http.post(this.serviceURI + `/deleteOrder?order_id=${id}`, {}, httpOptions)
   }
   /**
    * 
@@ -244,9 +245,9 @@ export class HttpService {
     };
     return this.http.post(this.serviceURI + '/addRemarks', remarks, httpOptions);
   }
-    /**
-   * 
-   */
+  /**
+ * 
+ */
   updateShipppingCharge(shippingCharge: any) {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -260,7 +261,7 @@ export class HttpService {
   /**
    * 
    */
-  getproductCategory () {
+  getproductCategory() {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -275,7 +276,7 @@ export class HttpService {
    * 
    */
   deleteUser(userID: string) {
-    let user = {"user_id": userID};
+    let user = { "user_id": userID };
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -284,7 +285,7 @@ export class HttpService {
       })
     };
     return this.http.post(this.serviceURI + '/deleteUser', user, httpOptions);
-  
+
   }
 
   /**
@@ -299,9 +300,9 @@ export class HttpService {
       })
     };
     return this.http.post(this.serviceURI + '/changePassword', param, httpOptions);
-  
+
   }
-  
+
   /**
    * 
    */
@@ -314,9 +315,9 @@ export class HttpService {
       })
     };
     return this.http.post(this.serviceURI + '/changePaymentStatus', param, httpOptions);
-  
+
   }
-  
+
   /**
    * 
    */
@@ -329,7 +330,7 @@ export class HttpService {
       })
     };
     return this.http.post(this.serviceURI + '/changeOrderStatus', param, httpOptions);
-  
+
   }
   /**
    * 
@@ -343,11 +344,11 @@ export class HttpService {
       })
     };
     return this.http.post(this.serviceURI + '/editOrder', param, httpOptions);
-  
+
   }
-   /**
-   * 
-   */
+  /**
+  * 
+  */
   getShipment() {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -357,6 +358,6 @@ export class HttpService {
       })
     };
     return this.http.get(this.serviceURI + '/getShipment', httpOptions);
-  
+
   }
 }

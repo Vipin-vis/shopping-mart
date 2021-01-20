@@ -56,7 +56,7 @@
     </mat-form-field> -->
     <mat-form-field appearance="fill">
         <mat-label>Add Presenter</mat-label>
-        <mat-select>
+        <mat-select [(ngModel)]="presenter">
           <mat-option *ngFor="let presenter of presenters" value="presenter.user_name">{{presenter.user_name}}</mat-option>
         </mat-select>
       </mat-form-field>

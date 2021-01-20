@@ -16,14 +16,15 @@ export class CartComponent implements OnInit {
   remarks: string = "";
   orderLink: string = "";
   presenters: any = [];
+  presenter: any = {};
 
   constructor(private _sharedService: SharedService,
     private changeDetectorRefs: ChangeDetectorRef,
     private _http: HttpService) { }
 
   ngOnInit(): void {
-    this._http.getAllPreseters().subscribe((res) => {
-      // this.presenters = { ...res };
+    this._http.getAllPreseters().subscribe((res: any) => {
+      this.presenters = JSON.stringify(JSON.parse(res["presenter_info"]))
 
     });
     //To-DO: to remove
@@ -72,7 +73,7 @@ export class CartComponent implements OnInit {
       orderProductData.push(productData);
     });
 
-    this._http.generateOrder(this._sharedService.loggedUser, orderProductData, this.remarks)
+    this._http.generateOrder(this._sharedService.loggedUser, orderProductData, this.remarks, this.presenter)
       .subscribe((res: any) => {
         if (!!res["order_link"]) {
           this._sharedService.openSnackBar("Order added successfully!!");
