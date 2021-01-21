@@ -26,8 +26,11 @@ export class LoginComponent implements OnInit {
       if (res) {
         this._sharedService.setUserType(res.userType);
         this._auth.setToken(res.token);
+        this._auth.autheticated = true;
+        this._auth.setIsauthcatedToLs('true');
         this._sharedService.username = this.userName;
         this._sharedService.loggedUser = this.userName;
+        this._auth.setUserTypeToLs(res.userType);
         if (this._sharedService.userTypeValue === "accountant") {
           this.router.navigate(['/order']);
         } else {
@@ -37,8 +40,11 @@ export class LoginComponent implements OnInit {
     })
 
     /**To remove */
-    this.router.navigate(['/home']);
-    this._sharedService.setUserType('admin');
-    this._sharedService.username =  this._sharedService.loggedUser = 'admin';
+    // this.router.navigate(['/home']);
+    // this._auth.autheticated = true;
+    // this._auth.setIsauthcatedToLs('true');
+    // this._sharedService.setUserType(this.userName);
+    // this._sharedService.username =  this._sharedService.loggedUser = 'admin';
+    // this._auth.setUserTypeToLs(this.userName);
   }
 }

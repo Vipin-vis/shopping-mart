@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { Observable, Subject } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +16,12 @@ export class SharedService {
   username: string = "";
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
-  constructor(private _snackBar: MatSnackBar) {
+  constructor(private _snackBar: MatSnackBar, private _auth: AuthService) {
     this.userTypeValue = "";
     this.loggedUser = "";
-    
+    if(!!this._auth.getUserTypeFromLs()) {
+      this.setUserType(this._auth.getUserTypeFromLs());
+    }
   }
 
   setCartData(cartData: any) {
