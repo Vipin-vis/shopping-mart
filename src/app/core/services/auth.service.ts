@@ -23,11 +23,13 @@ export class AuthService {
   setUserTypeToLs(userType: string) {
     localStorage.setItem("userType", userType);
   }
-
+  setUserToLs(user: string) {
+    localStorage.setItem("user", user);
+  }
   setIsauthcatedToLs(auth: string) {
     localStorage.setItem("isAuthenticated", auth);
   }
-  
+
   getIsauthcatedLs() {
     let auth: any = "";
     auth = localStorage.getItem("isAuthenticated")?.toString();
@@ -37,6 +39,11 @@ export class AuthService {
     let type: any = "";
     type = localStorage.getItem("userType")?.toString();
     return type;
+  }
+  getUserFromLs() {
+    let user: any = "";
+    user = localStorage.getItem("user")?.toString();
+    return user;
   }
 
   logOut() {

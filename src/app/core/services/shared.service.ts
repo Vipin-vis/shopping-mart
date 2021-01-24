@@ -22,6 +22,9 @@ export class SharedService {
     if(!!this._auth.getUserTypeFromLs()) {
       this.setUserType(this._auth.getUserTypeFromLs());
     }
+    if(!!this._auth.getUserFromLs()) {
+      this.username = this.loggedUser = this._auth.getUserFromLs();
+    }
   }
 
   setCartData(cartData: any) {

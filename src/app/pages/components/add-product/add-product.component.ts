@@ -25,7 +25,7 @@ export class AddProductComponent implements OnInit {
 
   ngOnInit(): void {
     this._http.getproductCategory().subscribe((res: any) => {
-      this.catergoriesList = { ...res }
+      this.catergoriesList = JSON.parse(JSON.stringify(res.product_categories)) 
     },
       (err) => {
         console.log("Error:", err);

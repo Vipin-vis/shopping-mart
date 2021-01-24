@@ -24,5 +24,6 @@ export const APP_CONSTANTS = {
           "name": "Logout",
           "path": "/login"
         }
-      ]
+      ],
+     userTypes: ["agent", "admin", "shipping", "packing", "accountant" , "presenter"]
 } 

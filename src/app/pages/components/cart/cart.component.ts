@@ -24,21 +24,9 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
     this._http.getAllPreseters().subscribe((res: any) => {
-      this.presenters = JSON.stringify(JSON.parse(res["presenter_info"]))
+      this.presenters = JSON.parse(JSON.stringify(res.presenter_info))
 
     });
-    //To-DO: to remove
-    this.presenters = [
-      {
-        'user_name': "babu"
-      },
-      {
-        'user_name': "Sasi"
-      },
-      {
-        'user_name': "Soman"
-      }
-    ]
 
   }
 

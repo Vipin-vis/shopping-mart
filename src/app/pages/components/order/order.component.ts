@@ -111,17 +111,18 @@ export class OrderComponent implements OnInit {
   /**
    * 
    */
-  addRemarks() {
+  addRemarks(order_id:string) {
     let remarks = {
       "user_name": this._sharedService.loggedUser,
-      "user_type": this._sharedService.userType,
-      "remarks": this.remarks
+      "user_type": this._sharedService.userTypeValue,
+      "remarks": this.remarks,
+      "order_id": order_id
     }
 
     this._http.addRemarks(remarks).subscribe((res: any) => {
       this._sharedService.openSnackBar("Remarks added Successfully!!");
     }, (err: any) => {
-      console.error(err);
+      console.log(err);
     })
   }
   /**
@@ -131,7 +132,7 @@ export class OrderComponent implements OnInit {
     let paymentStatus = {
       "user_name": this._sharedService.loggedUser,
       "usertype": this._sharedService.userTypeValue,
-      "order_id": order.id,
+      "order_id": order.order_id,
       "payment_status": order.payment_status
     }
     this._http.changePaymentStatus(paymentStatus).subscribe((res: any) => {
@@ -146,7 +147,7 @@ export class OrderComponent implements OnInit {
     let orderStatus = {
       "user_name": this._sharedService.loggedUser,
       "usertype": this._sharedService.userTypeValue,
-      "order_id": order.id,
+      "order_id": order.order_id,
       "order_status": order.order_status
     }
     this._http.changeOrderStatus(orderStatus).subscribe((res: any) => {

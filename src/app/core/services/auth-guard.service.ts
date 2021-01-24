@@ -17,7 +17,7 @@ export class AuthGuardService implements CanActivate {
     let activate: boolean = true;
     if ((expectedRole === 'admin-panel' || expectedRole === 'packing-panel'
       || expectedRole === 'cart' || expectedRole === 'users'
-      || expectedRole === 'changePassword' || expectedRole === 'shippingCharge'
+      || expectedRole === 'shippingCharge'
       || expectedRole === 'addproduct')
       && (this._sharedService.userTypeValue !== 'admin')) {
       activate = false;
@@ -26,6 +26,9 @@ export class AuthGuardService implements CanActivate {
       activate = true;
     }
     if (expectedRole === 'cart' && (this._sharedService.userTypeValue === 'agent')) {
+      activate = true;
+    }
+    if (expectedRole === 'products' && (this._sharedService.userTypeValue !== 'packing')) {
       activate = true;
     }
     const token = localStorage.getItem('token');

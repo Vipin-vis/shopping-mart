@@ -216,7 +216,7 @@ export class HttpService {
         'x-access-token': this._auth.getToken()
       })
     };
-    return this.http.post(this.serviceURI + '/getAllPresenters', httpOptions);
+    return this.http.get(this.serviceURI + '/getAllPresenters', httpOptions);
   }
   /**
    * 
@@ -359,5 +359,18 @@ export class HttpService {
     };
     return this.http.get(this.serviceURI + '/getShipment', httpOptions);
 
+  }
+   /**
+   * 
+   */
+  getShippingTypes() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ',
+        'x-access-token': this._auth.getToken()
+      })
+    };
+    return this.http.get(this.serviceURI + '/getShippingTypes', httpOptions);
   }
 }

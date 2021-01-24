@@ -30,7 +30,8 @@ export class ChangePasswordComponent implements OnInit {
         "newpassword": this.newPasswordRepeat
       }
       this._http.changePassword(passwordParam).subscribe((res: any) => {
-        this._sharedService.openSnackBar("Password Changed successfully!!");
+        this._sharedService.openSnackBar(res.message);
+        this.cancel();
       })
     } else {
       this._sharedService.openSnackBar("Password Mismatch!!");
@@ -40,6 +41,8 @@ export class ChangePasswordComponent implements OnInit {
    * 
    */
   cancel() {
-    
+    this.oldPassword = "";
+    this.newPasswordRepeat = "";
+    this.newPassword = "";
   }
 }

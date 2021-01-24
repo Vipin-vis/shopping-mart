@@ -54,3 +54,12 @@
     bottom: 24px;
     right: 24px;
 }
+
+.no-products {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -100px;
+    color: rgb(172, 100, 7);
+}

@@ -35,8 +35,13 @@
     width: 100px;
     justify-content: center;
 }
-.order,.agent, .payment-toggle {
+.agent, .payment-toggle {
     max-width: 300px;
+    top: 12px;
+    position: relative;
+}
+.order {
+    max-width: 600px;
     top: 12px;
     position: relative;
 }
@@ -52,4 +57,8 @@
           margin-left: 12px;
           cursor: pointer;
       }
+
+  }
+  .order-field{
+      margin-left: 10px !important;
   }

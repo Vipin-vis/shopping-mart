@@ -4,9 +4,9 @@
         <mat-selection-list #userslist [multiple]="false">
             <mat-list-option (click)="onSelectUser(user)"class="user-list-div" *ngFor="let user of users" [value]="user.id">
                 <div class="user-list">
-                    <span class="user-name">{{user.userName}}</span>
+                    <span class="user-name">{{user.username}}</span>
                     <span class="user-type-label">Type: </span>
-                    <span>{{user.userType}}</span>
+                    <span>{{user.usertype}}</span>
                 </div>
             </mat-list-option>
         </mat-selection-list>
@@ -28,7 +28,7 @@
             <mat-form-field appearance="fill" class="User-full-width">
                 <mat-label>User type</mat-label>
                 <mat-select [(ngModel)]="userType">
-                  <mat-option *ngFor="let type of userTypes" value="type">{{type}}</mat-option>
+                  <mat-option *ngFor="let type of userTypes" [value]="type">{{type}}</mat-option>
                 </mat-select>
             </mat-form-field>
             <br>

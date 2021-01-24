@@ -5,7 +5,7 @@
         <input matInput [(ngModel)]="searchKey" #search>
     </mat-form-field>
     <mat-form-field style="padding-left: 12px;" appearance="fill">
-        <mat-label>Order Status</mat-label>
+        <mat-label>Product category</mat-label>
         <mat-select [(value)]="selectedCategory">
             <mat-option *ngFor="let categories of categoryList" [value]="categories">{{categories}}</mat-option>
         </mat-select>
@@ -13,6 +13,9 @@
     <button class="search-btn" mat-flat-button color="accent" (click)="searchProduct()">Search</button>
 </div>
 <br>
+<div class="no-products" *ngIf="noProducts">
+    No Products Found!!!
+</div>
 <div class="container">
     <mat-card class="product-card" *ngFor="let item of productList">
         <mat-icon>shopping_bag_outline</mat-icon>

@@ -22,23 +22,17 @@ export class ShippingChargeComponent implements OnInit {
     this.shippingTypes = [];
     this.shippingTypeCharge = [];
     this._http.getShippingTypes().subscribe((res) => {
-      this.shippingTypes = JSON.parse(JSON.stringify(res));
-      this.shippingTypes.forEach((type: any) => {
-        this.shippingTypeCharge.push({
-          "name": type,
-          "cost": ""
-        })
-      });
+      this.shippingTypeCharge = JSON.parse(JSON.stringify(res));
     });
 
     //To remove:
-    this.shippingTypes = ["as","sdsd", "wsadsfd","sfsf", "sfsf", "sfsf"];
-    this.shippingTypes.forEach((type: any) => {
-      this.shippingTypeCharge.push({
-        "name": type,
-        "cost": ""
-      })
-    });
+    //this.shippingTypes = ["as","sdsd", "wsadsfd","sfsf", "sfsf", "sfsf"];
+    // this.shippingTypes.forEach((type: any) => {
+    //   this.shippingTypeCharge.push({
+    //     "name": type,
+    //     "cost": ""
+    //   })
+    // });
 
   }
   /**

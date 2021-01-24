@@ -21,7 +21,7 @@
                 Settings
                 <mat-divider></mat-divider>
             </mat-list-option>
-            <mat-list-option (click)="logOut()" >
+            <mat-list-option (click)="logOut();drawer.toggle()" >
                 Logout
                 <mat-divider></mat-divider>
             </mat-list-option>
@@ -40,7 +40,7 @@
             <button mat-icon-button *ngIf="(userType === 'admin')" [routerLink]="'/admin-panel'">
                 <mat-icon matTooltip="Admin Panel">admin_panel_settings</mat-icon>
             </button>
-            <button mat-icon-button *ngIf="(userType === 'admin')" [routerLink]="'/packing-panel'">
+            <button mat-icon-button *ngIf="(userType === 'admin') || (userType === 'packing')" [routerLink]="'/packing-panel'">
                 <mat-icon matTooltip="Packing Panel">all_inbox</mat-icon>
             </button>
             <button mat-icon-button [routerLink]="'/order'">

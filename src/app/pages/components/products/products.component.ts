@@ -17,13 +17,13 @@ export class ProductsComponent implements OnInit {
   scroll = new Subject<number>();
 
   showSearchButton: boolean;
-
+  noProducts: boolean = false;
   searchKey: string;
   categories = new FormControl();
 
   categoryList: string[] = ['TV', 'Watch', 'Laptop', 'Grooming', 'Shoe', 'Desktop'];
   selectedCategory: string = "";
-  
+
   @HostListener('window:scroll') watchScroll() {
     this.scroll.next(window.scrollY);
   }
@@ -39,9 +39,10 @@ export class ProductsComponent implements OnInit {
     this.scroll
       .pipe(debounceTime(200))
       .subscribe((y) => this.onScroll(window.scrollY));
-      this._httpService.getproductCategory().subscribe((res: any) => {
-        this.categoryList = JSON.parse(JSON.stringify(res));
-      })
+    this._httpService.getproductCategory().subscribe((res: any) => {
+      this.categoryList = JSON.parse(JSON.stringify(res.product_categories));
+    });
+    this.noProducts = false;
   }
 
   ngOnDestroy() {
@@ -65,9 +66,17 @@ export class ProductsComponent implements OnInit {
     this._httpService.getProducts(this.searchKey, this.selectedCategory).subscribe((res) => {
       this.productList = JSON.parse(JSON.stringify(res["prod_data"]));
       //this.productList = JSON.parse(JSON.stringify(res));
+      if(this.productList.length == 0) {
+        this.noProducts = true;
+      } else {
+        this.noProducts = false;
+      }
       this.productList.forEach((product: any) => {
         product.tempQuan = 0;
       });
+    }, (err) => {
+      console.log("Error:", err);
+      this.noProducts = true;
     });
   }
   /**
@@ -99,7 +108,7 @@ export class ProductsComponent implements OnInit {
       if (product.prod_id === item.prod_id) {
         if (item.tempQuan < 0) {
           return;
-        }  else {
+        } else {
           item.tempQuan++;
         }
       }
@@ -107,9 +116,9 @@ export class ProductsComponent implements OnInit {
   }
   decrementProd(item: any) {
     this.productList.forEach((product: any) => {
-      if (product.prod_id === item.prod_id) { 
+      if (product.prod_id === item.prod_id) {
         if (item.tempQuan <= 0) {
-          item.temQuan=0;
+          item.temQuan = 0;
           return
         } else {
           item.tempQuan--;

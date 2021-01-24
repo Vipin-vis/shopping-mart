@@ -18,10 +18,10 @@
                     <mat-panel-title class="order">
                         <span class="label-title">Order:</span> {{order.order_id}}
                     </mat-panel-title>
-                    <mat-panel-title class="agent">
+                    <!-- <mat-panel-title class="agent">
                         <span class="label-title">Agent: </span> {{order.ordered_by}}
-                    </mat-panel-title>
-                    <mat-chip-list class="payment-chip-list" aria-label="Fish selection">
+                    </mat-panel-title> -->
+                    <mat-chip-list class="payment-chip-list" aria-label="Payment selection">
                         <mat-chip class="payment-chip paid" *ngIf="order.payment_status === 'COMPLETED'"
                             style="background-color: rgb(7, 126, 100);" selected>Paid
                         </mat-chip>
@@ -29,9 +29,12 @@
                             style="background-color: rgb(219, 64, 59);" selected>Not Paid
                         </mat-chip>
                     </mat-chip-list>
-                    <mat-chip-list class="shipment-chip-list" aria-label="Fish selection">
-                        <mat-chip class="shipment-chip" *ngIf="order.order_status === 'PENDING'"
-                            style="background-color: rgb(175, 97, 66);" selected>Ordered
+                    <mat-chip-list class="shipment-chip-list" aria-label="Order Status selection">
+                        <mat-chip class="shipment-chip" *ngIf="order.order_status === 'CONFIRMED'"
+                            style="background-color: rgb(175, 97, 66);" selected>Confirmed
+                        </mat-chip>
+                        <mat-chip class="shipment-chip" *ngIf="order.order_status === 'PLACED'"
+                            style="background-color: rgb(168, 175, 66);" selected>Placed
                         </mat-chip>
                         <mat-chip class="shipment-chip" *ngIf="order.order_status === 'RD_PACK'"
                             style="background-color: rgb(146, 144, 9);" selected>Packing
@@ -53,35 +56,42 @@
                         <span class="label-title">Customer:</span> {{order.products['customer_name']}}
                     </mat-panel-title>
                     <!-- <mat-slide-toggle class="payment-toggle"[ngModel]="order.paid" *ngIf="displayPayment">Payment</mat-slide-toggle> -->
-                    <mat-form-field  *ngIf="displayPayment" appearance="fill">
+                    <mat-form-field *ngIf="displayPayment order-field" appearance="fill">
                         <mat-label>Payment Status</mat-label>
                         <mat-select (selectionChange)="onChangePayment(order)" [(value)]="order.payment_status">
-                            <mat-option  [value]="'COMPLETED'">Paid</mat-option>
+                            <mat-option [value]="'COMPLETED'">Paid</mat-option>
                             <mat-option [value]="'PENDING'">Not Paid</mat-option>
                         </mat-select>
                     </mat-form-field>
-                    <mat-form-field *ngIf="displayOrderStatus" appearance="fill">
+                    <mat-form-field *ngIf="displayOrderStatus order-field" appearance="fill">
                         <mat-label>Order Status</mat-label>
                         <mat-select (selectionChange)="onChangeOrder(order)" [(value)]="order.order_status">
-                            <mat-option  [value]="'PENDING'">Ordered</mat-option>
+                            <mat-option [value]="'PLACED'">Placed</mat-option>
+                            <mat-option [value]="'CONFIRMED'">Confirmed</mat-option>
                             <mat-option [value]="'RD_PACK'">Packing</mat-option>
                             <mat-option [value]="'RD_SHIP'">Shipping</mat-option>
                             <mat-option [value]="'SHIPPED'">Shipped</mat-option>
                             <mat-option [value]="'CANCELLED'">Cancelled</mat-option>
                         </mat-select>
                     </mat-form-field>
-                    <mat-form-field class="User-full-width">
+                    <mat-form-field class="User-full-width order-field">
                         <mat-label>Remarks</mat-label>
                         <input [(ngModel)]="remarks" matInput>
                     </mat-form-field>
                     <div>
                         <button class="order-save" mat-mini-fab>
-                            <mat-icon matRipple matTooltip="Add Remarks" (click)="addRemarks()">note_add</mat-icon>
+                            <mat-icon matRipple matTooltip="Add Remarks" (click)="addRemarks(order.order_id)">note_add
+                            </mat-icon>
+                        </button>
+                        <button class="order-save" mat-mini-fab>
+                            <mat-icon matRipple matTooltip="Add Remarks" (click)="addRemarks(order.order_id)">speaker_notes
+                            </mat-icon>
                         </button>
                         <button class="order-save" (click)="saveChanges(order)" mat-mini-fab>
                             <mat-icon matRipple matTooltip="Save changes">save</mat-icon>
                         </button>
-                        <button *ngIf="displayDeleteOrder" class="order-save" mat-mini-fab (click)="deleteOrder(order.order_id)">
+                        <button *ngIf="displayDeleteOrder" class="order-save" mat-mini-fab
+                            (click)="deleteOrder(order.order_id)">
                             <mat-icon matRipple matTooltip="Delete Order">clear</mat-icon>
                         </button>
 

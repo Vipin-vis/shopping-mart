@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { APP_CONSTANTS } from 'src/app/core/constants/constants';
 import { Users } from 'src/app/core/data/dummyData';
 import { HttpService } from 'src/app/core/services/http.service';
 import { SharedService } from 'src/app/core/services/shared.service';
@@ -13,9 +14,9 @@ import { ConfirmDialogModel, ConfirmPopupComponent } from '../confirm-popup/conf
 })
 export class UsersComponent implements OnInit {
 
-  users: any[]=[];
+  users: any[] = [];
   newUserMode: boolean = false;
-  userDetails: string =""
+  userDetails: string = ""
   userName: string = "";
   userType: string = "";
   userAge: string = "";
@@ -23,7 +24,7 @@ export class UsersComponent implements OnInit {
   userConfirmPassword: string = "";
   userNewPassword: string = "";
   userTypes: any = [];
-  selectedUserID: string = "";
+  selectedUserName: string = "";
   constructor(private _http: HttpService,
     private _sharedService: SharedService,
     private router: Router,
@@ -41,11 +42,11 @@ export class UsersComponent implements OnInit {
         console.log("ERROR:", err);
       });
 
-    this._http.getUserTypes().subscribe((res: any) => {
-      this.userTypes = { ...res };
-    })
+    // this._http.getUserTypes().subscribe((res: any) => {
+    //   this.userTypes = { ...res };
+    // })
     //To Do: Remove
-    this.userTypes = ["agent", "admin", "shipping", "packing", "accountant"];
+    this.userTypes = APP_CONSTANTS.userTypes;
   }
 
   /**
@@ -54,6 +55,7 @@ export class UsersComponent implements OnInit {
   getUserDetails() {
     this._http.getUSer("").subscribe((res: any) => {
       this.userDetails = JSON.parse(JSON.stringify(res));
+      this.userType = JSON.parse(JSON.stringify(res.usertype));
     },
       (err) => {
         console.log("ERROR:", err);
@@ -81,7 +83,7 @@ export class UsersComponent implements OnInit {
   /**
    * 
    */
-  getUserData():void{
+  getUserData(): void {
     this._http.getAllUSers().subscribe((res: any) => {
       this.users = JSON.parse(JSON.stringify(res));
     },
@@ -136,12 +138,12 @@ export class UsersComponent implements OnInit {
    */
   onSelectUser(user: any) {
     let userId = user["user_id"];
-    this.selectedUserID = userId;
+    this.selectedUserName = user["username"];
     this.newUserMode = false;
     this._http.getUSer(userId).subscribe((res: any) => {
       this.userName = res["username"];
-       this.userType = res["usertype"];
-       this.userDetails = res["details"];
+      this.userType = res["usertype"];
+      this.userDetails = res["details"];
       // this.userMail = res["userMail"];
     })
     this.userName = user["userName"];
@@ -162,9 +164,16 @@ export class UsersComponent implements OnInit {
       maxWidth: "500px",
       data: dialogData
     });
-    dialogRef.afterClosed().subscribe
-    this._http.deleteUser(this.selectedUserID).subscribe((res: any) => { 
-      this._sharedService.openSnackBar("User Deleted");
-    })
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      if (dialogResult == true) {
+        this._http.deleteUser(this.selectedUserName).subscribe((res: any) => {
+          let message= res.message;
+          this.getUserData();
+          this._sharedService.openSnackBar(message);
+        })
+      } else {
+        return;
+      }
+    });
   }
 }
