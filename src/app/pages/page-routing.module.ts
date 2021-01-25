@@ -7,6 +7,7 @@ import { AdminPanelComponent } from './components/admin-panel/admin-panel.compon
 import { CartComponent } from './components/cart/cart.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { EndUserComponent } from './components/end-user/end-user.component';
+import { InvoiceComponent } from './components/invoice/invoice.component';
 import { LoginComponent } from './components/login/login.component';
 import { OrderComponent } from './components/order/order.component';
 import { PackingPanelComponent } from './components/packing-panel/packing-panel.component';
@@ -85,6 +86,13 @@ const routes: Routes = [
         canActivate: [AuthGuardService],
         data: {
             expectedRole: 'home'
+        }
+    },
+    {
+        path: 'invoice', component: InvoiceComponent,
+        canActivate: [AuthGuardService],
+        data: {
+            expectedRole: 'invoice'
         }
     },
     { path: '', redirectTo: '/login', pathMatch: 'full' },

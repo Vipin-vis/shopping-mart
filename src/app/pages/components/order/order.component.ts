@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Orders, Product } from 'src/app/core/data/dummyData';
 import { HttpService } from 'src/app/core/services/http.service';
 import { SharedService } from 'src/app/core/services/shared.service';
@@ -108,23 +108,7 @@ export class OrderComponent implements OnInit {
     });
   }
 
-  /**
-   * 
-   */
-  addRemarks(order_id:string) {
-    let remarks = {
-      "user_name": this._sharedService.loggedUser,
-      "user_type": this._sharedService.userTypeValue,
-      "remarks": this.remarks,
-      "order_id": order_id
-    }
 
-    this._http.addRemarks(remarks).subscribe((res: any) => {
-      this._sharedService.openSnackBar("Remarks added Successfully!!");
-    }, (err: any) => {
-      console.log(err);
-    })
-  }
   /**
    * 
    */
@@ -165,4 +149,104 @@ export class OrderComponent implements OnInit {
       console.error(err);
     })
   }
+  /**
+   * 
+   */
+  openRemarkPopup(orderId: string) {
+
+    let remarksData = [];
+    this._http.getAllRemarks(orderId).subscribe((res: any) => {
+      remarksData = JSON.parse(JSON.stringify(res));
+      const dialogRef = this.dialog.open(orderRemarksComponent, {
+        width: '700px',
+        data: { "orderId": orderId, "data": remarksData }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+      });
+    })
+
+  }
+  /**
+   * 
+   */
+  addFromCart(id: string) {
+    this.orders.forEach((order: any) => {
+      if (order.order_id === id) {
+        order.products.concact(this._sharedService.cartData);
+      }
+    });
+  }
+
+  /**
+   * 
+   */
+  removeItemFromOrder(id: any) {
+    let indexToDel = -1;
+    this.orders.forEach((order: any) => {
+      if (order.order_id === id) {
+        order.products.forEach((prod: any, index: number) => {
+          if (prod.id === id) {
+            indexToDel = index;
+          }
+        });
+        if (indexToDel > -1) {
+          order.products.splice(indexToDel, 1);
+          return;
+        }
+      }
+    });
+
+  }
+  
+  /**
+   * 
+   */
+  goToInvoice(orderid: string) {
+    window.open('/invoice', "_blank");
+  }
+}
+
+/**
+ * 
+ */
+@Component({
+  selector: 'order-remarks-dialog',
+  templateUrl: 'order-remarks.component.html',
+})
+export class orderRemarksComponent {
+  remarksText: string = "";
+  constructor(
+    public dialogRef: MatDialogRef<orderRemarksComponent>,
+    @Inject(MAT_DIALOG_DATA) public remarks: any,
+    private _sharedService: SharedService,
+    private _http: HttpService) { }
+
+  close(): void {
+    this.dialogRef.close();
+  }
+
+  /**
+   * 
+   */
+  addRemarks() {
+    if (this.remarksText.trim().length === 0) {
+      this._sharedService.openSnackBar("Please enter your remarks!!");
+      return;
+    }
+    let remarks = {
+      "user_name": this._sharedService.loggedUser,
+      "user_type": this._sharedService.userTypeValue,
+      "remarks": this.remarksText,
+      "order_id": this.remarks.orderId
+    }
+
+    this._http.addRemarks(remarks).subscribe((res: any) => {
+      this._sharedService.openSnackBar("Remarks added Successfully!!");
+      this.close();
+    }, (err: any) => {
+      console.log(err);
+    })
+  }
+
 }

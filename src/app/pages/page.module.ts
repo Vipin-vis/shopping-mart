@@ -25,13 +25,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { MainComponent } from './components/main/main.component';
 import { ProductsComponent } from './components/products/products.component';
 import { PageRoutingModule } from './page-routing.module';
 import { CartComponent } from './components/cart/cart.component';
 import { SharedModule } from '../shared/shared/shared.module';
-import { OrderComponent } from './components/order/order.component';
+import { OrderComponent, orderRemarksComponent } from './components/order/order.component';
 import { LoginComponent } from './components/login/login.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { UsersComponent } from './components/users/users.component';
@@ -44,6 +45,7 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { PackingPanelComponent } from './components/packing-panel/packing-panel.component';
 import { ConfirmPopupComponent } from './components/confirm-popup/confirm-popup.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { InvoiceComponent } from './components/invoice/invoice.component';
 
 
 
@@ -61,7 +63,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     ShippingChargeComponent,
     ChangePasswordComponent,
     PackingPanelComponent,
-    ConfirmPopupComponent
+    ConfirmPopupComponent,
+    orderRemarksComponent,
+    InvoiceComponent
   ],
   imports: [
     CommonModule,
@@ -94,7 +98,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatProgressBarModule,
     ClipboardModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatMenuModule
   ],
   exports: [
     MainComponent, MatButtonModule

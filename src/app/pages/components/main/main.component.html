@@ -28,7 +28,7 @@
         </mat-selection-list>
     </mat-drawer>
     <mat-drawer-content>
-        <mat-toolbar *ngIf="route !== '/login' && !route.includes('/userConfirmation')" color="primary" class="header-tool-bar">
+        <mat-toolbar *ngIf="route !== '/login' && !route.includes('/userConfirmation') && !route.includes('/invoice')" color="primary" class="header-tool-bar">
             <button mat-icon-button class="example-icon">
                 <mat-icon (click)="drawer.toggle()">menu</mat-icon>
             </button>

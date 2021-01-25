@@ -62,3 +62,16 @@
   .order-field{
       margin-left: 10px !important;
   }
+
+  .tcost-tr {
+    .del-prod {
+        float: right;
+        visibility: hidden;
+    }
+    &:hover {
+        background-color: rgba(215, 219, 223, 0.863);
+        .del-prod {
+            visibility: visible;
+        }
+    }
+}

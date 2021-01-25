@@ -1,0 +1,21 @@
+<label class="card-label">
+    Remarks
+</label>
+<div mat-dialog-content style="max-height: 300px;">
+    <mat-list role="list">
+        <mat-list-item *ngFor="let item of remarks.data" role="listitem">
+            <span style="font-weight: 200;">{{item.name}}: </span>
+            <span style="margin-left: 12px;">{{item.message}}</span>
+        </mat-list-item>
+    </mat-list>
+</div>
+
+<br>
+<mat-form-field appearance="fill" style="width: 100%;">
+    <mat-label>Your Remarks</mat-label>
+    <textarea matInput [(ngModel)]="remarksText"></textarea>
+</mat-form-field>
+<div mat-dialog-actions>
+    <button mat-flat-button color="accent" (click)="addRemarks()"> Add Remarks</button>
+    <button mat-button cdkFocusInitial (click)="close()">Close</button>
+</div>

@@ -373,4 +373,17 @@ export class HttpService {
     };
     return this.http.get(this.serviceURI + '/getShippingTypes', httpOptions);
   }
+   /**
+   * 
+   */
+  getAllRemarks(orderId: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ',
+        'x-access-token': this._auth.getToken()
+      })
+    };
+    return this.http.get(this.serviceURI + `/getAllRemarks?orderid=${orderId}`, httpOptions);
+  }
 }
