@@ -49,9 +49,13 @@
             <button mat-icon-button *ngIf="(userType === 'admin') || (userType === 'agent')" [routerLink]="'/cart'">
                 <mat-icon [matBadge]="cartLength" matBadgeColor="accent" matTooltip="Cart">shopping_cart</mat-icon>
             </button>
-            <button mat-icon-button class="example-icon">
+            <button mat-icon-button [matMenuTriggerFor]="menu" class="example-icon">
                 <mat-icon matTooltip="Account" >account_circle</mat-icon>
             </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item  [routerLink]="'/changePassword'">User Settings</button>
+                <button mat-menu-item (click)="logOut()">Logout</button>
+            </mat-menu>
         </mat-toolbar>
         <div class="main-content">
             <!-- <mat-progress-bar style="top:55px" color="accent" mode="query"></mat-progress-bar> -->

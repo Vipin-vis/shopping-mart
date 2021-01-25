@@ -15,10 +15,20 @@
 .address {
     height: 64px;
 }
-.order-table{
+.order-table {
     width: 100%;
 }
 .fab-invoice {
     width: 600px;
     margin-left: 30%;
+    .fab-invoice-tool-bar {
+        .print-btn {
+            display: none;
+        }
+        &:hover {
+            .print-btn {
+                display: block;
+            }
+        }
+    }
 }
