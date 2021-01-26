@@ -1,8 +1,10 @@
 <div class="cart-header">
     <mat-icon class="my-cart">shopping_cart</mat-icon>
     <div class="my-cart-menu">
-        <mat-icon>filter_alt</mat-icon>
-        <mat-icon>remove_shopping_cart</mat-icon>
+        <button matTooltip="Clear Cart" mat-mini-fab class="del-prod" (click)="clearCart()" color="accent">
+            <mat-icon>remove_shopping_cart</mat-icon>
+        </button>
+
     </div>
 </div>
 <div class="cart-container mat-elevation-z8">
@@ -49,7 +51,7 @@
     </table>
 </div>
 <div class="cart-footer">
-     
+
     <!-- <mat-form-field class="order-desc" appearance="fill">
         <mat-label>Description</mat-label>
         <input matInput>
@@ -57,20 +59,22 @@
     <mat-form-field appearance="fill">
         <mat-label>Add Presenter</mat-label>
         <mat-select [(ngModel)]="presenter">
-          <mat-option *ngFor="let presenter of presenters" value="presenter.user_name">{{presenter.user_name}}</mat-option>
+            <mat-option *ngFor="let presenter of presenters" value="presenter.user_name">{{presenter.user_name}}
+            </mat-option>
         </mat-select>
-      </mat-form-field>
+    </mat-form-field>
     <mat-form-field class="order-desc" appearance="fill">
         <mat-label>Remarks</mat-label>
-        <input matInput  [(ngModel)]="remarks">
+        <input matInput [(ngModel)]="remarks">
     </mat-form-field>
     <button class="order-btn" mat-raised-button color="primary" (click)="generateOrder()">Generate Order</button>
     <mat-form-field class="example-full-width">
         <mat-label>Order Link</mat-label>
         <input type="link" matInput [(ngModel)]="orderLink">
-        <mat-icon matSuffix style="cursor: pointer;" matTooltip="Copy to clipboard" ngxClipboard [cbContent]="orderLink" matRipple >content_copy</mat-icon>
+        <mat-icon matSuffix style="cursor: pointer;" matTooltip="Copy to clipboard" ngxClipboard [cbContent]="orderLink"
+            matRipple>content_copy</mat-icon>
     </mat-form-field>
 </div>
-<button mat-fab color="accent" class="fixed-btn" (click)="gotoProductSearch()" [routerLink]="'/products'">
+<button matTooltip="Go to Search Products" mat-fab color="accent" class="fixed-btn" (click)="gotoProductSearch()" [routerLink]="'/products'">
     <mat-icon>search</mat-icon>
 </button>

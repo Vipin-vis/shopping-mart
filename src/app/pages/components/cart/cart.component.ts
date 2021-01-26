@@ -1,6 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { HttpService } from 'src/app/core/services/http.service';
 import { SharedService } from 'src/app/core/services/shared.service';
+import { ConfirmDialogModel, ConfirmPopupComponent } from '../confirm-popup/confirm-popup.component';
 
 @Component({
   selector: 'app-cart',
@@ -20,7 +22,8 @@ export class CartComponent implements OnInit {
 
   constructor(private _sharedService: SharedService,
     private changeDetectorRefs: ChangeDetectorRef,
-    private _http: HttpService) { }
+    private _http: HttpService,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this._http.getAllPreseters().subscribe((res: any) => {
@@ -71,6 +74,26 @@ export class CartComponent implements OnInit {
         (er) => {
           console.log("Error:", er);
         })
+  }
+  /**
+   * 
+   */
+  clearCart() {
+    const message = `Are you sure you want clear all items from cart?`;
+
+    const dialogData = new ConfirmDialogModel("Confirm Clear Cart", message);
+
+    const dialogRef = this.dialog.open(ConfirmPopupComponent, {
+      maxWidth: "500px",
+      data: dialogData
+    });
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      if (dialogResult == true) {
+        this._sharedService.clearCart();
+      } else {
+        return;
+      }
+    });
   }
 
 }

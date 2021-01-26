@@ -93,7 +93,7 @@ export class EndUserComponent implements OnInit {
       let pdf = new jspdf.jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
       let position = 0;
       pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)
-      let filename = 'fabone' + orderID + '.pdf';
+      let filename = 'onefab' + orderID + '.pdf';
       pdf.save(filename); // Generated PDF   
     });
   }

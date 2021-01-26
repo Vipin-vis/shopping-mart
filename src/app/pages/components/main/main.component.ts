@@ -4,6 +4,7 @@ import { APP_CONSTANTS } from 'src/app/core/constants/constants';
 import { Location } from "@angular/common";
 import { SharedService } from 'src/app/core/services/shared.service';
 import { AuthService } from 'src/app/core/services/auth.service';
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',

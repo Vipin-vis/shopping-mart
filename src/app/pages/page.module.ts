@@ -26,6 +26,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { MainComponent } from './components/main/main.component';
 import { ProductsComponent } from './components/products/products.component';
@@ -46,9 +47,6 @@ import { PackingPanelComponent } from './components/packing-panel/packing-panel.
 import { ConfirmPopupComponent } from './components/confirm-popup/confirm-popup.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { InvoiceComponent } from './components/invoice/invoice.component';
-
-
-
 @NgModule({
   declarations: [
     MainComponent,
@@ -99,11 +97,12 @@ import { InvoiceComponent } from './components/invoice/invoice.component';
     ClipboardModule,
     MatSnackBarModule,
     MatDialogModule,
-    MatMenuModule
+    MatMenuModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     MainComponent, MatButtonModule
   ],
-  entryComponents: [ConfirmPopupComponent]
+  entryComponents: [ConfirmPopupComponent],
 })
 export class PageModule { }
