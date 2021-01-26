@@ -52,12 +52,12 @@ export class LoginComponent implements OnInit {
     })
 
     /**To remove */
-    this.router.navigate(['/home']);
-    this._auth.autheticated = true;
-    this._auth.setIsauthcatedToLs('true');
-    this._sharedService.setUserType(this.userName);
-    this._sharedService.username =  this._sharedService.loggedUser = this.userName;
-    this._auth.setUserTypeToLs(this.userName);
-    this._auth.setUserToLs(this.userName);
+    // this.router.navigate(['/home']);
+    // this._auth.autheticated = true;
+    // this._auth.setIsauthcatedToLs('true');
+    // this._sharedService.setUserType(this.userName);
+    // this._sharedService.username =  this._sharedService.loggedUser = this.userName;
+    // this._auth.setUserTypeToLs(this.userName);
+    // this._auth.setUserToLs(this.userName);
   }
 }
