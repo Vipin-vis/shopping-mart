@@ -1,0 +1,60 @@
+<mat-icon class="user-icon">supervised_user_circle</mat-icon>
+<div class="main-div">
+    <div class="left-div">
+        <mat-selection-list #userslist [multiple]="false">
+            <mat-list-option (click)="onSelectUser(user)"class="user-list-div" *ngFor="let user of users" [value]="user.id">
+                <div class="user-list">
+                    <span class="user-name">{{user.username}}</span>
+                    <span class="user-type-label">Type: </span>
+                    <span>{{user.usertype}}</span>
+                </div>
+            </mat-list-option>
+        </mat-selection-list>
+    </div>
+    <mat-divider class="divider" vertical=true></mat-divider>
+    <div class="right-div">
+        <mat-card>
+            <mat-label *ngIf="newUserMode" class="card-label">Add New User</mat-label>
+            <br>
+            <mat-form-field class="User-full-width">
+                <mat-label>Name</mat-label>
+                <input [(ngModel)]="userName" matInput>
+            </mat-form-field>
+            <br>
+            <!-- <mat-form-field class="User-full-width">
+                <mat-label>Type</mat-label>
+                <input [(ngModel)]="userType" matInput>
+            </mat-form-field> -->
+            <mat-form-field appearance="fill" class="User-full-width">
+                <mat-label>User type</mat-label>
+                <mat-select [(ngModel)]="userType">
+                  <mat-option *ngFor="let type of userTypes" [value]="type">{{type}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="User-full-width">
+                <mat-label>User Details</mat-label>
+                <input [(ngModel)]="userDetails" matInput>
+            </mat-form-field>
+            <br>
+            <mat-form-field *ngIf="newUserMode" class="User-full-width">
+                <mat-label>New Password</mat-label>
+                <input type="password" [(ngModel)]="userNewPassword" matInput>
+            </mat-form-field>
+            <br>
+            <mat-form-field *ngIf="newUserMode" class="User-full-width">
+                <mat-label>Confirm Password</mat-label>
+                <input type="password" [(ngModel)]="userConfirmPassword" matInput>
+            </mat-form-field>
+            <br>
+            <br>
+            <button mat-raised-button color="accent" (click)="updateChanges()">Update Changes</button>
+            <button style="margin-left: 12px;" (click)="DeleteUser()" mat-raised-button color="secondary">Delete user</button>
+            <button style="margin-left: 12px;" (click)="cancel()" mat-raised-button color="secondary">Cancel</button>
+        </mat-card>
+
+    </div>
+</div>
+<button mat-fab color="accent" class="fixed-btn" matTooltip="Add New User" (click)="addNewUser()">
+    <mat-icon>add</mat-icon>
+</button>

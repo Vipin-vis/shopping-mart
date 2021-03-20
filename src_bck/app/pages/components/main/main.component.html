@@ -1,0 +1,70 @@
+<mat-drawer-container class="main-container">
+    <mat-drawer class="main-drawer" #drawer>
+        <div class="user">
+            <mat-icon class="user__icon" color="accent">mood</mat-icon>
+            <h2 class="user__name"> Hi, {{user}}</h2>
+        </div>
+        <mat-selection-list [multiple]="false">
+            <mat-list-option *ngIf="(userType === 'admin') || (userType === 'agent')" (click)="drawer.toggle()"
+                [routerLink]="'/home'">
+                Home
+                <mat-divider></mat-divider>
+            </mat-list-option>
+            <mat-list-option (click)="drawer.toggle()" [routerLink]="'/order'">
+                Order
+                <mat-divider></mat-divider>
+            </mat-list-option>
+            <mat-list-option *ngIf="(userType === 'admin') || (userType === 'agent')" (click)="drawer.toggle()"
+                [routerLink]="'/cart'">
+                Cart
+                <mat-divider></mat-divider>
+            </mat-list-option>
+            <mat-list-option (click)="drawer.toggle()" [routerLink]="'/changePassword'">
+                Settings
+                <mat-divider></mat-divider>
+            </mat-list-option>
+            <mat-list-option (click)="logOut();drawer.toggle()">
+                Logout
+                <mat-divider></mat-divider>
+            </mat-list-option>
+        </mat-selection-list>
+    </mat-drawer>
+    <mat-drawer-content>
+        <mat-toolbar *ngIf="route !== '/login' && !route.includes('/userConfirmation') && !route.includes('/invoice') 
+        && !route.includes('/totalSalesReport')" color="primary" class="header-tool-bar">
+            <button mat-icon-button class="example-icon">
+                <mat-icon (click)="drawer.toggle()">menu</mat-icon>
+            </button>
+            <span>ONE FAB SHOP</span>
+            <span class="example-spacer"></span>
+            <button mat-icon-button *ngIf="(userType === 'admin') || (userType === 'agent')" [routerLink]="'/home'">
+                <mat-icon matTooltip="Home">home</mat-icon>
+            </button>
+            <button mat-icon-button *ngIf="(userType === 'admin')" [routerLink]="'/admin-panel'">
+                <mat-icon matTooltip="Admin Panel">admin_panel_settings</mat-icon>
+            </button>
+            <button mat-icon-button *ngIf="(userType === 'admin') || (userType === 'packing')"
+                [routerLink]="'/packing-panel'">
+                <mat-icon matTooltip="Packing Panel">all_inbox</mat-icon>
+            </button>
+            <button mat-icon-button [routerLink]="'/order'">
+                <mat-icon matTooltip="Order">text_snippet</mat-icon>
+            </button>
+            <button mat-icon-button *ngIf="(userType === 'admin') || (userType === 'agent')" [routerLink]="'/cart'">
+                <mat-icon [matBadge]="cartLength" matBadgeColor="accent" matTooltip="Cart">shopping_cart</mat-icon>
+            </button>
+            <button mat-icon-button [matMenuTriggerFor]="menu" class="example-icon">
+                <mat-icon matTooltip="Account">account_circle</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item [routerLink]="'/changePassword'">User Settings</button>
+                <button mat-menu-item (click)="logOut()">Logout</button>
+            </mat-menu>
+        </mat-toolbar>
+        <div class="main-content">
+            <!-- <mat-progress-bar style="top:55px" color="accent" mode="query"></mat-progress-bar> -->
+            <router-outlet></router-outlet>
+            <!-- <app-products></app-products> -->
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>

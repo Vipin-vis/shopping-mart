@@ -1,0 +1,36 @@
+<mat-card class="add-product">
+    <mat-label class="card-label">Add New Product</mat-label>
+    <br>
+    <br>
+    <mat-form-field class="User-full-width">
+        <mat-label>Product Name</mat-label>
+        <input matInput [(ngModel)]="product.product_name">
+    </mat-form-field>
+    <br>
+    <mat-form-field *ngIf="newCategory" class="User-full-width">
+        <mat-label>Category</mat-label>
+        <input matInput [(ngModel)]="product.product_category">
+    </mat-form-field>
+    <mat-form-field *ngIf="!newCategory" appearance="fill">
+        <mat-label>Category</mat-label>
+        <mat-select [(value)]="product.product_category">
+            <mat-option *ngFor="let category of catergoriesList"  [value]="category">{{category}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button *ngIf="!newCategory" mat-raised-button style="margin-left: 12px;"  (click)="selectNewCategory(true)">Add New category</button>
+    <button *ngIf="newCategory" mat-raised-button style="margin-left: 12px;"  (click)="selectNewCategory(false)">Select Category</button>
+    <br>
+    <mat-form-field class="User-full-width">
+        <mat-label>Price</mat-label>
+        <input matInput [(ngModel)]="product.product_price">
+    </mat-form-field>
+    <br>
+    <mat-form-field class="User-full-width">
+        <mat-label>Product Description</mat-label>
+        <input matInput [(ngModel)]="product.product_description">
+    </mat-form-field>
+    <br>
+    <br>
+    <button mat-raised-button color="accent" (click)="addProduct()">Add Product</button>
+    <button style="margin-left: 12px;" (click)="cancel()" mat-raised-button color="secondary">Cancel</button>
+</mat-card>

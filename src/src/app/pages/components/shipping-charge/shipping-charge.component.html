@@ -1,0 +1,16 @@
+<mat-card class="add-shipping">
+    <mat-label class="card-label">Update Shipping Charge</mat-label>
+    <br>
+    <br>
+    <div class = "shipping-container">
+
+        <mat-form-field *ngFor="let item of shippingTypeCharge" class="User-full-width">
+            <mat-label>{{item.name}} Charge</mat-label>
+            <input matInput [(ngModel)]="item.cost">
+        </mat-form-field>
+    </div>
+    <br>
+    <br>
+    <button mat-raised-button color="accent" (click)="saveCharge()">Update Changes</button>
+    <button style="margin-left: 12px;" (click)="cancel()" mat-raised-button color="secondary">Cancel</button>
+</mat-card>

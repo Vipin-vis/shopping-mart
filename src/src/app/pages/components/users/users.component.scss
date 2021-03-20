@@ -1,0 +1,45 @@
+.user-list {
+    display: flex;
+    .user-name {
+        margin-right: 75px;
+        min-width: 75px;
+        font-weight: bold;
+    }
+    .user-type-label {
+        margin-right: 12px;
+        font-size: 12px;
+    }
+}
+.user-list-div {
+    top: 100px;
+    max-height: 250px;
+}
+.user-icon {
+    padding: 12px;
+    position: absolute;
+    font-size: 36px;
+    top:64px;
+}
+
+.main-div {
+    display: flex;
+    justify-content:space-between;
+    .right-div {
+        top: 100px;
+        min-width: 750px;
+        position: relative;
+    }
+    .divider {
+        top:100px;
+        position: relative;
+    }
+}
+.User-full-width {
+    width: 100%;
+}
+
+.fixed-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+}
