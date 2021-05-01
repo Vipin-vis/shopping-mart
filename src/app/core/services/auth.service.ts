@@ -1,12 +1,15 @@
 import { OverlayKeyboardDispatcher } from '@angular/cdk/overlay';
 import { Injectable } from '@angular/core';
+import { SharedService } from './shared.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor() { }
+  constructor() { 
+
+  }
 
   autheticated: boolean = false;
 

@@ -28,12 +28,56 @@
             </button>
         </mat-card>
         <mat-card class="admin-card">
-            <h2><span>Today Sale</span></h2>
-            <img class="card-image" src="../../../../assets/today-sales.PNG" alt="">
+            <h2><span>User Sales Report</span></h2>
+            <mat-form-field  appearance="fill">
+                <mat-label>Select User</mat-label>
+                <mat-select [(value)]="userReportUser">
+                    <mat-option *ngFor="let item of users" [value]="item.username">{{item.username}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Enter a date range</mat-label>
+                <mat-date-range-input [formGroup]="userTotalSalesDateRange" [rangePicker]="picker2">
+                    <input matStartDate formControlName="start" placeholder="Start date">
+                    <input matEndDate formControlName="end" placeholder="End date">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker2></mat-date-range-picker>
+                <mat-error *ngIf="userTotalSalesDateRange.controls.start.hasError('matStartDateInvalid')">Invalid start date
+                </mat-error>
+                <mat-error *ngIf="userTotalSalesDateRange.controls.end.hasError('matEndDateInvalid')">Invalid end date
+                </mat-error>
+            </mat-form-field>
+            <br>
+            <button class="report-btn" mat-flat-button color="accent" (click)="getReport('userTotalSales')">Get
+                Report
+            </button>
         </mat-card>
         <mat-card class="admin-card">
-            <h2><span>Weekly Sale</span></h2>
-            <img class="card-image" src="../../../../assets/weekly-sales.PNG" alt="">
+            <h2><span>User Type Sales Report</span></h2>
+            <mat-form-field  appearance="fill"> 
+                <mat-label>Select User Type</mat-label>
+                <mat-select [(value)]="userTypeReportType">
+                    <mat-option *ngFor="let item of userTypes" [value]="item">{{item}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Enter a date range</mat-label>
+                <mat-date-range-input [formGroup]="userTypeTotalSalesDateRange" [rangePicker]="picker3">
+                    <input matStartDate formControlName="start" placeholder="Start date">
+                    <input matEndDate formControlName="end" placeholder="End date">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker3></mat-date-range-picker>
+                <mat-error *ngIf="userTypeTotalSalesDateRange.controls.start.hasError('matStartDateInvalid')">Invalid start date
+                </mat-error>
+                <mat-error *ngIf="userTypeTotalSalesDateRange.controls.end.hasError('matEndDateInvalid')">Invalid end date
+                </mat-error>
+            </mat-form-field>
+            <br>
+            <button class="report-btn" mat-flat-button color="accent" (click)="getReport('userTotalSales')">Get
+                Report
+            </button>
         </mat-card>
         <mat-card class="admin-card">
             <h2><span>Monthly Sale</span></h2>

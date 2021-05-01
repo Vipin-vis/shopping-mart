@@ -390,7 +390,7 @@ export class HttpService {
   /**
    * 
    */
-  getTotalSalereport(startDate: any, endDate: any) {
+  getTotalSalereport(startDate: any, endDate: any,reportType:any) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -398,6 +398,7 @@ export class HttpService {
         'x-access-token': this._auth.getToken()
       })
     };
-    return this.http.get(this.serviceURI + `/getTotalSalesReport?start_date=${startDate}&end_date=${endDate}`, httpOptions);
+    const user=localStorage.getItem('user');
+    return this.http.get(this.serviceURI + `/getTotalSalesReport?start_date=${startDate}&end_date=${endDate}&reportType=${reportType}&reportUser=${user}`, httpOptions);
   }
 }

@@ -25,6 +25,7 @@ export class UsersComponent implements OnInit {
   userNewPassword: string = "";
   userTypes: any = [];
   selectedUserName: string = "";
+  previousUserName: string = "";
   constructor(private _http: HttpService,
     private _sharedService: SharedService,
     private router: Router,
@@ -68,7 +69,8 @@ export class UsersComponent implements OnInit {
     let param = {
       username: this._sharedService.loggedUser,
       action_user: this.userName,
-      usertype: this.userType
+      usertype: this.userType,
+      previousUserName: this.previousUserName
     }
     this._http.editUSer(param).subscribe((res) => {
       console.log("Succcessfully Updated", res);
@@ -145,6 +147,7 @@ export class UsersComponent implements OnInit {
       this.userType = res["usertype"];
       this.userDetails = res["details"];
       // this.userMail = res["userMail"];
+      this.previousUserName= this.userName;
     })
     this.userName = user["userName"];
     this.userType = user["userType"];

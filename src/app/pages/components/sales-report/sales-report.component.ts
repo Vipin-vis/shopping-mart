@@ -11,29 +11,40 @@ export class SalesReportComponent implements OnInit {
 
   dataSource: any = [
     {
-      orders: 100,
-      cost: 25000
-    }
-  ];
+      orders: 0,
+      cost: 0
+    }];
+
   startDateVal: any = null;
   endDateVal: any = null;
-
+  startDat:string="";
+  endDat:string="";
   displayedColumns: string[] = ['orders', 'cost'];
+  user:any="";
 
   constructor(private _http: HttpService,
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    //this.user=localStorage.getItem('user');
+    this.user =  this.route.snapshot.queryParams['user'];
+    const reportType = this.route.snapshot.queryParams['report_type'];
     const startDate = this.route.snapshot.queryParams['start_date'];
     const startDateObj = new Date(parseInt(startDate));
-    this.startDateVal = `${startDateObj.getDate()}-${startDateObj.getMonth()}-${startDateObj.getFullYear()}`;
-
+    //this.startDateVal = `${startDateObj.getDate()}-${startDateObj.getMonth()}-${startDateObj.getFullYear()}`;
+    let smonth:any =String(startDateObj.getMonth() + 1).padStart(2, '0')
+    let sdate:any = String(startDateObj.getDate()).padStart(2, '0')
+    this.startDateVal = `${startDateObj.getFullYear()}-${smonth}-${sdate} 0:0:1`;
+    this.startDat = this.startDateVal.split(" ")[0];
     const endDate = this.route.snapshot.queryParams['end_date'];
     const endDateObj = new Date(parseInt(endDate));
-    this.endDateVal = `${endDateObj.getDate()}-${endDateObj.getMonth()}-${endDateObj.getFullYear()}`;
-
-    this._http.getTotalSalereport(startDateObj+"", endDateObj+"").subscribe((res: any) => {
-      this.dataSource = JSON.parse(JSON.stringify(res));
+    let emonth:any =String(endDateObj.getMonth() + 1).padStart(2, '0')
+    let edate:any = String(endDateObj.getDate()).padStart(2, '0')
+    this.endDateVal = `${endDateObj.getFullYear()}-${emonth}-${edate} 23:59:59`;
+    this.endDat = this.endDateVal.split(" ")[0];
+    this._http.getTotalSalereport(this.startDateVal, this.endDateVal,reportType).subscribe((res: any) => {
+      this.dataSource[0].cost = JSON.parse(JSON.stringify(res)).cost;
+      this.dataSource[0].orders = JSON.parse(JSON.stringify(res)).orders;
     },
       (err) => {
         console.log("ERROR: ", err);

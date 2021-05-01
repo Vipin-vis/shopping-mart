@@ -2,7 +2,7 @@
     display: flex;
     .user-name {
         margin-right: 75px;
-        min-width: 75px;
+        min-width: 150px;
         font-weight: bold;
     }
     .user-type-label {
@@ -18,12 +18,16 @@
     padding: 12px;
     position: absolute;
     font-size: 36px;
-    top:64px;
+    top: 64px;
 }
 
 .main-div {
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
+    .left-div {
+        overflow-y: auto;
+        max-height: 500px;
+    }
     .right-div {
         top: 100px;
         min-width: 750px;

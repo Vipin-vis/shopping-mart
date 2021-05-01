@@ -12,7 +12,7 @@
                     <mat-label>Search Order ID</mat-label>
                     <input matInput [(ngModel)]="orderIDFilter">
                 </mat-form-field>
-                <mat-form-field class="order-field filter-field" *ngIf="displayPayment" appearance="fill">
+                <mat-form-field class="order-field filter-field" appearance="fill">
                     <mat-label>Payment Filter</mat-label>
                     <mat-select [(value)]="paymentFilter">
                         <mat-option [value]="'ALL'">All</mat-option>
@@ -20,7 +20,7 @@
                         <mat-option [value]="'PENDING'">Not Paid</mat-option>
                     </mat-select>
                 </mat-form-field>
-                <mat-form-field class="order-field filter-field" *ngIf="displayOrderStatus" appearance="fill">
+                <mat-form-field class="order-field filter-field" appearance="fill">
                     <mat-label>Order Filter</mat-label>
                     <mat-select [(value)]="orderFilter">
                         <mat-option [value]="'ALL'">All</mat-option>
@@ -77,87 +77,89 @@
                             style="background-color: rgb(155, 15, 8);" selected>Cancelled
                         </mat-chip>
                     </mat-chip-list>
+
+                    <div style="margin-left: 18px; margin-top: 5px;">
+                        <mat-label>Ordered on:</mat-label>
+                        <mat-label>{{order.order_date}}</mat-label>
+                    </div>
                 </mat-expansion-panel-header>
                 <mat-divider style="margin-bottom: 12px;"></mat-divider>
                 <div class="order-options">
                     <mat-panel-title class="order">
                         <span class="label-title">Customer:</span> {{order.products['customer_name']}}
                     </mat-panel-title>
-                    <!-- <mat-slide-toggle class="payment-toggle"[ngModel]="order.paid" *ngIf="displayPayment">Payment</mat-slide-toggle> -->
-                   
-                    <mat-form-field class="order-field" *ngIf="displayPayment" appearance="fill">
+                    <mat-form-field class="order-field" appearance="fill">
                         <mat-label>Payment Status</mat-label>
-                        <mat-select (selectionChange)="onChangePayment(order)" [(value)]="order.payment_status">
+                        <mat-select (selectionChange)="onChangePayment(order)" [(value)]="order.payment_status"
+                            [disabled]="!displayPayment">
                             <mat-option [value]="'COMPLETED'">Paid</mat-option>
                             <mat-option [value]="'PENDING'">Not Paid</mat-option>
                         </mat-select>
                     </mat-form-field>
-                    <mat-form-field class="order-field" *ngIf="displayOrderStatus" appearance="fill">
+                    <mat-form-field class="order-field" appearance="fill">
                         <mat-label>Order Status</mat-label>
                         <mat-select (selectionChange)="onChangeOrder(order)" [(value)]="order.order_status">
-                            <mat-option [value]="'PLACED'">Placed</mat-option>
-                            <mat-option [value]="'CONFIRMED'">Confirmed</mat-option>
-                            <mat-option [value]="'RD_PACK'">Packing</mat-option>
-                            <mat-option [value]="'RD_SHIP'">Shipping</mat-option>
-                            <mat-option [value]="'SHIPPED'">Shipped</mat-option>
-                            <mat-option [value]="'CANCELLED'">Cancelled</mat-option>
+                            <mat-option [value]="'PLACED'" *ngIf="currentUserType==='admin'">Placed</mat-option>
+                            <mat-option [value]="'CONFIRMED'" *ngIf="currentUserType==='admin'">Confirmed</mat-option>
+                            <mat-option [value]="'RD_PACK'"
+                                *ngIf="(currentUserType==='admin')||(currentUserType==='packing')">
+                                Packing
+                            </mat-option>
+                            <mat-option [value]="'RD_SHIP'"
+                                *ngIf="(currentUserType==='admin')||(currentUserType==='packing')||(currentUserType==='shipping')">
+                                Shipping
+                            </mat-option>
+                            <mat-option [value]="'SHIPPED'"
+                                *ngIf="(currentUserType==='admin')||(currentUserType==='shipping')">
+                                Shipped
+                            </mat-option>
+                            <mat-option [value]="'CANCELLED'" *ngIf="(currentUserType==='admin')">
+                                Cancelled
+                            </mat-option>
                         </mat-select>
                     </mat-form-field>
-                    <mat-form-field class="order-field" *ngIf="displayOrderStatus " appearance="fill">
+                    <mat-form-field class="order-field" appearance="fill">
                         <mat-label>Cargo Type</mat-label>
-                        <mat-select (selectionChange)="onChangeOrder(order)" [(value)]="order.cargo_type">
+                        <mat-select (selectionChange)="onChangeOrder(order)" [(value)]="order.cargo_type"
+                            [disabled]="!(currentUserType=='admin'|| currentUserType=='shipping')">
                             <mat-option [value]="'AIR'">Air</mat-option>
                             <mat-option [value]="'Sea'">Sea</mat-option>
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field class="order-field" appearance="fill">
                         <mat-label>Box ID</mat-label>
-                        <input matInput  [(ngModel)]="order.box_id">
+                        <input [disabled]="!(currentUserType=='admin'|| currentUserType=='shipping')" matInput
+                            [(ngModel)]="order.box_id">
                     </mat-form-field>
-
-                    <!-- <mat-form-field class="User-full-width order-field">
-                        <mat-label>Remarks</mat-label>
-                        <input [(ngModel)]="remarks" matInput>
-                    </mat-form-field> -->
                     <div>
-                        <!-- <button class="order-save" mat-mini-fab>
-                            <mat-icon matRipple matTooltip="Add Remarks" (click)="addRemarks(order.order_id)">note_add
-                            </mat-icon>
-                        </button> -->
-                        <!-- <button class="order-save" mat-mini-fab>
-                            <mat-icon matRipple matTooltip="Remarks" (click)="openRemarkPopup(order.order_id)">
-                                speaker_notes
-                            </mat-icon>
-                        </button>
-                        <button class="order-save" mat-mini-fab>
-                            <mat-icon matRipple matTooltip="Add From Cart" (click)="addFromCart(order.order_id)">
-                                add_shopping_cart
-                            </mat-icon>
-                        </button>
-                        <button class="order-save" (click)="saveChanges(order)" mat-mini-fab>
-                            <mat-icon matRipple matTooltip="Save changes">save</mat-icon>
-                        </button>
-                        <button *ngIf="displayDeleteOrder" class="order-save" mat-mini-fab
-                            (click)="deleteOrder(order.order_id)">
-                            <mat-icon matRipple matTooltip="Delete Order">clear</mat-icon>
-                        </button> -->
                         <button mat-button [matMenuTriggerFor]="menu">
                             <mat-icon matRipple matTooltip="More Options">more_vert</mat-icon>
                         </button>
                         <mat-menu #menu="matMenu">
                             <button mat-menu-item (click)="openRemarkPopup(order.order_id)">Remarks</button>
                             <button mat-menu-item (click)="goToInvoice(order.order_id)">Get Invoice</button>
-                            <button mat-menu-item (click)="addFromCart(order.order_id)">Add From Cart</button>
-                            <button mat-menu-item (click)="saveChanges(order)">Save Order</button>
-                            <button mat-menu-item (click)="deleteOrder(order.order_id)">Delete Order</button>
+                            <button mat-menu-item (click)="addFromCart(order.order_id)"
+                                [disabled]="!(currentUserType=='admin'|| currentUserType=='agent')">Add From
+                                Cart</button>
+                            <button mat-menu-item (click)="saveChanges(order)"
+                                [disabled]="(currentUserType=='accountant'|| currentUserType=='packing')">Save Order
+                            </button>
+                            <button mat-menu-item (click)="deleteOrder(order.order_id)"
+                                [disabled]="!(currentUserType=='admin'|| currentUserType=='agent')">Delete
+                                Order</button>
                         </mat-menu>
 
                     </div>
                 </div>
                 <br>
+                <div style="display: flex;">
+                    <div class="share-facebook" title="Go to facebook" (click)="goToPage('https://www.messenger.com/')"></div>
+                    <div class="share-whatsapp" title="Go to whatsapp" (click)="goToPage('https://web.whatsapp.com/')"></div>
+                </div>
                 <mat-form-field appearance="fill" style="width: 30%;float:right;margin-right: 109px;">
                     <mat-label>Shipping vendor Details</mat-label>
-                    <textarea matInput [(ngModel)]="order.shipping_vendor"></textarea>
+                    <textarea matInput [(ngModel)]="order.shipping_vendor"
+                        [disabled]="!(currentUserType=='admin'|| currentUserType=='shipping')"></textarea>
                 </mat-form-field>
                 <table mat-table class="order-table" [dataSource]="order.products">
                     <!-- Item Column -->
@@ -175,8 +177,10 @@
                     <!-- Cost Column -->
                     <ng-container matColumnDef="quantity">
                         <th mat-header-cell class="qty-td" *matHeaderCellDef> Quantity </th>
-                        <td mat-cell class="qty-td" *matCellDef="let product"> <input min="1" matInput type=number
-                                [(ngModel)]="product.prod_quantity"></td>
+                        <td mat-cell class="qty-td" *matCellDef="let product">
+                            <input min="1" matInput type=number [(ngModel)]="product.prod_quantity"
+                                [disabled]="!(currentUserType=='admin'|| currentUserType=='agent')">
+                        </td>
                         <td mat-footer-cell *matFooterCellDef> </td>
                     </ng-container>
                     <!-- Cost Column -->
@@ -190,7 +194,8 @@
                         <th mat-header-cell *matHeaderCellDef> Total Cost</th>
                         <td mat-cell class="tcost-td" *matCellDef="let product">
                             {{product.prod_price * product.prod_quantity | currency:'AED'}}
-                            <button mat-mini-fab class="del-prod" color="accent">
+                            <button mat-mini-fab class="del-prod" color="accent"
+                                *ngIf="(currentUserType=='admin'|| currentUserType=='agent')">
                                 <mat-icon (click)="removeItemFromOrder(product.id,order.order_id)">remove</mat-icon>
                             </button>
                         </td>

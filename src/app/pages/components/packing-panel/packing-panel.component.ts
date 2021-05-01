@@ -22,11 +22,12 @@ export class PackingPanelComponent implements OnInit {
   getReport(type: string) {
     let startDate = (new Date(this.totalSalesDateRange.controls['start'].value)).getTime();
     let endDate = (new Date(this.totalSalesDateRange.controls['end'].value)).getTime();
+    let user = localStorage.getItem('user');
     if (!!startDate == false || !!endDate == false) {
       this._sharedService.openSnackBar("Please enter all required values!");
       return;
     }
-    window.open(`/totalSalesReport?start_date=${startDate}&end_date=${endDate}`, "_blank");
+    window.open(`/totalSalesReport?start_date=${startDate}&end_date=${endDate}&report_type=employeeSalesReport&user=${user}`, "_blank");
   }
 
 }

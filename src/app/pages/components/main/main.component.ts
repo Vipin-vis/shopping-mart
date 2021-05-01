@@ -43,8 +43,10 @@ export class MainComponent implements OnInit {
   }
 
   logOut() {
+    this._sharedService.clearCart();
     this._auth.logOut();
     this.router.navigate(['/login']);
+    
   }
 
 }

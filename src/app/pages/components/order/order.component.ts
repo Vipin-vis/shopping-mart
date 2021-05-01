@@ -15,7 +15,7 @@ export class OrderComponent implements OnInit {
 
   displayedColumns = ['item', 'category', 'quantity', 'cost', 'tCost'];
   orders: any = Orders;
-  displayPayment: boolean = true;
+  displayPayment: boolean = false;
   displayOrderStatus = true;
   displayDeleteOrder = true;
   remarks: string = "";
@@ -26,11 +26,13 @@ export class OrderComponent implements OnInit {
   orderFilter: string = "";
   showFilter: boolean = false;
   shippingVendor:string ="";
+  currentUserType:string="";
 
   constructor(private _sharedService: SharedService,
     private _http: HttpService,
     public dialog: MatDialog) {
     let userType: string = this._sharedService.userTypeValue;
+    this.currentUserType = userType;
     // this.orders = Orders;
 
     if (userType === "admin") {
@@ -251,6 +253,13 @@ export class OrderComponent implements OnInit {
    */
   goToInvoice(orderid: string) {
     window.open(`/invoice?order_id=${orderid}&cust_id=${this.currentCustId}`, "_blank");
+  }
+
+  /**
+ * 
+ */
+  goToPage(url: string) {
+    window.open(url);
   }
 }
 
