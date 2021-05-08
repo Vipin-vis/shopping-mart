@@ -152,10 +152,6 @@
                     </div>
                 </div>
                 <br>
-                <div style="display: flex;">
-                    <div class="share-facebook" title="Go to facebook" (click)="goToPage('https://www.messenger.com/')"></div>
-                    <div class="share-whatsapp" title="Go to whatsapp" (click)="goToPage('https://web.whatsapp.com/')"></div>
-                </div>
                 <mat-form-field appearance="fill" style="width: 30%;float:right;margin-right: 109px;">
                     <mat-label>Shipping vendor Details</mat-label>
                     <textarea matInput [(ngModel)]="order.shipping_vendor"
@@ -180,6 +176,24 @@
                         <td mat-cell class="qty-td" *matCellDef="let product">
                             <input min="1" matInput type=number [(ngModel)]="product.prod_quantity"
                                 [disabled]="!(currentUserType=='admin'|| currentUserType=='agent')">
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef> </td>
+                    </ng-container>
+                    <!-- Packer column-->
+                    <ng-container matColumnDef="presenter">
+                        <th mat-header-cell class="qty-td" *matHeaderCellDef> Packer </th>
+                        <td mat-cell *matCellDef="let product">
+                            <!-- <input min="1" matInput  [(ngModel)]="product.prod_quantity"
+                                [disabled]="!(currentUserType=='admin'|| currentUserType=='agent')"> -->
+                            <mat-form-field appearance="fill">
+                                <mat-label>Presenter</mat-label>
+                                <mat-select [(ngModel)]="product.presenter">
+                                    <mat-option *ngFor="let presenter of presenters" [value]="presenter.user_name">
+                                        {{presenter.user_name}} 
+                                        <!-- {{product.presenter}} -->
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
                         </td>
                         <td mat-footer-cell *matFooterCellDef> </td>
                     </ng-container>

@@ -4,6 +4,7 @@ import { HttpService } from 'src/app/core/services/http.service';
 import { SharedService } from 'src/app/core/services/shared.service';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
+import { ALL_COUNTRIES } from 'src/app/core/constants/constants';
 
 @Component({
   selector: 'app-end-user',
@@ -34,8 +35,8 @@ export class EndUserComponent implements OnInit {
     order_id: "",
   };
   userAdded: boolean = false;
-  toPrint:boolean = true;
-
+  toPrint: boolean = true;
+  allCountries: any = ALL_COUNTRIES;
   constructor(private _http: HttpService,
     private route: ActivatedRoute, private _sharedservice: SharedService) {
     this.orderID = "";
@@ -60,21 +61,21 @@ export class EndUserComponent implements OnInit {
     let total = this.products.map((prod: any) => prod.prod_price * prod.prod_quantity).reduce((acc: any, value: any) => acc + value, 0);
     this.totalCost = total + this.shipment.cost;
   }
-  validateEmail(email:string):boolean{
+  validateEmail(email: string): boolean {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
   }
-  validateFields():boolean {
+  validateFields(): boolean {
     if (this.userDetails.customer_name.trim() === "" ||
       this.userDetails.customer_contact.trim() === "" ||
       this.userDetails.customer_email_id.trim() === "" ||
       this.userDetails.customer_billing_address.trim() === "" ||
       this.userDetails.customer_shipping_address.trim() === "" ||
       this.userDetails.delivery_mode.trim() === "") {
-        this._sharedservice.openSnackBar("All fields are mandatory!");
-        return false;
+      this._sharedservice.openSnackBar("All fields are mandatory!");
+      return false;
     }
-    else if (!this.validateEmail(this.userDetails.customer_email_id)){
+    else if (!this.validateEmail(this.userDetails.customer_email_id)) {
       this._sharedservice.openSnackBar("Please enter valid email address!");
       return false;
     }
@@ -85,7 +86,7 @@ export class EndUserComponent implements OnInit {
      *  
      */
   saveUserDetails() {
-    if(!this.validateFields()){
+    if (!this.validateFields()) {
       return;
     }
     const urlParams = new URLSearchParams(window.location.search);
@@ -105,13 +106,13 @@ export class EndUserComponent implements OnInit {
   }
 
   captureScreen() {
-    this.toPrint=false
+    this.toPrint = false
     const urlParams = new URLSearchParams(window.location.search);
     const orderID = urlParams.get('order_id');
-    document.title= orderID?.toString()+'_INVOICE';
+    document.title = orderID?.toString() + '_INVOICE';
     setTimeout(() => {
       window.print();
-      this.toPrint=true;
+      this.toPrint = true;
     }, 1000);
     let data: any = document.getElementById('invoiceToPrint');
     html2canvas(data).then(canvas => {

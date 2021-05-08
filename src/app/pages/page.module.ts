@@ -49,6 +49,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { InvoiceComponent } from './components/invoice/invoice.component';
 import { OrderPipe, OrderPipeOrder, OrderPipePayment, OrderPipeStatus } from '../core/filter/order-pipe.pipe';
 import { SalesReportComponent } from './components/sales-report/sales-report.component';
+import { BoxidReportComponent } from './components/boxid-report/boxid-report.component';
 @NgModule({
   declarations: [
     MainComponent,
@@ -71,6 +72,7 @@ import { SalesReportComponent } from './components/sales-report/sales-report.com
     OrderPipePayment,
     OrderPipeStatus,
     SalesReportComponent,
+    BoxidReportComponent,
   ],
   imports: [
     CommonModule,

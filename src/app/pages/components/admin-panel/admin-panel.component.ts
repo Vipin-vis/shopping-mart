@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { APP_CONSTANTS } from 'src/app/core/constants/constants';
+import { ALL_COUNTRIES, APP_CONSTANTS } from 'src/app/core/constants/constants';
 import { HttpService } from 'src/app/core/services/http.service';
 import { SharedService } from 'src/app/core/services/shared.service';
 
@@ -25,10 +25,18 @@ export class AdminPanelComponent implements OnInit {
     start: new FormControl(),
     end: new FormControl()
   });
+  boxIDTotalSalesDateRange = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl()
+  });
   userReportUser: string = "";
   users: any;
   userTypes: any;
   userTypeReportType: string = "";
+  reportBoxID: string = "";
+  allCountries: any = ALL_COUNTRIES;
+  selectedCountry: string = "";
+
   constructor(
     private _sharedService: SharedService,
     private _http: HttpService
@@ -72,13 +80,35 @@ export class AdminPanelComponent implements OnInit {
         }
       case 'userTypeTotalSales':
         {
-          startDate = (new Date(this.userTotalSalesDateRange.controls['start'].value)).getTime();
-          endDate = (new Date(this.userTotalSalesDateRange.controls['end'].value)).getTime();
+          startDate = (new Date(this.userTypeTotalSalesDateRange.controls['start'].value)).getTime();
+          endDate = (new Date(this.userTypeTotalSalesDateRange.controls['end'].value)).getTime();
           if (!!startDate == false || !!endDate == false) {
             this._sharedService.openSnackBar("Please enter all required values!");
             return;
           }
           window.open(`/totalSalesReport?start_date=${startDate}&end_date=${endDate}&type=${type}&userType=${this.userTypeReportType}`, "_blank");
+          break;
+        }
+      case 'boxIDTotalSales':
+        {
+          startDate = (new Date(this.boxIDTotalSalesDateRange.controls['start'].value)).getTime();
+          endDate = (new Date(this.boxIDTotalSalesDateRange.controls['end'].value)).getTime();
+          if (!!startDate == false || !!endDate == false) {
+            this._sharedService.openSnackBar("Please enter all required values!");
+            return;
+          }
+          window.open(`/boxIDReport?start_date=${startDate}&end_date=${endDate}&type=${type}&boxid=${this.reportBoxID}`, "_blank");
+          break;
+        }
+      case 'countrySales':
+        {
+          startDate = (new Date(this.boxIDTotalSalesDateRange.controls['start'].value)).getTime();
+          endDate = (new Date(this.boxIDTotalSalesDateRange.controls['end'].value)).getTime();
+          if (!!startDate == false || !!endDate == false) {
+            this._sharedService.openSnackBar("Please enter all required values!");
+            return;
+          }
+          window.open(`/totalSalesReport?start_date=${startDate}&end_date=${endDate}&type=${type}&country=${this.selectedCountry}`, "_blank");
           break;
         }
       default:

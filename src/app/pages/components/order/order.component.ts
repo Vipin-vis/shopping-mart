@@ -13,7 +13,7 @@ import { ConfirmDialogModel, ConfirmPopupComponent } from '../confirm-popup/conf
 })
 export class OrderComponent implements OnInit {
 
-  displayedColumns = ['item', 'category', 'quantity', 'cost', 'tCost'];
+  displayedColumns = ['item', 'category', 'quantity', 'presenter', 'cost', 'tCost'];
   orders: any = Orders;
   displayPayment: boolean = false;
   displayOrderStatus = true;
@@ -25,8 +25,10 @@ export class OrderComponent implements OnInit {
   paymentFilter: string = "";
   orderFilter: string = "";
   showFilter: boolean = false;
-  shippingVendor:string ="";
-  currentUserType:string="";
+  shippingVendor: string = "";
+  currentUserType: string = "";
+  selectedPresenter: string = "";
+  presenters: any = [];
 
   constructor(private _sharedService: SharedService,
     private _http: HttpService,
@@ -49,7 +51,9 @@ export class OrderComponent implements OnInit {
       this.displayOrderStatus = true;
       this.displayDeleteOrder = false;
     }
-
+    this._http.getAllPreseters().subscribe((res: any) => {
+      this.presenters = JSON.parse(JSON.stringify(res.presenter_info))
+    });
   }
 
   products: any[] = [];
@@ -81,7 +85,6 @@ export class OrderComponent implements OnInit {
     this.orders.forEach((order: any) => {
       if (order.order_id === id) {
         this._http.getOrderDetails(id).subscribe((res: any) => {
-
 
           //order.products = { ...res['order_product_data'] }
           order.products = JSON.parse(JSON.stringify(res['order_product_data']));
@@ -157,6 +160,7 @@ export class OrderComponent implements OnInit {
    * @param order 
    */
   saveChanges(order: any) {
+    debugger;
     this._http.editOrder(order).subscribe((res: any) => {
       this._sharedService.openSnackBar("Order edited successfully!!");
     }, (err: any) => {
@@ -253,13 +257,6 @@ export class OrderComponent implements OnInit {
    */
   goToInvoice(orderid: string) {
     window.open(`/invoice?order_id=${orderid}&cust_id=${this.currentCustId}`, "_blank");
-  }
-
-  /**
- * 
- */
-  goToPage(url: string) {
-    window.open(url);
   }
 }
 

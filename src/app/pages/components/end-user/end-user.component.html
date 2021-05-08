@@ -71,6 +71,13 @@
     </mat-form-field>
     <br>
     <mat-form-field class="User-full-width ">
+        <mat-label>Country</mat-label>
+        <mat-select [(value)]="userDetails.country">
+            <mat-option *ngFor="let country of allCountries" [value]="country.code">{{country.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="User-full-width ">
         <mat-label>Shipping Address</mat-label>
         <textarea matInput class="address" [(ngModel)]="userDetails.customer_shipping_address"></textarea>
     </mat-form-field>

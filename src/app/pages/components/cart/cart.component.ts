@@ -28,9 +28,7 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
     this._http.getAllPreseters().subscribe((res: any) => {
       this.presenters = JSON.parse(JSON.stringify(res.presenter_info))
-
     });
-
   }
 
   /** Gets the total cost of all Products. */
@@ -55,11 +53,11 @@ export class CartComponent implements OnInit {
    * 
    */
   generateOrder() {
-    if (this.products.length == 0){
+    if (this.products.length == 0) {
       this._sharedService.openSnackBar("Cart is empty");
       return;
     }
-    if (this.selectedPresenter.length == 0){
+    if (this.selectedPresenter.length == 0) {
       this._sharedService.openSnackBar("Please select presenter");
       return;
     }
@@ -98,11 +96,17 @@ export class CartComponent implements OnInit {
     dialogRef.afterClosed().subscribe(dialogResult => {
       if (dialogResult == true) {
         this._sharedService.clearCart();
-        this.products=[];
+        this.products = [];
       } else {
         return;
       }
     });
+  }
+  /**
+   * 
+   */
+  goToPage(url: string) {
+    window.open(url);
   }
 
 }

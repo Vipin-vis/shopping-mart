@@ -74,7 +74,11 @@
         <mat-icon matSuffix style="cursor: pointer;" matTooltip="Copy to clipboard" ngxClipboard [cbContent]="orderLink"
             matRipple>content_copy</mat-icon>
     </mat-form-field>
+    <div class="share-facebook" title="Go to facebook" (click)="goToPage('https://www.messenger.com/')"></div>
+    <div class="share-whatsapp" title="Go to whatsapp" (click)="goToPage('https://web.whatsapp.com/')"></div>
+
 </div>
-<button matTooltip="Go to Search Products" mat-fab color="accent" class="fixed-btn" (click)="gotoProductSearch()" [routerLink]="'/products'">
+<button matTooltip="Go to Search Products" mat-fab color="accent" class="fixed-btn" (click)="gotoProductSearch()"
+    [routerLink]="'/products'">
     <mat-icon>search</mat-icon>
 </button>
