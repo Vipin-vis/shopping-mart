@@ -30,7 +30,7 @@ export class SalesReportComponent implements OnInit {
   ngOnInit(): void {
     //this.user=localStorage.getItem('user');
     this.user = this.route.snapshot.queryParams['user'];
-    const reportType = this.route.snapshot.queryParams['report_type'];
+    let reportType = this.route.snapshot.queryParams['report_type'];
     const startDate = this.route.snapshot.queryParams['start_date'];
     let country = this.route.snapshot.queryParams['country']; //TO DO: Where to pass country
     this.userType = this.route.snapshot.queryParams['userType'];
@@ -43,6 +43,9 @@ export class SalesReportComponent implements OnInit {
     }
     if (!!this.user == false) {
       this.user = "";
+    }
+    if (!!reportType == false) {
+      reportType = "";
     }
     const startDateObj = new Date(parseInt(startDate));
     //this.startDateVal = `${startDateObj.getDate()}-${startDateObj.getMonth()}-${startDateObj.getFullYear()}`;
