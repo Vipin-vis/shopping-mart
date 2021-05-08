@@ -78,7 +78,7 @@ export class AdminPanelComponent implements OnInit {
           window.open(`/totalSalesReport?start_date=${startDate}&end_date=${endDate}&report_type=employeeSalesReport&user=${this.userReportUser}`, "_blank");
           break;
         }
-      case 'userTypeTotalSales':
+      case 'employeeTypeSalesReport':
         {
           startDate = (new Date(this.userTypeTotalSalesDateRange.controls['start'].value)).getTime();
           endDate = (new Date(this.userTypeTotalSalesDateRange.controls['end'].value)).getTime();
@@ -86,7 +86,7 @@ export class AdminPanelComponent implements OnInit {
             this._sharedService.openSnackBar("Please enter all required values!");
             return;
           }
-          window.open(`/totalSalesReport?start_date=${startDate}&end_date=${endDate}&type=${type}&report_type=userTypeTotalSales&userType=${this.userTypeReportType}`, "_blank");
+          window.open(`/totalSalesReport?start_date=${startDate}&end_date=${endDate}&type=${type}&report_type=employeeTypeSalesReport&userType=${this.userTypeReportType}`, "_blank");
           break;
         }
       case 'boxIDTotalSales':
