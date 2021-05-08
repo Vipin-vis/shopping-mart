@@ -12,8 +12,10 @@
         <mat-label>{{startDat}}</mat-label>
         <span style="color: rgb(165, 161, 161); min-width: 50px; margin-left: 48px;">To: </span>
         <mat-label>{{endDat}}</mat-label>
-        <span style="color: rgb(165, 161, 161); min-width: 50px; margin-left: 48px;">User: </span>
-        <mat-label>{{user}}</mat-label>
+        <span style="color: rgb(165, 161, 161); min-width: 50px; margin-left: 48px;" *ngIf="isUser">User: </span>
+        <mat-label *ngIf="isUser">{{user}}</mat-label>
+        <span style="color: rgb(165, 161, 161); min-width: 50px; margin-left: 48px;" *ngIf="!isUser">User Type: </span>
+        <mat-label *ngIf="!isUser">{{userType}}</mat-label>
         <br>
         <br>
     </div>
