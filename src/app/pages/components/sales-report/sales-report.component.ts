@@ -32,7 +32,7 @@ export class SalesReportComponent implements OnInit {
     this.user = this.route.snapshot.queryParams['user'];
     let reportType = this.route.snapshot.queryParams['report_type'];
     const startDate = this.route.snapshot.queryParams['start_date'];
-    let country = this.route.snapshot.queryParams['country']; //TO DO: Where to pass country
+    let country = this.route.snapshot.queryParams['country'];
     this.userType = this.route.snapshot.queryParams['userType'];
     if (!!country == false) {
       country = "";
@@ -62,6 +62,7 @@ export class SalesReportComponent implements OnInit {
     this._http.getTotalSalereport(this.startDateVal, this.endDateVal, reportType, country, this.userType, this.user).subscribe((res: any) => {
       this.dataSource[0].cost = JSON.parse(JSON.stringify(res)).cost;
       this.dataSource[0].orders = JSON.parse(JSON.stringify(res)).orders;
+      this.user = JSON.parse(JSON.stringify(res)).user;
     },
       (err) => {
         console.log("ERROR: ", err);

@@ -64,7 +64,7 @@ export class AdminPanelComponent implements OnInit {
             this._sharedService.openSnackBar("Please enter all required values!");
             return;
           }
-          window.open(`/totalSalesReport?start_date=${startDate}&end_date=${endDate}`, "_blank");
+          window.open(`/totalSalesReport?start_date=${startDate}&end_date=${endDate}&report_type=totalSalesReport`, "_blank");
           break;
         }
       case 'userTotalSales':
