@@ -68,7 +68,12 @@ export class PackingManifestComponent implements OnInit {
       this.displayedColumns = ['slno', 'bookedon', 'orderNo', 'customerName', 'address', 'boxId', 'cargo'];
       this.isCountry = true;
     }
-
+    if(!!this.startDateVal == false) {
+      this.startDateVal = "";
+    }
+    if(!!this.endDateVal == false) {
+      this.endDateVal = "";
+    }
 
     this._http.getTotalSalereport(this.startDateVal, this.endDateVal, this.reportType, this.country, userType, this.boxID).subscribe((res: any) => {
       this.packingDetails = JSON.parse(JSON.stringify(res)).packingDetails;
