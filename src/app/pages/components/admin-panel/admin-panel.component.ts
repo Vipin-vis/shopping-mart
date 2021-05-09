@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ALL_COUNTRIES, APP_CONSTANTS } from 'src/app/core/constants/constants';
 import { HttpService } from 'src/app/core/services/http.service';
 import { SharedService } from 'src/app/core/services/shared.service';
@@ -43,7 +44,8 @@ export class AdminPanelComponent implements OnInit {
 
   constructor(
     private _sharedService: SharedService,
-    private _http: HttpService
+    private _http: HttpService,
+    private router: Router
   ) {
   }
   ngOnInit(): void {
@@ -95,25 +97,21 @@ export class AdminPanelComponent implements OnInit {
         }
       case 'boxIDTotalSales':
         {
-          startDate = (new Date(this.boxIDTotalSalesDateRange.controls['start'].value)).getTime();
-          endDate = (new Date(this.boxIDTotalSalesDateRange.controls['end'].value)).getTime();
-          if (!!startDate == false || !!endDate == false) {
-            this._sharedService.openSnackBar("Please enter all required values!");
-            return;
-          }
-          window.open(`/boxIDReport?start_date=${startDate}&end_date=${endDate}&type=${type}&report_type=boxidSalesReport&boxid=${this.reportBoxID}`, "_blank");
-          break;
+         // window.open(`/totalSalesReport?start_date=${startDate}&end_date=${endDate}&type=${type}&report_type=boxidSalesReport&boxid=${this.reportBoxID}`, "_blank");
+         this.router.navigate(['/packing-manifest', {startDate: startDate, endDate:endDate, report_type: "boxidSalesReport", boxid: this.reportBoxID}]);
+         break;
         }
       case 'countrySales':
         {
-          startDate = (new Date(this.boxIDTotalSalesDateRange.controls['start'].value)).getTime();
-          endDate = (new Date(this.boxIDTotalSalesDateRange.controls['end'].value)).getTime();
+          startDate = (new Date(this.countrySalesDateRange.controls['start'].value)).getTime();
+          endDate = (new Date(this.countrySalesDateRange.controls['end'].value)).getTime();
           if (!!startDate == false || !!endDate == false) {
             this._sharedService.openSnackBar("Please enter all required values!");
             return;
           }
-          window.open(`/totalSalesReport?start_date=${startDate}&end_date=${endDate}&type=${type}&report_type=countrySalesReport&country=${this.selectedCountry}`, "_blank");
-          break;
+         // window.open(`/totalSalesReport?start_date=${startDate}&end_date=${endDate}&type=${type}&report_type=countrySalesReport&country=${this.selectedCountry}`, "_blank");
+         this.router.navigate(['/packing-manifest', {startDate: startDate, endDate:endDate, report_type: "countrySalesReport", country: this.selectedCountry}]);
+         break;
         }
       default:
         break;

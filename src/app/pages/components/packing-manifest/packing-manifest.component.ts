@@ -14,7 +14,11 @@ export class PackingManifestComponent implements OnInit {
   displayedColumns = ['slno', 'bookedon', 'orderNo', 'customerName', 'address', 'boxId'];
 
   packingDetails: any = [];
-
+  boxID: any = "";
+  country: any = "";
+  reportType: any = "";
+  isBoxid: boolean = false;
+  isCountry: boolean = false;
   userTotalSalesDateRange = new FormGroup({
     start: new FormControl(),
     end: new FormControl()
@@ -26,34 +30,58 @@ export class PackingManifestComponent implements OnInit {
   endDat: string = "";
 
   constructor(private _http: HttpService,
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private _auth: AuthService
   ) { }
 
   ngOnInit(): void {
-    let startDate:any = this.route.snapshot.paramMap.get('startDate');
-    const startDateObj:any = new Date(parseInt(startDate));
+    let startDate: any = this.route.snapshot.paramMap.get('startDate');
+    const startDateObj: any = new Date(parseInt(startDate));
     let smonth: any = String(startDateObj.getMonth() + 1).padStart(2, '0')
     let sdate: any = String(startDateObj.getDate()).padStart(2, '0')
     this.startDateVal = `${startDateObj.getFullYear()}-${smonth}-${sdate} 0:0:1`;
     this.startDat = this.startDateVal.split(" ")[0];
-    const endDate:any =  this.route.snapshot.paramMap.get('endDate');
+    const endDate: any = this.route.snapshot.paramMap.get('endDate');
     const endDateObj = new Date(parseInt(endDate));
     let emonth: any = String(endDateObj.getMonth() + 1).padStart(2, '0')
     let edate: any = String(endDateObj.getDate()).padStart(2, '0')
     this.endDateVal = `${endDateObj.getFullYear()}-${emonth}-${edate} 23:59:59`;
     this.endDat = this.endDateVal.split(" ")[0];
     const userType = this._auth.getUserTypeFromLs();
-    this._http.getTotalSalereport(this.startDateVal, this.endDateVal, "packingManifest", "", userType , "").subscribe((res: any) => {
+    this.isBoxid = false;
+    this.isCountry = false;
+    this.boxID = this.route.snapshot.paramMap.get('boxid');
+    if (!!this.boxID == false) {
+      this.boxID = "";
+    }
+    this.country = this.route.snapshot.paramMap.get('country');
+    if (!!this.country == false) {
+      this.country = "";
+    }
+    this.reportType = this.route.snapshot.paramMap.get('report_type');
+    if (!!this.reportType == false) {
+      this.reportType = "";
+    } else if (this.reportType == "boxidSalesReport") {
+      this.displayedColumns = ['slno', 'bookedon', 'orderNo', 'customerName', 'address', 'cargo'];
+      this.isBoxid = true;
+    } else if (this.reportType == "countrySalesReport") {
+      this.displayedColumns = ['slno', 'bookedon', 'orderNo', 'customerName', 'address', 'boxId', 'cargo'];
+      this.isCountry = true;
+    }
+
+
+    this._http.getTotalSalereport(this.startDateVal, this.endDateVal, this.reportType, this.country, userType, this.boxID).subscribe((res: any) => {
       this.packingDetails = JSON.parse(JSON.stringify(res)).packingDetails;
-      this.packingDetails.forEach((packing:any, index:any) => {
+      //to do
+
+      this.packingDetails.forEach((packing: any, index: any) => {
         packing.index = index + 1;
       });
     },
       (err) => {
         console.log("ERROR: ", err);
       })
-    
+
   }
 
   captureScreen() {

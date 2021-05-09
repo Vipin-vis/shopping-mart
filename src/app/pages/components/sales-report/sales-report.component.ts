@@ -23,6 +23,7 @@ export class SalesReportComponent implements OnInit {
   user: any = "";
   isUser: boolean = false;
   userType: string = "";
+  boxID: string = "";
 
   constructor(private _http: HttpService,
     private route: ActivatedRoute) { }
@@ -34,6 +35,7 @@ export class SalesReportComponent implements OnInit {
     const startDate = this.route.snapshot.queryParams['start_date'];
     let country = this.route.snapshot.queryParams['country'];
     this.userType = this.route.snapshot.queryParams['userType'];
+    this.boxID = this.route.snapshot.queryParams['boxid'];
     if (!!country == false) {
       country = "";
     }
@@ -46,7 +48,8 @@ export class SalesReportComponent implements OnInit {
     }
     if (!!reportType == false) {
       reportType = "";
-    }
+    } 
+
     const startDateObj = new Date(parseInt(startDate));
     //this.startDateVal = `${startDateObj.getDate()}-${startDateObj.getMonth()}-${startDateObj.getFullYear()}`;
     let smonth: any = String(startDateObj.getMonth() + 1).padStart(2, '0')
@@ -59,7 +62,7 @@ export class SalesReportComponent implements OnInit {
     let edate: any = String(endDateObj.getDate()).padStart(2, '0')
     this.endDateVal = `${endDateObj.getFullYear()}-${emonth}-${edate} 23:59:59`;
     this.endDat = this.endDateVal.split(" ")[0];
-    this._http.getTotalSalereport(this.startDateVal, this.endDateVal, reportType, country, this.userType, this.user).subscribe((res: any) => {
+    this._http.getTotalSalereport(this.startDateVal, this.endDateVal, reportType, country, this.userType, this.user, this.boxID).subscribe((res: any) => {
       this.dataSource[0].cost = JSON.parse(JSON.stringify(res)).cost;
       this.dataSource[0].orders = JSON.parse(JSON.stringify(res)).orders;
       this.user = JSON.parse(JSON.stringify(res)).user;
