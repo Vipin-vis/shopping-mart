@@ -97,9 +97,9 @@ export class AdminPanelComponent implements OnInit {
         }
       case 'boxIDTotalSales':
         {
-         // window.open(`/totalSalesReport?start_date=${startDate}&end_date=${endDate}&type=${type}&report_type=boxidSalesReport&boxid=${this.reportBoxID}`, "_blank");
-         this.router.navigate(['/packing-manifest', {startDate: startDate, endDate:endDate, report_type: "boxidSalesReport", boxid: this.reportBoxID}]);
-         break;
+          // window.open(`/totalSalesReport?start_date=${startDate}&end_date=${endDate}&type=${type}&report_type=boxidSalesReport&boxid=${this.reportBoxID}`, "_blank");
+          this.router.navigate(['/packing-manifest', { startDate: "", endDate: "", report_type: "boxidSalesReport", boxid: this.reportBoxID }]);
+          break;
         }
       case 'countrySales':
         {
@@ -109,9 +109,9 @@ export class AdminPanelComponent implements OnInit {
             this._sharedService.openSnackBar("Please enter all required values!");
             return;
           }
-         // window.open(`/totalSalesReport?start_date=${startDate}&end_date=${endDate}&type=${type}&report_type=countrySalesReport&country=${this.selectedCountry}`, "_blank");
-         this.router.navigate(['/packing-manifest', {startDate: startDate, endDate:endDate, report_type: "countrySalesReport", country: this.selectedCountry}]);
-         break;
+          // window.open(`/totalSalesReport?start_date=${startDate}&end_date=${endDate}&type=${type}&report_type=countrySalesReport&country=${this.selectedCountry}`, "_blank");
+          this.router.navigate(['/packing-manifest', { startDate: startDate, endDate: endDate, report_type: "countrySalesReport", country: this.selectedCountry }]);
+          break;
         }
       default:
         break;
