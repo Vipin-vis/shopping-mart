@@ -45,7 +45,7 @@ export class PackingManifestComponent implements OnInit {
     this._http.getTotalSalereport(this.startDateVal, this.endDateVal, "packingManifest", "", "", "").subscribe((res: any) => {
       this.packingDetails = JSON.parse(JSON.stringify(res)).packingDetails;
       this.packingDetails.forEach((packing:any, index:any) => {
-        packing.index = index;
+        packing.index = index + 1;
       });
     },
       (err) => {
