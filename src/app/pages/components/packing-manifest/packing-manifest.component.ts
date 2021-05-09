@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { HttpService } from 'src/app/core/services/http.service';
 
 @Component({
@@ -26,6 +27,7 @@ export class PackingManifestComponent implements OnInit {
 
   constructor(private _http: HttpService,
     private route: ActivatedRoute, 
+    private _auth: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -41,8 +43,8 @@ export class PackingManifestComponent implements OnInit {
     let edate: any = String(endDateObj.getDate()).padStart(2, '0')
     this.endDateVal = `${endDateObj.getFullYear()}-${emonth}-${edate} 23:59:59`;
     this.endDat = this.endDateVal.split(" ")[0];
-    const user = 
-    this._http.getTotalSalereport(this.startDateVal, this.endDateVal, "packingManifest", "", "", "").subscribe((res: any) => {
+    const userType = this._auth.getUserTypeFromLs;
+    this._http.getTotalSalereport(this.startDateVal, this.endDateVal, "packingManifest", "", userType , "").subscribe((res: any) => {
       this.packingDetails = JSON.parse(JSON.stringify(res)).packingDetails;
       this.packingDetails.forEach((packing:any, index:any) => {
         packing.index = index + 1;
