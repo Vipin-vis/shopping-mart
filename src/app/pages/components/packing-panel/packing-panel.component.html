@@ -4,15 +4,15 @@
             <h2><span>Total Sales Report</span></h2>
             <mat-form-field appearance="fill">
                 <mat-label>Enter a date range</mat-label>
-                <mat-date-range-input [formGroup]="totalSalesDateRange" [rangePicker]="picker">
+                <mat-date-range-input [formGroup]="packingDateRange" [rangePicker]="picker">
                     <input matStartDate formControlName="start" placeholder="Start date">
                     <input matEndDate formControlName="end" placeholder="End date">
                 </mat-date-range-input>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-date-range-picker #picker></mat-date-range-picker>
-                <mat-error *ngIf="totalSalesDateRange.controls.start.hasError('matStartDateInvalid')">Invalid start date
+                <mat-error *ngIf="packingDateRange.controls.start.hasError('matStartDateInvalid')">Invalid start date
                 </mat-error>
-                <mat-error *ngIf="totalSalesDateRange.controls.end.hasError('matEndDateInvalid')">Invalid end date
+                <mat-error *ngIf="packingDateRange.controls.end.hasError('matEndDateInvalid')">Invalid end date
                 </mat-error>
             </mat-form-field>
             <br>

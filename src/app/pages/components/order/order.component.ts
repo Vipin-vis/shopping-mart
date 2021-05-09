@@ -160,7 +160,6 @@ export class OrderComponent implements OnInit {
    * @param order 
    */
   saveChanges(order: any) {
-    debugger;
     this._http.editOrder(order).subscribe((res: any) => {
       this._sharedService.openSnackBar("Order edited successfully!!");
     }, (err: any) => {
