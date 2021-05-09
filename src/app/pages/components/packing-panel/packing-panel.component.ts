@@ -28,9 +28,7 @@ export class PackingPanelComponent implements OnInit {
       this._sharedService.openSnackBar("Please enter all required values!");
       return;
     }
-    
     this.router.navigate(['/packing-manifest', {startDate: startDate, endDate:endDate}]);
-   // window.open(`/totalSalesReport?start_date=${startDate}&end_date=${endDate}&report_type=employeeSalesReport&user=${user}`, "_blank");
   }
 
 }

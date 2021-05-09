@@ -1,6 +1,13 @@
-<p>packing-manifest works!</p>
-
 <div class="manifest-container">
+    <mat-toolbar class="fab-invoice-tool-bar" color="primary">
+        <span>ONE FAB SHOP | Packing Report</span>
+        <span style="flex: 1 1 auto;"></span>
+        <button mat-icon-button class="packing-btn" [routerLink]="'/packing-panel'">
+            <mat-icon matTooltip="Packing Panel">all_inbox</mat-icon>
+        </button>
+        <mat-icon (click)="captureScreen()" class="print-btn" style="cursor: pointer;" matTooltip="Print Invoice">print
+        </mat-icon>
+    </mat-toolbar>
     <mat-label class="card-label" style="margin-top: 50px;">Packing Manifest</mat-label>
     <br>
     <br>
@@ -21,7 +28,8 @@
         <!-- Oder No Column -->
         <ng-container matColumnDef="orderNo">
             <th mat-header-cell class="order-td" *matHeaderCellDef> Order Number </th>
-            <td mat-cell class="order-td" [matTooltip]="packing.order_number" *matCellDef="let packing"> {{packing.order_number}}</td>
+            <td mat-cell class="order-td" [matTooltip]="packing.order_number" *matCellDef="let packing">
+                {{packing.order_number}}</td>
             <td mat-footer-cell *matFooterCellDef> </td>
         </ng-container>
         <!-- Custmer Name Column -->
@@ -37,8 +45,8 @@
                 {{packing.address}}
             </td>
         </ng-container>
-         <!-- Boxid Column -->
-         <ng-container matColumnDef="boxId">
+        <!-- Boxid Column -->
+        <ng-container matColumnDef="boxId">
             <th mat-header-cell *matHeaderCellDef> Box-id</th>
             <td mat-cell class="tcost-td" *matCellDef="let packing">
                 {{packing.box_id}}
@@ -46,7 +54,7 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        
+
         <tr mat-row class="tcost-tr" *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 </div>

@@ -44,23 +44,19 @@ export class PackingManifestComponent implements OnInit {
     const user = 
     this._http.getTotalSalereport(this.startDateVal, this.endDateVal, "packingManifest", "", "", "").subscribe((res: any) => {
       this.packingDetails = JSON.parse(JSON.stringify(res)).packingDetails;
+      this.packingDetails.forEach((packing:any, index:any) => {
+        packing.index = index;
+      });
     },
       (err) => {
         console.log("ERROR: ", err);
       })
-    //Dummy Data
-    // this.packingDetails = [
-    //   {
-    //     index : 1,
-    //     booking_date: "08/05/2021",
-    //     order_number: "order_sjdhbfjebfkjbwee4612856348524856284AQQQQQQQQQQQQQ",
-    //     customer_name: "Arnold",
-    //     address: "sdkjfbksjf  sdvgsedfvb dsafsdgv dsfgwseg wefweafQQQQQQQQVVWQE  QW EDQWED WQEDWQ ",
-    //     box_id: "BOX_US_12345"
-    //   }
-    // ]
+    
   }
 
-
+  captureScreen() {
+    document.title = "fabone_packing_report";
+    window.print();
+  }
 
 }
