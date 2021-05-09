@@ -404,7 +404,6 @@ export class HttpService {
     if(!!boxID == false) {
       boxID = "";
     }
-    return this.http.get(this.serviceURI + `/getTotalSalesReport?start_date=${startDate}&end_date=${endDate}
-    &reportType=${reportType}&reportUser=${user}&country=${country}&userType=${userType}&boxID=${boxID}`, httpOptions);
+    return this.http.get(this.serviceURI + `/getTotalSalesReport?start_date=${startDate}&end_date=${endDate}&reportType=${reportType}&reportUser=${user}&country=${country}&userType=${userType}&boxID=${boxID}`, httpOptions);
   }
 }
