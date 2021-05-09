@@ -71,15 +71,15 @@
     </mat-form-field>
     <br>
     <mat-form-field class="User-full-width ">
-        <mat-label>Country</mat-label>
-        <mat-select [(value)]="userDetails.country">
-            <mat-option *ngFor="let country of allCountries" [value]="country.code">{{country.name}}</mat-option>
-        </mat-select>
+        <mat-label>Shipping Address</mat-label>
+        <textarea matInput class="address" [(ngModel)]="userDetails.customer_shipping_address"></textarea>
     </mat-form-field>
     <br>
     <mat-form-field class="User-full-width ">
-        <mat-label>Shipping Address</mat-label>
-        <textarea matInput class="address" [(ngModel)]="userDetails.customer_shipping_address"></textarea>
+        <mat-label>Country</mat-label>
+        <mat-select [(value)]="userDetails.country">
+            <mat-option *ngFor="let country of allCountries" [value]="country.name">{{country.name}}</mat-option>
+        </mat-select>
     </mat-form-field>
     <br>
     <!-- <mat-radio-group aria-label="Select Shipment Mode" [(ngModel)]="userDetails.delivery_mode">
@@ -144,6 +144,8 @@
                 </div>
             </div>
             <br>
+            <span style="color: rgb(165, 161, 161);">Country: </span>
+            <mat-label>{{userDetails.country}}</mat-label>
             <br>
             <br>
             <br>
