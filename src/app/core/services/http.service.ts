@@ -390,7 +390,7 @@ export class HttpService {
   /**
    * 
    */
-  getTotalSalereport(startDate: any, endDate: any, reportType: any, country: any, userType: any, user: any) {
+  getTotalSalereport(startDate: any, endDate: any, reportType: any, country: any, userType: any, user: any, boxID?:any) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -401,7 +401,10 @@ export class HttpService {
     if(user.length === 0) {
       user = localStorage.getItem('user');
     }
+    if(!!boxID == false) {
+      boxID = "";
+    }
     return this.http.get(this.serviceURI + `/getTotalSalesReport?start_date=${startDate}&end_date=${endDate}
-    &reportType=${reportType}&reportUser=${user}&country=${country}&userType=${userType}`, httpOptions);
+    &reportType=${reportType}&reportUser=${user}&country=${country}&userType=${userType}&boxID=${boxID}`, httpOptions);
   }
 }

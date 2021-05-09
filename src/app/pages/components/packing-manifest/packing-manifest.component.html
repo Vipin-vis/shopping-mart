@@ -8,8 +8,12 @@
         <mat-icon (click)="captureScreen()" class="print-btn" style="cursor: pointer;" matTooltip="Print Invoice">print
         </mat-icon>
     </mat-toolbar>
-    <mat-label class="card-label" style="margin-top: 50px;">Packing Manifest</mat-label>
     <br>
+    <mat-label class="card-label" style="margin-top: 50px;">Packing Manifest</mat-label>
+    <span style="color: rgb(165, 161, 161); min-width: 50px;" style="margin-left: 24px;">From: </span>
+    <mat-label>{{startDat}}</mat-label>
+    <span style="color: rgb(165, 161, 161); min-width: 50px; margin-left: 48px;">To: </span>
+    <mat-label>{{endDat}}</mat-label>
     <br>
 
     <table mat-table class="order-table" [dataSource]="packingDetails">
@@ -28,7 +32,7 @@
         <!-- Oder No Column -->
         <ng-container matColumnDef="orderNo">
             <th mat-header-cell class="order-td" *matHeaderCellDef> Order Number </th>
-            <td mat-cell class="order-td" [matTooltip]="packing.order_number" *matCellDef="let packing">
+            <td mat-cell class="order-td" *matCellDef="let packing">
                 {{packing.order_number}}</td>
             <td mat-footer-cell *matFooterCellDef> </td>
         </ng-container>
