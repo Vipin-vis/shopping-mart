@@ -64,6 +64,8 @@ export class PackingManifestComponent implements OnInit {
     } else if (this.reportType == "boxidSalesReport") {
       this.displayedColumns = ['slno', 'bookedon', 'orderNo', 'customerName', 'address', 'cargo'];
       this.isBoxid = true;
+      this.startDateVal = "";
+      this.endDateVal = "";
     } else if (this.reportType == "countrySalesReport") {
       this.displayedColumns = ['slno', 'bookedon', 'orderNo', 'customerName', 'address', 'boxId', 'cargo'];
       this.isCountry = true;
