@@ -71,7 +71,7 @@ export class PackingManifestComponent implements OnInit {
       this.isCountry = true;
     }
 
-    this._http.getTotalSalereport(this.startDateVal, this.endDateVal, this.reportType, this.country, userType, this.boxID).subscribe((res: any) => {
+    this._http.getTotalSalereport(this.startDateVal, this.endDateVal, this.reportType, this.country, userType, "", this.boxID).subscribe((res: any) => {
       this.packingDetails = JSON.parse(JSON.stringify(res)).packingDetails;
       //to do
 
