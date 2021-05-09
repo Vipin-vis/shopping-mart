@@ -29,6 +29,10 @@ export class AdminPanelComponent implements OnInit {
     start: new FormControl(),
     end: new FormControl()
   });
+  countrySalesDateRange = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl()
+  });
   userReportUser: string = "";
   users: any;
   userTypes: any;
@@ -97,7 +101,7 @@ export class AdminPanelComponent implements OnInit {
             this._sharedService.openSnackBar("Please enter all required values!");
             return;
           }
-          window.open(`/boxIDReport?start_date=${startDate}&end_date=${endDate}&type=${type}&boxid=${this.reportBoxID}`, "_blank");
+          window.open(`/boxIDReport?start_date=${startDate}&end_date=${endDate}&type=${type}&report_type=boxidSalesReport&boxid=${this.reportBoxID}`, "_blank");
           break;
         }
       case 'countrySales':
@@ -108,7 +112,7 @@ export class AdminPanelComponent implements OnInit {
             this._sharedService.openSnackBar("Please enter all required values!");
             return;
           }
-          window.open(`/totalSalesReport?start_date=${startDate}&end_date=${endDate}&type=${type}&country=${this.selectedCountry}`, "_blank");
+          window.open(`/totalSalesReport?start_date=${startDate}&end_date=${endDate}&type=${type}&report_type=countrySalesReport&country=${this.selectedCountry}`, "_blank");
           break;
         }
       default:

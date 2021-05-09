@@ -1,0 +1,52 @@
+<p>packing-manifest works!</p>
+
+<div class="manifest-container">
+    <mat-label class="card-label" style="margin-top: 50px;">Packing Manifest</mat-label>
+    <br>
+    <br>
+
+    <table mat-table class="order-table" [dataSource]="packingDetails">
+        <!-- SL NO Column -->
+        <ng-container matColumnDef="slno">
+            <th mat-header-cell *matHeaderCellDef> Sl No </th>
+            <td mat-cell *matCellDef="let packing"> {{packing.index}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+        <!-- Booking date Column -->
+        <ng-container matColumnDef="bookedon">
+            <th mat-header-cell *matHeaderCellDef> Booking Date </th>
+            <td mat-cell *matCellDef="let packing"> {{packing.booking_date}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+        <!-- Oder No Column -->
+        <ng-container matColumnDef="orderNo">
+            <th mat-header-cell class="order-td" *matHeaderCellDef> Order Number </th>
+            <td mat-cell class="order-td" [matTooltip]="packing.order_number" *matCellDef="let packing"> {{packing.order_number}}</td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+        <!-- Custmer Name Column -->
+        <ng-container matColumnDef="customerName">
+            <th mat-header-cell *matHeaderCellDef> Customer Name</th>
+            <td mat-cell *matCellDef="let packing"> {{packing.customer_name}} </td>
+            <td mat-footer-cell *matFooterCellDef> Total </td>
+        </ng-container>
+        <!-- Address Column -->
+        <ng-container matColumnDef="address">
+            <th mat-header-cell *matHeaderCellDef> Address/Location</th>
+            <td mat-cell class="address-td" *matCellDef="let packing">
+                {{packing.address}}
+            </td>
+        </ng-container>
+         <!-- Boxid Column -->
+         <ng-container matColumnDef="boxId">
+            <th mat-header-cell *matHeaderCellDef> Box-id</th>
+            <td mat-cell class="tcost-td" *matCellDef="let packing">
+                {{packing.box_id}}
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        
+        <tr mat-row class="tcost-tr" *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>

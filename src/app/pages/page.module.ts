@@ -50,6 +50,7 @@ import { InvoiceComponent } from './components/invoice/invoice.component';
 import { OrderPipe, OrderPipeOrder, OrderPipePayment, OrderPipeStatus } from '../core/filter/order-pipe.pipe';
 import { SalesReportComponent } from './components/sales-report/sales-report.component';
 import { BoxidReportComponent } from './components/boxid-report/boxid-report.component';
+import { PackingManifestComponent } from './components/packing-manifest/packing-manifest.component';
 @NgModule({
   declarations: [
     MainComponent,
@@ -73,6 +74,7 @@ import { BoxidReportComponent } from './components/boxid-report/boxid-report.com
     OrderPipeStatus,
     SalesReportComponent,
     BoxidReportComponent,
+    PackingManifestComponent,
   ],
   imports: [
     CommonModule,

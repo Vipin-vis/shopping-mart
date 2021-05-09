@@ -1,0 +1,20 @@
+.order-table {
+    width: 100%;
+}
+
+.User-full-width {
+    width: 100%;
+}
+
+.manifest-container {
+    margin-top: 50px;
+}
+
+.order-td, .address-td {
+    max-width: calc(100vw / 6 - 20px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 10px;
+    cursor: pointer;
+}

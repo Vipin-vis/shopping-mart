@@ -10,6 +10,7 @@ import { EndUserComponent } from './components/end-user/end-user.component';
 import { InvoiceComponent } from './components/invoice/invoice.component';
 import { LoginComponent } from './components/login/login.component';
 import { OrderComponent } from './components/order/order.component';
+import { PackingManifestComponent } from './components/packing-manifest/packing-manifest.component';
 import { PackingPanelComponent } from './components/packing-panel/packing-panel.component';
 import { ProductsComponent } from './components/products/products.component';
 import { SalesReportComponent } from './components/sales-report/sales-report.component';
@@ -75,6 +76,13 @@ const routes: Routes = [
         }
     },
     { path: 'userConfirmation', component: EndUserComponent },
+    {
+        path: 'packing-manifest', component: PackingManifestComponent,
+        canActivate: [AuthGuardService],
+        data: {
+            expectedRole: 'packing-manifest'
+        }
+    },
     {
         path: 'packing-panel', component: PackingPanelComponent,
         canActivate: [AuthGuardService],

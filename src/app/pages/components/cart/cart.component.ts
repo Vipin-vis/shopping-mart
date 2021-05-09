@@ -65,7 +65,8 @@ export class CartComponent implements OnInit {
     this.products.forEach((product: any) => {
       let productData = {
         "prod_quantity": product.qty,
-        "prod_id": product.id
+        "prod_id": product.id,
+        "presenter": this.selectedPresenter
       }
       orderProductData.push(productData);
     });
