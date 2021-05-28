@@ -105,6 +105,7 @@ import { PackingManifestComponent } from './components/packing-manifest/packing-
     MatSelectModule,
     MatDividerModule,
     MatProgressBarModule,
+    MatProgressSpinnerModule,
     ClipboardModule,
     MatSnackBarModule,
     MatDialogModule,

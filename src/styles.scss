@@ -10,8 +10,8 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$shopping-mart-primary: mat-palette($mat-blue-grey);
-$shopping-mart-accent: mat-palette($mat-orange, A200, A100, A400);
+$shopping-mart-primary: mat-palette($mat-brown);
+$shopping-mart-accent: mat-palette($mat-deep-orange, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $shopping-mart-warn: mat-palette($mat-red);
@@ -43,6 +43,9 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+.header-tool-bar {
+  z-index: 999 !important;
+}
 
 ::-webkit-scrollbar {
   width: 12px;
@@ -65,7 +68,7 @@ body {
 
 ::-webkit-scrollbar-thumb
 {
-	background-color: #607d8b;
+	background-color: #50412c;
 	border: 2px solid #555555;
 }
 
@@ -76,11 +79,11 @@ body {
 }
 
 .card-label {
-  color: #6599a0;
+  color: #6e573d;
   font-size: 12px;
 }
 .snackbar-style {
-  color: #fcbc0b;
+  color: #eea97a;
 }
 @page {
   size: auto;   /* auto is the initial value */

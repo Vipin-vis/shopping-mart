@@ -42,6 +42,7 @@ export class InvoiceComponent implements OnInit {
       this.userDetails.delivery_mode = JSON.parse(JSON.stringify(res['delivery_mode']));
       this.userDetails.customer_email_id = userDetails.cust_email;
       this.userDetails.customer_name = userDetails.cus_name;
+      this.userDetails.agent = JSON.parse(JSON.stringify(res['agent']));
                
       let shippingcharges:any =  JSON.parse(JSON.stringify(res['order_shipping_charges']));
       this.shipment.cost = parseInt(shippingcharges[this.userDetails.delivery_mode]);

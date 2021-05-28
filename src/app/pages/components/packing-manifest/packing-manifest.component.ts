@@ -28,6 +28,7 @@ export class PackingManifestComponent implements OnInit {
   endDateVal: any = null;
   startDat: string = "";
   endDat: string = "";
+  toPrint:boolean = true;
 
   constructor(private _http: HttpService,
     private route: ActivatedRoute,
@@ -90,8 +91,12 @@ export class PackingManifestComponent implements OnInit {
   }
 
   captureScreen() {
+    this.toPrint=false;
     document.title = "fabone_packing_report";
-    window.print();
+    setTimeout(() => {
+      window.print();
+      this.toPrint=true;
+    }, 1000);
   }
 
 }

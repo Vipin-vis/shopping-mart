@@ -5,7 +5,7 @@
         <button mat-icon-button class="packing-btn" [routerLink]="'/home'">
             <mat-icon matTooltip="Packing Panel">home</mat-icon>
         </button>
-        <mat-icon (click)="captureScreen()" class="print-btn" style="cursor: pointer;" matTooltip="Print Invoice">print
+        <mat-icon (click)="captureScreen()" class="print-btn" style="cursor: pointer;" *ngIf="toPrint" matTooltip="Print Invoice">print
         </mat-icon>
     </mat-toolbar>
     <br>

@@ -13,8 +13,9 @@ export class SharedService {
   loggedUser: string;
   cartData: any = [];
   cartDataLength = new Subject();
+  showProgress = new Subject();
   username: string = "";
-  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
   constructor(private _snackBar: MatSnackBar, private _auth: AuthService) {
     this.userTypeValue = "";
@@ -71,6 +72,14 @@ export class SharedService {
 
   getcartDataLength() {
     return this.cartDataLength.asObservable();
+  }
+
+  setProgressBar(show: boolean) {
+    this.showProgress.next(show);
+  }
+
+  getProgressBar() {
+    return this.showProgress.asObservable();
   }
 
   setUserType(type: string) {

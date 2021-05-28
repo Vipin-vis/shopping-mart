@@ -14,7 +14,7 @@ import { ConfirmDialogModel, ConfirmPopupComponent } from '../confirm-popup/conf
 export class OrderComponent implements OnInit {
 
   displayedColumns = ['item', 'category', 'quantity', 'presenter', 'cost', 'tCost'];
-  orders: any = Orders;
+  orders: any = [];
   displayPayment: boolean = false;
   displayOrderStatus = true;
   displayDeleteOrder = true;

@@ -30,9 +30,10 @@
         </mat-selection-list>
     </mat-drawer>
     <mat-drawer-content>
-        <mat-toolbar *ngIf="route !== '/login' && !route.includes('/userConfirmation') 
-        && !route.includes('/invoice') && !route.includes('/totalSalesReport')  && !route.includes('/packing-manifest')" color="primary"
-            class="header-tool-bar">
+        <mat-toolbar
+            *ngIf="route !== '/login' && !route.includes('/userConfirmation') 
+        && !route.includes('/invoice') && !route.includes('/totalSalesReport')  && !route.includes('/packing-manifest')"
+            color="primary" class="header-tool-bar">
             <button mat-icon-button class="example-icon">
                 <mat-icon (click)="drawer.toggle()">menu</mat-icon>
             </button>
@@ -62,8 +63,9 @@
                 <button mat-menu-item (click)="logOut()">Logout</button>
             </mat-menu>
         </mat-toolbar>
+        <mat-progress-bar *ngIf="route !== '/login' && showProgress" style="z-index: 999; top: 66px; position: fixed;" mode="query" color="primary"></mat-progress-bar>
+        <!-- <mat-spinner *ngIf="(route == '/login') && showProgress" mode="determinate" color="accent" style="z-index: 999; position: fixed; bottom: 50%; right: 40%;"></mat-spinner> -->
         <div class="main-content">
-            <!-- <mat-progress-bar style="top:55px" color="accent" mode="query"></mat-progress-bar> -->
             <router-outlet></router-outlet>
             <!-- <app-products></app-products> -->
         </div>

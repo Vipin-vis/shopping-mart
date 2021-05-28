@@ -169,12 +169,13 @@ export class HttpService {
   /**
   * 
   */
-  generateOrder(userName: string, productData: any, remarks: string, presenter: any) {
+  generateOrder(userName: string, productData: any, remarks: string, presenter: any, phoneNumber?:any) {
     let reqParam = {
       "userName": userName,
       "remarks": remarks,
       "presenter": presenter,
-      "order_product_data": productData
+      "order_product_data": productData,
+      "contact_number" : phoneNumber
     }
     const httpOptions = {
       headers: new HttpHeaders({

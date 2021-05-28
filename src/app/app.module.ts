@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PageModule } from './pages/page.module';
 import { SharedModule } from './shared/shared/shared.module';
-import { AuthInterceptor } from './core/services/auth.interceptor.service';
+import { AuthInterceptor, SpinnerInterceptor } from './core/services/auth.interceptor.service';
 
 
 @NgModule({
@@ -26,6 +26,11 @@ import { AuthInterceptor } from './core/services/auth.interceptor.service';
     {
       provide : HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
+      multi   : true,
+    },
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass: SpinnerInterceptor,
       multi   : true,
     }
   ],

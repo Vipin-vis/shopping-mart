@@ -67,18 +67,36 @@
         <mat-label>Remarks</mat-label>
         <input matInput [(ngModel)]="remarks">
     </mat-form-field>
-    <button class="order-btn" mat-raised-button color="primary" (click)="generateOrder()">Generate Order</button>
+    <mat-form-field class="example-full-width">
+        <mat-label>Customer Contact Number</mat-label>
+        <input matInput [(ngModel)]="contactNumber">
+        <mat-icon matSuffix style="cursor: pointer;" matRipple>dialpad</mat-icon>
+    </mat-form-field>
+    <button class="order-btn" matTooltip="Generate Order" mat-raised-button color="primary" (click)="generateOrder()">
+        <mat-icon>addchart</mat-icon>
+    </button>
     <mat-form-field class="example-full-width">
         <mat-label>Order Link</mat-label>
         <input type="link" matInput [(ngModel)]="orderLink">
-        <mat-icon matSuffix style="cursor: pointer;" matTooltip="Copy to clipboard" ngxClipboard [cbContent]="orderLink"
-            matRipple>content_copy</mat-icon>
+        <mat-icon matSuffix style="cursor: pointer;" (click)="openSnackBar()" matTooltip="Copy to clipboard"
+            ngxClipboard [cbContent]="orderLink" matRipple>content_copy</mat-icon>
     </mat-form-field>
-    <div class="share-facebook" title="Go to facebook" (click)="goToPage('https://www.messenger.com/')"></div>
-    <div class="share-whatsapp" title="Go to whatsapp" (click)="goToPage('https://web.whatsapp.com/')"></div>
-
 </div>
-<button matTooltip="Go to Search Products" mat-fab color="accent" class="fixed-btn" (click)="gotoProductSearch()"
-    [routerLink]="'/products'">
-    <mat-icon>search</mat-icon>
+
+<button matTooltip="More options" [matMenuTriggerFor]="menu" mat-fab color="accent" class="fixed-btn" (click)="gotoProductSearch()">
+    <mat-icon>more_vert</mat-icon>
 </button>
+<mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="goToPage('https://www.messenger.com/')">
+        <mat-icon><div class="share-facebook" title="Go to facebook" ></div></mat-icon>
+        <span>Facebook</span>
+    </button>
+    <button mat-menu-item (click)="goToPage('https://web.whatsapp.com/')">
+        <mat-icon><div class="share-whatsapp" title="Go to whatsapp" ></div></mat-icon>
+        <span>Whatsapp</span>
+    </button>
+    <button mat-menu-item [routerLink]="'/products'">
+        <mat-icon>search</mat-icon>
+        <span>Search Products</span>
+    </button>
+</mat-menu>

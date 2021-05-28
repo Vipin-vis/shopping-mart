@@ -33,6 +33,7 @@ export class EndUserComponent implements OnInit {
     delivery_mode: "",
     cus_id: "",
     order_id: "",
+    contact_no: "",
   };
   userAdded: boolean = false;
   toPrint: boolean = true;
@@ -49,6 +50,10 @@ export class EndUserComponent implements OnInit {
     const cust_id = (urlParams.get('cust_id'))?.toString();
     this._http.getUserOrderDetails(cust_id, orderID, 'USER').subscribe((res: any) => {
       this.products = JSON.parse(JSON.stringify(res['order_product_data']));
+      if (!!(res['user_details'])) {
+        this.userDetails = JSON.parse(JSON.stringify(res['user_details']));
+      }
+
       this.getTotalCost();
     })
     this._http.getShippingTypes().subscribe((res: any) => {

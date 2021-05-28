@@ -24,6 +24,7 @@ export class SalesReportComponent implements OnInit {
   isUser: boolean = false;
   userType: string = "";
   boxID: string = "";
+  toPrint: boolean = true;
 
   constructor(private _http: HttpService,
     private route: ActivatedRoute) { }
@@ -73,8 +74,12 @@ export class SalesReportComponent implements OnInit {
   }
 
   captureScreen() {
+    this.toPrint=false
     document.title = "fabone_sales_report";
-    window.print();
+    setTimeout(() => {
+      window.print();
+      this.toPrint=true;
+    }, 1000);
   }
 
 }

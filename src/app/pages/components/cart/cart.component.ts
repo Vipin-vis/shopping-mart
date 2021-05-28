@@ -17,6 +17,7 @@ export class CartComponent implements OnInit {
 
   remarks: string = "";
   orderLink: string = "";
+  contactNumber: string = "";
   presenters: any = [];
   selectedPresenter: string = "";
 
@@ -53,6 +54,11 @@ export class CartComponent implements OnInit {
    * 
    */
   generateOrder() {
+    const phoneno = /^\d+$/;
+    if (this.contactNumber.length == 0 || !(this.contactNumber.match(phoneno))) {
+      this._sharedService.openSnackBar("Please enter valid contact number");
+      return;
+    }
     if (this.products.length == 0) {
       this._sharedService.openSnackBar("Cart is empty");
       return;
@@ -71,11 +77,12 @@ export class CartComponent implements OnInit {
       orderProductData.push(productData);
     });
 
-    this._http.generateOrder(this._sharedService.loggedUser, orderProductData, this.remarks, this.selectedPresenter)
+    this._http.generateOrder(this._sharedService.loggedUser, orderProductData, this.remarks, this.selectedPresenter, this.contactNumber)
       .subscribe((res: any) => {
         if (!!res["order_link"]) {
           this._sharedService.openSnackBar("Order added successfully!!");
           this.orderLink = res["order_link"];
+          this.goToPage(this.orderLink);
         }
       },
         (er) => {
@@ -108,6 +115,15 @@ export class CartComponent implements OnInit {
    */
   goToPage(url: string) {
     window.open(url);
+  }
+
+  /**
+   * 
+   */
+  openSnackBar() {
+    if (this.orderLink.length != 0) {
+      this._sharedService.openSnackBar("Order Link Copied");
+    }
   }
 
 }
