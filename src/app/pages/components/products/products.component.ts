@@ -21,7 +21,7 @@ export class ProductsComponent implements OnInit {
   searchKey: string;
   categories = new FormControl();
 
-  categoryList: string[] = ['TV', 'Watch', 'Laptop', 'Grooming', 'Shoe', 'Desktop'];
+  categoryList: string[] = [];
   selectedCategory: string = "";
 
   @HostListener('window:scroll') watchScroll() {
@@ -41,7 +41,7 @@ export class ProductsComponent implements OnInit {
       .subscribe((y) => this.onScroll(window.scrollY));
     this._httpService.getproductCategory().subscribe((res: any) => {
       this.categoryList = JSON.parse(JSON.stringify(res.product_categories));
-      this.categoryList.push("ALL");
+      this.categoryList.unshift("ALL");
     });
     this.noProducts = false;
   }

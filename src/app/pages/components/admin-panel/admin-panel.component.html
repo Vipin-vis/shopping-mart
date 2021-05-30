@@ -116,5 +116,31 @@
                 Report
             </button>
         </mat-card>
+        <!-- <mat-card class="admin-card">
+            <h2><span>Order Status Report </span></h2>
+            <mat-form-field class="order-field" appearance="fill">
+                <mat-label>Country</mat-label>
+                <mat-select [(value)]="selectedCountry">
+                    <mat-option  [value]="country.name">{{country.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Enter a date range</mat-label>
+                <mat-date-range-input [formGroup]="countrySalesDateRange" [rangePicker]="picker4">
+                    <input matStartDate formControlName="start" placeholder="Start date">
+                    <input matEndDate formControlName="end" placeholder="End date">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker4></mat-date-range-picker>
+                <mat-error *ngIf="countrySalesDateRange.controls.start.hasError('matStartDateInvalid')">Invalid start date
+                </mat-error>
+                <mat-error *ngIf="countrySalesDateRange.controls.end.hasError('matEndDateInvalid')">Invalid end date
+                </mat-error>
+            </mat-form-field>
+            <br>
+            <button class="report-btn" mat-flat-button color="accent" (click)="getReport('countrySales')">Get
+                Report
+            </button>
+        </mat-card> -->
     </div>
 </div>

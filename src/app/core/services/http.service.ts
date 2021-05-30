@@ -389,6 +389,19 @@ export class HttpService {
     return this.http.get(this.serviceURI + `/getAllRemarks?orderid=${orderId}`, httpOptions);
   }
   /**
+  * 
+  */
+   getOrderSummary(orderId: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ',
+        'x-access-token': this._auth.getToken()
+      })
+    };
+    return this.http.get(this.serviceURI + `/getOrderSummary?orderid=${orderId}`, httpOptions);
+  }
+  /**
    * 
    */
   getTotalSalereport(startDate: any, endDate: any, reportType: any, country: any, userType: any, user: any, boxID?:any) {

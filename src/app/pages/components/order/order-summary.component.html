@@ -1,0 +1,15 @@
+<label class="card-label">
+    Order Summary
+</label>
+<div mat-dialog-content style="max-height: 300px;">
+    <mat-list role="list">
+        <mat-list-item *ngFor="let item of orderSummaryArray" role="listitem">
+            <span style="font-weight: 200;">{{item.item}}: </span>
+            <span style="margin-left: 12px;">{{item.value}}</span>
+        </mat-list-item>
+    </mat-list>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button cdkFocusInitial (click)="close()">Close</button>
+</div>

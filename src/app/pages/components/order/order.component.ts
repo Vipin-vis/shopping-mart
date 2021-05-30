@@ -1,5 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatAccordion } from '@angular/material/expansion';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { Orders, Product } from 'src/app/core/data/dummyData';
 import { HttpService } from 'src/app/core/services/http.service';
 import { SharedService } from 'src/app/core/services/shared.service';
@@ -13,6 +16,10 @@ import { ConfirmDialogModel, ConfirmPopupComponent } from '../confirm-popup/conf
 })
 export class OrderComponent implements OnInit {
 
+  @ViewChild(MatAccordion) accordion!: MatAccordion;
+
+  scroll = new Subject<number>();
+  showScrollTopButton: boolean;
   displayedColumns = ['item', 'category', 'quantity', 'presenter', 'cost', 'tCost'];
   orders: any = [];
   displayPayment: boolean = false;
@@ -29,14 +36,19 @@ export class OrderComponent implements OnInit {
   currentUserType: string = "";
   selectedPresenter: string = "";
   presenters: any = [];
-
+  @HostListener('window:scroll') watchScroll() {
+    this.scroll.next(window.scrollY);
+  }
   constructor(private _sharedService: SharedService,
     private _http: HttpService,
     public dialog: MatDialog) {
     let userType: string = this._sharedService.userTypeValue;
     this.currentUserType = userType;
     // this.orders = Orders;
-
+    this.scroll
+    .pipe(debounceTime(200))
+    .subscribe((y) => this.onScroll(window.scrollY));
+    this.showScrollTopButton = false;
     if (userType === "admin") {
       this.displayPayment = true;
       this.displayOrderStatus = true;
@@ -90,7 +102,7 @@ export class OrderComponent implements OnInit {
           order.products = JSON.parse(JSON.stringify(res['order_product_data']));
           order.box_id = JSON.parse(JSON.stringify(res['boxid']));
           order.cargo_type = JSON.parse(JSON.stringify(res['cargo_type']));
-          order.products['customer_name'] = JSON.parse(JSON.stringify(res['order_customer_data']))['cus_name'];
+          order.products['customer_name'] = JSON.parse(JSON.stringify(res['order_customer_data']))['customer_name'];
           order.shipping_vendor = JSON.parse(JSON.stringify(res['shipping_vendor']));
           this.currentCustId = JSON.parse(JSON.stringify(res['order_customer_data']))['cust_id'];
 
@@ -257,6 +269,58 @@ export class OrderComponent implements OnInit {
   goToInvoice(orderid: string) {
     window.open(`/invoice?order_id=${orderid}&cust_id=${this.currentCustId}`, "_blank");
   }
+
+  /**
+   * 
+   */
+  openOrderSummary(orderId: string) {
+
+    let OrderSummaryData;
+    this._http.getOrderSummary(orderId).subscribe((res: any) => {
+      OrderSummaryData = JSON.parse(JSON.stringify(res));
+      const dialogRef = this.dialog.open(OrderSummaryComponent, {
+        width: '700px',
+        data: { "orderId": orderId, "data": OrderSummaryData }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+      });
+    });
+
+    //To Do remove
+    OrderSummaryData = {
+      "Agent": "Sachin",
+      "Shipper": "Dhoni",
+      "Accountant": "Kohli"
+    }
+
+    const dialogRef = this.dialog.open(OrderSummaryComponent, {
+      width: '700px',
+      data: { "orderId": orderId, "data": OrderSummaryData }
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+
+  }
+  /**
+   * Method to handle on scroll
+   * @param {number} scrollY 
+   */
+   onScroll(scrollY: number) {
+    if (scrollY >= 100) {
+      this.showScrollTopButton = true;
+    } else {
+      this.showScrollTopButton = false;
+    }
+  }
+  /**
+   * 
+   */
+   goToTop() {
+     window.scrollTo(0,0);
+   }
 }
 
 /**
@@ -301,4 +365,28 @@ export class orderRemarksComponent {
     })
   }
 
+}
+
+/**
+ * Order Summary
+ */
+@Component({
+  selector: 'order-summary-dialog',
+  templateUrl: 'order-summary.component.html',
+})
+export class OrderSummaryComponent {
+  orderSummaryArray: any = [];
+  constructor(public dialogRef: MatDialogRef<OrderSummaryComponent>,
+    @Inject(MAT_DIALOG_DATA) public orderSummary: any) {
+      for(let key in this.orderSummary.data) {
+        this.orderSummaryArray.push( {
+          item: key,
+          value: this.orderSummary.data[key]
+        });
+      }
+  }
+
+  close(): void {
+    this.dialogRef.close();
+  }
 }

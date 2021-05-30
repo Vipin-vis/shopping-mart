@@ -33,7 +33,7 @@ import { ProductsComponent } from './components/products/products.component';
 import { PageRoutingModule } from './page-routing.module';
 import { CartComponent } from './components/cart/cart.component';
 import { SharedModule } from '../shared/shared/shared.module';
-import { OrderComponent, orderRemarksComponent } from './components/order/order.component';
+import { OrderComponent, orderRemarksComponent, OrderSummaryComponent } from './components/order/order.component';
 import { LoginComponent } from './components/login/login.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { UsersComponent } from './components/users/users.component';
@@ -67,6 +67,7 @@ import { PackingManifestComponent } from './components/packing-manifest/packing-
     PackingPanelComponent,
     ConfirmPopupComponent,
     orderRemarksComponent,
+    OrderSummaryComponent,
     InvoiceComponent,
     OrderPipe,
     OrderPipeOrder,
