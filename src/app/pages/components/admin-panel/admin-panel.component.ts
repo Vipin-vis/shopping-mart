@@ -34,6 +34,11 @@ export class AdminPanelComponent implements OnInit {
     start: new FormControl(),
     end: new FormControl()
   });
+
+  orderStatusSalesDateRange = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl()
+  });
   userReportUser: string = "";
   users: any;
   userTypes: any;
@@ -41,6 +46,7 @@ export class AdminPanelComponent implements OnInit {
   reportBoxID: string = "";
   allCountries: any = ALL_COUNTRIES;
   selectedCountry: string = "";
+  selectedOrderStatus: string = "";
 
   constructor(
     private _sharedService: SharedService,
@@ -93,6 +99,18 @@ export class AdminPanelComponent implements OnInit {
             return;
           }
           window.open(`/totalSalesReport?start_date=${startDate}&end_date=${endDate}&type=${type}&report_type=employeeTypeSalesReport&userType=${this.userTypeReportType}`, "_blank");
+          break;
+        }
+
+      case 'orderStatusReport':
+        {
+          startDate = (new Date(this.orderStatusSalesDateRange.controls['start'].value)).getTime();
+          endDate = (new Date(this.orderStatusSalesDateRange.controls['end'].value)).getTime();
+          if (!!startDate == false || !!endDate == false || this.selectedOrderStatus == "") {
+            this._sharedService.openSnackBar("Please enter all required values!");
+            return;
+          }
+          this.router.navigate(['/packing-manifest', { startDate: startDate, endDate: startDate, report_type: "orderStatusReport", boxid: this.reportBoxID, orderStatus: this.selectedOrderStatus }]);
           break;
         }
       case 'boxIDTotalSales':

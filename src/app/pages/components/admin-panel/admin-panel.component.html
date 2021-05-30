@@ -29,7 +29,7 @@
         </mat-card>
         <mat-card class="admin-card">
             <h2><span>User Sales Report</span></h2>
-            <mat-form-field  appearance="fill">
+            <mat-form-field appearance="fill">
                 <mat-label>Select User</mat-label>
                 <mat-select [(value)]="userReportUser">
                     <mat-option *ngFor="let item of users" [value]="item.username">{{item.username}}</mat-option>
@@ -43,7 +43,8 @@
                 </mat-date-range-input>
                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                 <mat-date-range-picker #picker2></mat-date-range-picker>
-                <mat-error *ngIf="userTotalSalesDateRange.controls.start.hasError('matStartDateInvalid')">Invalid start date
+                <mat-error *ngIf="userTotalSalesDateRange.controls.start.hasError('matStartDateInvalid')">Invalid start
+                    date
                 </mat-error>
                 <mat-error *ngIf="userTotalSalesDateRange.controls.end.hasError('matEndDateInvalid')">Invalid end date
                 </mat-error>
@@ -55,7 +56,7 @@
         </mat-card>
         <mat-card class="admin-card">
             <h2><span>User Type Sales Report</span></h2>
-            <mat-form-field  appearance="fill"> 
+            <mat-form-field appearance="fill">
                 <mat-label>Select User Type</mat-label>
                 <mat-select [(value)]="userTypeReportType">
                     <mat-option *ngFor="let item of userTypes" [value]="item">{{item}}</mat-option>
@@ -69,9 +70,11 @@
                 </mat-date-range-input>
                 <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                 <mat-date-range-picker #picker3></mat-date-range-picker>
-                <mat-error *ngIf="userTypeTotalSalesDateRange.controls.start.hasError('matStartDateInvalid')">Invalid start date
+                <mat-error *ngIf="userTypeTotalSalesDateRange.controls.start.hasError('matStartDateInvalid')">Invalid
+                    start date
                 </mat-error>
-                <mat-error *ngIf="userTypeTotalSalesDateRange.controls.end.hasError('matEndDateInvalid')">Invalid end date
+                <mat-error *ngIf="userTypeTotalSalesDateRange.controls.end.hasError('matEndDateInvalid')">Invalid end
+                    date
                 </mat-error>
             </mat-form-field>
             <br>
@@ -83,7 +86,7 @@
             <h2><span>BoxID Sales Report </span></h2>
             <mat-form-field class="order-field" appearance="fill">
                 <mat-label>Box ID</mat-label>
-                <input  matInput [(ngModel)]="reportBoxID">
+                <input matInput [(ngModel)]="reportBoxID">
             </mat-form-field>
             <br>
             <button class="report-btn" mat-flat-button color="accent" (click)="getReport('boxIDTotalSales')">Get
@@ -95,7 +98,8 @@
             <mat-form-field class="order-field" appearance="fill">
                 <mat-label>Country</mat-label>
                 <mat-select [(value)]="selectedCountry">
-                    <mat-option *ngFor="let country of allCountries" [value]="country.name">{{country.name}}</mat-option>
+                    <mat-option *ngFor="let country of allCountries" [value]="country.name">{{country.name}}
+                    </mat-option>
                 </mat-select>
             </mat-form-field>
             <mat-form-field appearance="fill">
@@ -106,7 +110,8 @@
                 </mat-date-range-input>
                 <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
                 <mat-date-range-picker #picker4></mat-date-range-picker>
-                <mat-error *ngIf="countrySalesDateRange.controls.start.hasError('matStartDateInvalid')">Invalid start date
+                <mat-error *ngIf="countrySalesDateRange.controls.start.hasError('matStartDateInvalid')">Invalid start
+                    date
                 </mat-error>
                 <mat-error *ngIf="countrySalesDateRange.controls.end.hasError('matEndDateInvalid')">Invalid end date
                 </mat-error>
@@ -116,31 +121,38 @@
                 Report
             </button>
         </mat-card>
-        <!-- <mat-card class="admin-card">
+        <mat-card class="admin-card">
             <h2><span>Order Status Report </span></h2>
             <mat-form-field class="order-field" appearance="fill">
-                <mat-label>Country</mat-label>
-                <mat-select [(value)]="selectedCountry">
-                    <mat-option  [value]="country.name">{{country.name}}</mat-option>
+                <mat-label>Order Status</mat-label>
+                <mat-select [(value)]="selectedOrderStatus">
+                    <mat-option [value]="'PLACED'">Placed</mat-option>
+                    <mat-option [value]="'CONFIRMED'">Confirmed</mat-option>
+                    <mat-option [value]="'RD_PACK'">Packing</mat-option>
+                    <mat-option [value]="'RD_SHIP'">Shipping</mat-option>
+                    <mat-option [value]="'SHIPPED'">Shipped</mat-option>
+                    <mat-option [value]="'COMPLETED'">Completed</mat-option>
+                    <mat-option [value]="'CANCELLED'">Cancelled</mat-option>
                 </mat-select>
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Enter a date range</mat-label>
-                <mat-date-range-input [formGroup]="countrySalesDateRange" [rangePicker]="picker4">
+                <mat-date-range-input [formGroup]="orderStatusSalesDateRange" [rangePicker]="picker5">
                     <input matStartDate formControlName="start" placeholder="Start date">
                     <input matEndDate formControlName="end" placeholder="End date">
                 </mat-date-range-input>
-                <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
-                <mat-date-range-picker #picker4></mat-date-range-picker>
-                <mat-error *ngIf="countrySalesDateRange.controls.start.hasError('matStartDateInvalid')">Invalid start date
+                <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker5></mat-date-range-picker>
+                <mat-error *ngIf="orderStatusSalesDateRange.controls.start.hasError('matStartDateInvalid')">Invalid start
+                    date
                 </mat-error>
-                <mat-error *ngIf="countrySalesDateRange.controls.end.hasError('matEndDateInvalid')">Invalid end date
+                <mat-error *ngIf="orderStatusSalesDateRange.controls.end.hasError('matEndDateInvalid')">Invalid end date
                 </mat-error>
             </mat-form-field>
             <br>
-            <button class="report-btn" mat-flat-button color="accent" (click)="getReport('countrySales')">Get
+            <button class="report-btn" mat-flat-button color="accent" (click)="getReport('orderStatusReport')">Get
                 Report
             </button>
-        </mat-card> -->
+        </mat-card>
     </div>
 </div>

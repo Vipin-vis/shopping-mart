@@ -15,10 +15,12 @@ export class PackingManifestComponent implements OnInit {
 
   packingDetails: any = [];
   boxID: any = "";
+  orderStatus: any = "";
   country: any = "";
   reportType: any = "";
   isBoxid: boolean = false;
   isCountry: boolean = false;
+  isOrderStatus: boolean = false;
   userTotalSalesDateRange = new FormGroup({
     start: new FormControl(),
     end: new FormControl()
@@ -52,6 +54,8 @@ export class PackingManifestComponent implements OnInit {
     this.isBoxid = false;
     this.isCountry = false;
     this.boxID = this.route.snapshot.paramMap.get('boxid');
+    this.orderStatus = this.route.snapshot.paramMap.get('orderStatus');
+
     if (!!this.boxID == false) {
       this.boxID = "";
     }
@@ -71,8 +75,13 @@ export class PackingManifestComponent implements OnInit {
       this.displayedColumns = ['slno', 'bookedon', 'orderNo', 'customerName', 'address', 'boxId', 'cargo'];
       this.isCountry = true;
     }
-
-    this._http.getTotalSalereport(this.startDateVal, this.endDateVal, this.reportType, this.country, userType, "", this.boxID).subscribe((res: any) => {
+    if (!!this.orderStatus == false) {
+      this.orderStatus = "";
+    } else {
+      this.displayedColumns = ['slno', 'bookedon', 'orderNo', 'customerName', 'address', 'boxId', 'cargo'];
+      this.isOrderStatus =  true;
+    }
+    this._http.getTotalSalereport(this.startDateVal, this.endDateVal, this.reportType, this.country, userType, "", this.boxID, this.orderStatus).subscribe((res: any) => {
       if (this.reportType == "boxidSalesReport") {
         this.packingDetails = JSON.parse(JSON.stringify(res)).boxDetails;
       } else if (this.reportType == "countrySalesReport") {

@@ -158,7 +158,7 @@
                             <button mat-menu-item (click)="saveChanges(order)"
                                 [disabled]="(currentUserType=='accountant'|| currentUserType=='packing')">Save Order
                             </button>
-                            <button mat-menu-item (click)="deleteOrder(order.order_id)"
+                            <button mat-menu-item  (click)="deleteOrder(order.order_id)"
                                 [disabled]="!(currentUserType=='admin'|| currentUserType=='agent')">Delete
                                 Order</button>
                         </mat-menu>
@@ -222,7 +222,7 @@
                         <th mat-header-cell *matHeaderCellDef> Total Cost</th>
                         <td mat-cell class="tcost-td" *matCellDef="let product">
                             {{product.prod_price * product.prod_quantity | currency:'AED'}}
-                            <button mat-mini-fab class="del-prod" color="accent"
+                            <button mat-mini-fab matTooltip="Delete Item" class="del-prod" color="accent"
                                 *ngIf="(currentUserType=='admin'|| currentUserType=='agent')">
                                 <mat-icon (click)="removeItemFromOrder(product.id,order.order_id)">remove</mat-icon>
                             </button>
@@ -240,6 +240,6 @@
     </div>
 </div>
 
-<button  *ngIf="showScrollTopButton" mat-fab  class="fixed-btn"  (click)="goToTop()">
+<button  *ngIf="showScrollTopButton" mat-fab matTooltip="Return to Top"  class="fixed-btn"  (click)="goToTop()">
     <mat-icon>arrow_upward</mat-icon>
 </button>

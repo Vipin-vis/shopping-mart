@@ -21,6 +21,9 @@
 
     <span style="color: rgb(165, 161, 161); min-width: 50px; margin-left: 24px;" *ngIf="isBoxid"> Box ID: </span>
     <mat-label>{{boxID}}</mat-label>
+
+    <span style="color: rgb(165, 161, 161); min-width: 50px; margin-left: 24px;" *ngIf="isOrderStatus"> Order status: </span>
+    <mat-label>{{orderStatus}}</mat-label>
     <br>
 
     <table mat-table class="order-table" [dataSource]="packingDetails">
