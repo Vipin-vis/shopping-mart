@@ -280,7 +280,7 @@ export class OrderComponent implements OnInit {
       OrderSummaryData = JSON.parse(JSON.stringify(res));
       const dialogRef = this.dialog.open(OrderSummaryComponent, {
         width: '700px',
-        data: { "orderId": orderId, "data": OrderSummaryData }
+        data: { "orderId": orderId, "data": JSON.parse(JSON.stringify(OrderSummaryData)) }
       });
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
@@ -288,22 +288,22 @@ export class OrderComponent implements OnInit {
     });
 
     //To Do remove
-    OrderSummaryData = {
-      "Agent": "Sachin",
-      "Shipper": "Dhoni",
-      "Accountant": "Kohli"
-    }
 
-    const dialogRef = this.dialog.open(OrderSummaryComponent, {
+  }
+  /**
+   * 
+   * 
+   */
+   openDiscount(orderId:string) {
+     const discountData = null;
+    const dialogRef = this.dialog.open(DiscountComponent, {
       width: '700px',
-      data: { "orderId": orderId, "data": OrderSummaryData }
-    })
-
+      data: { "orderId": orderId, "data": JSON.parse(JSON.stringify(discountData)) }
+    });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
-
-  }
+   }
   /**
    * Method to handle on scroll
    * @param {number} scrollY 
@@ -388,5 +388,44 @@ export class OrderSummaryComponent {
 
   close(): void {
     this.dialogRef.close();
+  }
+}
+
+
+/**
+ * Add Discount Component
+ */
+ @Component({
+  selector: 'discount-dialog',
+  templateUrl: 'discount.component.html',
+  styleUrls: ['order.component.scss']
+})
+export class DiscountComponent {
+  discount: any = [];
+  vat: any = "";
+  delivery: any = [];
+  orderId: string = "";
+  selectedDelivery: any = "";
+  constructor(public dialogRef: MatDialogRef<DiscountComponent>,
+    @Inject(MAT_DIALOG_DATA) public discountData: any,
+    private _http: HttpService) {
+      this.vat = discountData.vat;
+      this.delivery = discountData.delivery;
+      this.orderId = discountData.orderId;
+  }
+
+  close(): void {
+    this.dialogRef.close();
+  }
+
+  updateDetails() {
+    const discountData = {
+      "vat": this.vat,
+      "discount": this.discount,
+      "delivery": this.selectedDelivery
+    }
+    this._http.updateDiscount( this.orderId, discountData).subscribe((res) =>{
+      console.log("discount updated");
+    });
   }
 }

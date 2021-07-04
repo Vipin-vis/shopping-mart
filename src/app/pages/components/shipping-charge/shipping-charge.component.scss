@@ -1,10 +1,11 @@
-.add-shipping {
+.add-shipping, .add-new {
     top: 100px;
     position: relative;
-    width: 50%;
-    margin-left: 250px;
+    margin: 12px;
 }
-
+.add-shipping {
+    width: 60%;
+}
 .User-full-width {
     width: 100%;
 }

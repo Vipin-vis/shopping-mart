@@ -110,7 +110,7 @@ export class AdminPanelComponent implements OnInit {
             this._sharedService.openSnackBar("Please enter all required values!");
             return;
           }
-          this.router.navigate(['/packing-manifest', { startDate: startDate, endDate: startDate, report_type: "orderStatusReport", boxid: this.reportBoxID, orderStatus: this.selectedOrderStatus }]);
+          this.router.navigate(['/packing-manifest', { startDate: startDate, endDate: endDate, report_type: "orderStatusReport", boxid: this.reportBoxID, orderStatus: this.selectedOrderStatus }]);
           break;
         }
       case 'boxIDTotalSales':

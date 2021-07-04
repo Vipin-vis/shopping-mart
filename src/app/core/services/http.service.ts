@@ -14,8 +14,15 @@ import { SharedService } from './shared.service';
 export class HttpService {
 
   serviceURI: string = CONFIG.api_service_uri;
+  httpOptions: any;
   constructor(private http: HttpClient, private _auth: AuthService, private _sharedService: SharedService) {
-
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ',
+        'x-access-token': this._auth.getToken()
+      })
+    };
   }
   /**
    * 
@@ -42,13 +49,7 @@ export class HttpService {
    * @param searchKey 
    */
   getProducts(searchKey: string, category: any): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ',
-        'x-access-token': this._auth.getToken()
-      })
-    };
+    const httpOptions = this.setHttpOptions();
     return this.http.post(this.serviceURI + '/searchProducts', { "search_str": searchKey, "product_category": category }, httpOptions);
     // return this.http.get(this.serviceURI + '/products');
   }
@@ -56,13 +57,7 @@ export class HttpService {
    * 
    */
   getAllOrders(): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ',
-        'x-access-token': this._auth.getToken()
-      })
-    };
+    const httpOptions = this.setHttpOptions();
     return this.http.post(this.serviceURI + '/getallOrders', { 'username': this._sharedService.username }, httpOptions);
   }
   /**
@@ -73,13 +68,7 @@ export class HttpService {
       "order_id": id,
       "username": this._sharedService.username
     }
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ',
-        'x-access-token': this._auth.getToken()
-      })
-    };
+    const httpOptions = this.setHttpOptions();
     return this.http.post(this.serviceURI + '/getOrderDetails', reqParam, httpOptions);
   }
   /**
@@ -87,13 +76,7 @@ export class HttpService {
    */
   addProduct(products: any) {
     //let reqParam = { "products": products }
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ',
-        'x-access-token': this._auth.getToken()
-      })
-    };
+    const httpOptions = this.setHttpOptions();
     return this.http.post(this.serviceURI + '/addproduct', products, httpOptions);
   }
   /**
@@ -101,13 +84,7 @@ export class HttpService {
    */
   getUSer(userId: string) {
     let reqParam = { "user_id": userId }
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ',
-        'x-access-token': this._auth.getToken()
-      })
-    };
+    const httpOptions = this.setHttpOptions();
     return this.http.post(this.serviceURI + '/getUserDetails', reqParam, httpOptions);
   }
   /**
@@ -115,13 +92,7 @@ export class HttpService {
    */
   editUSer(user: any) {
     //let reqParam = { "user": user }
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ',
-        'x-access-token': this._auth.getToken()
-      })
-    };
+    const httpOptions = this.setHttpOptions();
     return this.http.post(this.serviceURI + '/editUser', user, httpOptions);
   }
   /**
@@ -129,13 +100,7 @@ export class HttpService {
    */
   addUSer(user: any) {
     //let reqParam = { "user": user }
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ',
-        'x-access-token': this._auth.getToken()
-      })
-    };
+    const httpOptions = this.setHttpOptions();
     return this.http.post(this.serviceURI + '/addUser', user, httpOptions);
   }
 
@@ -143,13 +108,7 @@ export class HttpService {
    * 
    */
   getAllUSers() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ',
-        'x-access-token': this._auth.getToken()
-      })
-    };
+    const httpOptions = this.setHttpOptions();
     return this.http.get(this.serviceURI + '/getAllUsers', httpOptions);
   }
 
@@ -157,33 +116,21 @@ export class HttpService {
    * 
    */
   saveUserDetails(user: any) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ',
-        'x-access-token': this._auth.getToken()
-      })
-    };
+    const httpOptions = this.setHttpOptions();
     return this.http.post(this.serviceURI + '/userConfirmation', user, httpOptions);
   }
   /**
   * 
   */
-  generateOrder(userName: string, productData: any, remarks: string, presenter: any, phoneNumber?:any) {
+  generateOrder(userName: string, productData: any, remarks: string, presenter: any, phoneNumber?: any) {
     let reqParam = {
       "userName": userName,
       "remarks": remarks,
       "presenter": presenter,
       "order_product_data": productData,
-      "contact_number" : phoneNumber
+      "contact_number": phoneNumber
     }
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ',
-        'x-access-token': this._auth.getToken()
-      })
-    };
+    const httpOptions = this.setHttpOptions();
     console.log("reqpam:", reqParam)
     return this.http.post(this.serviceURI + '/generateOrder', reqParam, httpOptions);
   }
@@ -198,39 +145,21 @@ export class HttpService {
    * 
    */
   deleteOrder(id: string) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ',
-        'x-access-token': this._auth.getToken()
-      })
-    };
+    const httpOptions = this.setHttpOptions();
     return this.http.post(this.serviceURI + `/deleteOrder?order_id=${id}`, {}, httpOptions)
   }
   /**
    * 
    */
   getAllPreseters() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ',
-        'x-access-token': this._auth.getToken()
-      })
-    };
+    const httpOptions = this.setHttpOptions();
     return this.http.get(this.serviceURI + '/getAllPresenters', httpOptions);
   }
   /**
    * 
    */
   getUserTypes() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ',
-        'x-access-token': this._auth.getToken()
-      })
-    };
+    const httpOptions = this.setHttpOptions();
     return this.http.get(this.serviceURI + '/getUserTypes', httpOptions);
   }
 
@@ -238,39 +167,21 @@ export class HttpService {
    * 
    */
   addRemarks(remarks: any) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ',
-        'x-access-token': this._auth.getToken()
-      })
-    };
+    const httpOptions = this.setHttpOptions();
     return this.http.post(this.serviceURI + '/addRemarks', remarks, httpOptions);
   }
   /**
  * 
  */
   updateShipppingCharge(shippingCharge: any) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ',
-        'x-access-token': this._auth.getToken()
-      })
-    };
+    const httpOptions = this.setHttpOptions();
     return this.http.post(this.serviceURI + '/saveShippingCharges', shippingCharge, httpOptions);
   }
   /**
    * 
    */
   getproductCategory() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ',
-        'x-access-token': this._auth.getToken()
-      })
-    };
+    const httpOptions = this.setHttpOptions();
     return this.http.get(this.serviceURI + '/getproductCategory ', httpOptions);
   }
 
@@ -279,13 +190,7 @@ export class HttpService {
    */
   deleteUser(userID: string) {
     let user = { "user_id": userID };
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ',
-        'x-access-token': this._auth.getToken()
-      })
-    };
+    const httpOptions = this.setHttpOptions();
     return this.http.post(this.serviceURI + '/deleteUser', user, httpOptions);
 
   }
@@ -294,13 +199,7 @@ export class HttpService {
    * 
    */
   changePassword(param: any) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ',
-        'x-access-token': this._auth.getToken()
-      })
-    };
+    const httpOptions = this.setHttpOptions();
     return this.http.post(this.serviceURI + '/changePassword', param, httpOptions);
 
   }
@@ -309,13 +208,7 @@ export class HttpService {
    * 
    */
   changePaymentStatus(param: any) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ',
-        'x-access-token': this._auth.getToken()
-      })
-    };
+    const httpOptions = this.setHttpOptions();
     return this.http.post(this.serviceURI + '/changePaymentStatus', param, httpOptions);
 
   }
@@ -324,13 +217,7 @@ export class HttpService {
    * 
    */
   changeOrderStatus(param: any) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ',
-        'x-access-token': this._auth.getToken()
-      })
-    };
+    const httpOptions = this.setHttpOptions();
     return this.http.post(this.serviceURI + '/changeOrderStatus', param, httpOptions);
 
   }
@@ -338,13 +225,7 @@ export class HttpService {
    * 
    */
   editOrder(param: any) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ',
-        'x-access-token': this._auth.getToken()
-      })
-    };
+    const httpOptions = this.setHttpOptions();
     return this.http.post(this.serviceURI + '/editOrder', param, httpOptions);
 
   }
@@ -352,13 +233,7 @@ export class HttpService {
   * 
   */
   getShipment() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ',
-        'x-access-token': this._auth.getToken()
-      })
-    };
+    const httpOptions = this.setHttpOptions();
     return this.http.get(this.serviceURI + '/getShipment', httpOptions);
 
   }
@@ -366,62 +241,67 @@ export class HttpService {
   * 
   */
   getShippingTypes() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ',
-        'x-access-token': this._auth.getToken()
-      })
-    };
+    const httpOptions = this.setHttpOptions();
     return this.http.get(this.serviceURI + '/getShippingTypes', httpOptions);
   }
   /**
   * 
   */
   getAllRemarks(orderId: string) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ',
-        'x-access-token': this._auth.getToken()
-      })
-    };
+    const httpOptions = this.setHttpOptions();
     return this.http.get(this.serviceURI + `/getAllRemarks?orderid=${orderId}`, httpOptions);
   }
   /**
   * 
   */
-   getOrderSummary(orderId: string) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ',
-        'x-access-token': this._auth.getToken()
-      })
-    };
+  getOrderSummary(orderId: string) {
+    const httpOptions = this.setHttpOptions();
     return this.http.get(this.serviceURI + `/getOrderSummary?orderid=${orderId}`, httpOptions);
   }
   /**
    * 
    */
-  getTotalSalereport(startDate: any, endDate: any, reportType: any, country: any, userType: any, user: any, boxID?:any, orderStatus?:any) {
-    const httpOptions = {
+  getTotalSalereport(startDate: any, endDate: any, reportType: any, country: any, userType: any, user: any, boxID?: any, orderStatus?: any) {
+    const httpOptions = this.setHttpOptions();
+    if (user.length === 0) {
+      user = localStorage.getItem('user');
+    }
+    if (!!boxID == false) {
+      boxID = "";
+    }
+
+    if (!!orderStatus == false) {
+      orderStatus = "";
+    }
+    return this.http.get(this.serviceURI + `/getTotalSalesReport?start_date=${startDate}&end_date=${endDate}&reportType=${reportType}&reportUser=${user}&country=${country}&userType=${userType}&boxID=${boxID}&order_status=${orderStatus}`, httpOptions);
+  }
+  /**
+  * 
+  */
+   getCustomerDetails() {
+    const httpOptions = this.setHttpOptions();
+    return this.http.get(this.serviceURI + `/customerDetails`, httpOptions);
+  }
+  /**
+   * 
+   * @returns 
+   */
+  updateDiscount(orderID: string, discountData: any) {
+    const httpOptions = this.setHttpOptions();
+    return this.http.post(this.serviceURI + `/customerDetails?orderId=${orderID}`, discountData,
+     httpOptions);
+ 
+  }
+  /**
+   * 
+   */
+  setHttpOptions() {
+    return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': 'Basic ',
         'x-access-token': this._auth.getToken()
       })
     };
-    if(user.length === 0) {
-      user = localStorage.getItem('user');
-    }
-    if(!!boxID == false) {
-      boxID = "";
-    }
-    
-    if(!!orderStatus == false) {
-      orderStatus = "";
-    }
-    return this.http.get(this.serviceURI + `/getTotalSalesReport?start_date=${startDate}&end_date=${endDate}&reportType=${reportType}&reportUser=${user}&country=${country}&userType=${userType}&boxID=${boxID}&order_status=${orderStatus}`, httpOptions);
   }
 }

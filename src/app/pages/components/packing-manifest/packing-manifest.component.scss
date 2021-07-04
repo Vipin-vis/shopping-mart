@@ -17,17 +17,20 @@
 }
 
 .fab-invoice-tool-bar {
-    .print-btn, .packing-btn {
+    .print-btn,
+    .packing-btn {
         display: none;
     }
     &:hover {
-        .print-btn, .packing-btn {
+        .print-btn,
+        .packing-btn {
             display: block;
         }
     }
 }
-@media print { 
-    .print-btn, .packing-btn {
+@media print {
+    .print-btn,
+    .packing-btn {
         display: none;
     }
 }

@@ -1,0 +1,24 @@
+<label class="card-label">
+    Discount
+</label>
+<div class="discount-div">
+    <mat-form-field class="User-full-width">
+        <mat-label>Vat</mat-label>
+        <input matInput [(ngModel)]="vat">
+    </mat-form-field>
+    <mat-form-field class="User-full-width">
+        <mat-label>Discount</mat-label>
+        <input matInput [(ngModel)]="discount">
+    </mat-form-field>
+    <mat-form-field class="User-full-width">
+        <mat-label>Delivery</mat-label>
+        <mat-select [(value)]="selectedDelivery">
+            <mat-option *ngFor="let mode of delivery" [value]="mode.value">{{mode.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-raised-button cdkFocusInitial (click)="close()"  color="accent">Update</button>
+    <button mat-button cdkFocusInitial (click)="close()">Close</button>
+</div>

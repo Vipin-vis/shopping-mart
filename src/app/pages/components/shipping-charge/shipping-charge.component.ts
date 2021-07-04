@@ -13,6 +13,9 @@ export class ShippingChargeComponent implements OnInit {
   normalCharge: number = 0;
   shippingTypes: any = [];
   shippingTypeCharge: any = [];
+  vatCharge: any = "5%";
+  newDeliveryCharge: any = "";
+  newDeliveryName: string = "";
 
   constructor(private _http: HttpService,
     private _sharedService: SharedService) {
@@ -23,16 +26,8 @@ export class ShippingChargeComponent implements OnInit {
     this.shippingTypeCharge = [];
     this._http.getShippingTypes().subscribe((res) => {
       this.shippingTypeCharge = JSON.parse(JSON.stringify(res));
+      //this.vatCharge = JSON.parse(JSON.stringify(res.vat))
     });
-
-    //To remove:
-    //this.shippingTypes = ["as","sdsd", "wsadsfd","sfsf", "sfsf", "sfsf"];
-    // this.shippingTypes.forEach((type: any) => {
-    //   this.shippingTypeCharge.push({
-    //     "name": type,
-    //     "cost": ""
-    //   })
-    // });
 
   }
   /**
@@ -41,7 +36,8 @@ export class ShippingChargeComponent implements OnInit {
   saveCharge() {
     let shippingCharge: any = {
       "user_name": this._sharedService.username,
-      "shipping": []
+      "shipping": [],
+      "vat": this.vatCharge
     }
 
     this.shippingTypeCharge.forEach((type: any) => {
@@ -55,6 +51,23 @@ export class ShippingChargeComponent implements OnInit {
     }, (err: any) => {
       console.error(err);
     })
+  }
+  /**
+   * 
+   */
+  AddNewDelivery() {
+    if (this.newDeliveryName.trim().length < 1 ||
+    this.newDeliveryCharge.trim().length < 1) {
+      this._sharedService.openSnackBar("All Fields are required!!");
+      return;
+    }
+    const newDeliveryType = {
+      name: this.newDeliveryName,
+      cost: this.newDeliveryCharge
+    }
+      this.shippingTypeCharge.push(newDeliveryType);
+      this._sharedService.openSnackBar(`${this.newDeliveryName} added!!`);
+      
   }
   /**
    * 

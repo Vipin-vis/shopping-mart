@@ -6,6 +6,7 @@ import { AddProductComponent } from './components/add-product/add-product.compon
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { CustomerDetailsComponent } from './components/customer-details/customer-details.component';
 import { EndUserComponent } from './components/end-user/end-user.component';
 import { InvoiceComponent } from './components/invoice/invoice.component';
 import { LoginComponent } from './components/login/login.component';
@@ -102,6 +103,13 @@ const routes: Routes = [
         canActivate: [AuthGuardService],
         data: {
             expectedRole: 'invoice'
+        }
+    },
+    {
+        path: 'customerDetails', component: CustomerDetailsComponent,
+        canActivate: [AuthGuardService],
+        data: {
+            expectedRole: 'customer-details'
         }
     },
     {

@@ -151,6 +151,7 @@
                         <mat-menu #menu="matMenu">
                             <button mat-menu-item (click)="openRemarkPopup(order.order_id)">Remarks</button>
                             <button mat-menu-item (click)="openOrderSummary(order.order_id)">Get Order Summary</button>
+                            <button mat-menu-item (click)="openDiscount(order.order_id)">Add Discount</button>
                             <button mat-menu-item (click)="goToInvoice(order.order_id)">Get Invoice</button>
                             <button mat-menu-item (click)="addFromCart(order.order_id)"
                                 [disabled]="!(currentUserType=='admin'|| currentUserType=='agent')">Add From

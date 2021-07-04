@@ -18,7 +18,8 @@ export class AuthGuardService implements CanActivate {
     if ((expectedRole === 'admin-panel' || expectedRole === 'packing-panel'
       || expectedRole === 'cart' || expectedRole === 'users'
       || expectedRole === 'shippingCharge'
-      || expectedRole === 'addproduct')
+      || expectedRole === 'addproduct'
+      || expectedRole == 'customer-details')
       && (this._sharedService.userTypeValue !== 'admin')) {
       activate = false;
     }

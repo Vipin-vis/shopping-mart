@@ -33,7 +33,7 @@ import { ProductsComponent } from './components/products/products.component';
 import { PageRoutingModule } from './page-routing.module';
 import { CartComponent } from './components/cart/cart.component';
 import { SharedModule } from '../shared/shared/shared.module';
-import { OrderComponent, orderRemarksComponent, OrderSummaryComponent } from './components/order/order.component';
+import { DiscountComponent, OrderComponent, orderRemarksComponent, OrderSummaryComponent } from './components/order/order.component';
 import { LoginComponent } from './components/login/login.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { UsersComponent } from './components/users/users.component';
@@ -51,6 +51,7 @@ import { OrderPipe, OrderPipeOrder, OrderPipePayment, OrderPipeStatus } from '..
 import { SalesReportComponent } from './components/sales-report/sales-report.component';
 import { BoxidReportComponent } from './components/boxid-report/boxid-report.component';
 import { PackingManifestComponent } from './components/packing-manifest/packing-manifest.component';
+import { CustomerDetailsComponent } from './components/customer-details/customer-details.component';
 @NgModule({
   declarations: [
     MainComponent,
@@ -76,6 +77,8 @@ import { PackingManifestComponent } from './components/packing-manifest/packing-
     SalesReportComponent,
     BoxidReportComponent,
     PackingManifestComponent,
+    CustomerDetailsComponent,
+    DiscountComponent
   ],
   imports: [
     CommonModule,
