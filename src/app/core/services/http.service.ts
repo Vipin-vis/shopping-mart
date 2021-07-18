@@ -319,7 +319,7 @@ export class HttpService {
     return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'x-access-token': `Bearer ${this._auth.getOneFabtoken()}`,
+        'Authorization': `Bearer ${this._auth.getOneFabtoken()}`,
         'Access-Control-Allow-origin': '*',
         'Access-Control-Allow-credentials': 'true'
       })
