@@ -34,18 +34,33 @@ export class LoginComponent implements OnInit {
           this._auth.setUserTypeToLs(res.userType);
           this._auth.setUserToLs(this.userName);
           if (this._sharedService.userTypeValue === "accountant" ||
-              this._sharedService.userTypeValue === "packing"||
-              this._sharedService.userTypeValue === "shipping") {
+            this._sharedService.userTypeValue === "packing" ||
+            this._sharedService.userTypeValue === "shipping") {
             this.router.navigate(['/order']);
           } else {
             this.router.navigate(['/home']);
           }
+
+          /**Autheticate Fab One */
+          /**To Do Chnage this with mergemap */
+          this._http.authenticateFabOne().subscribe((res: any) => {
+            this._auth.authenticateOneFabtoLS(res.access_token);
+            this._http.getFabOneproductCategory().subscribe((res: any) => {
+              console.log("category", res);
+              // this.categoryList = JSON.parse(JSON.stringify(res.product_categories));
+              // this.categoryList.unshift("ALL");
+            });
+             /**To Do Get Ware House Details */
+          });
+
+         
+
         }
-        else if (res.message == 'Invalid User!'){
+        else if (res.message == 'Invalid User!') {
           this._sharedService.openSnackBar("Invalid User!");
           return;
         }
-        else if (res.message == 'FAILED'){
+        else if (res.message == 'FAILED') {
           this._sharedService.openSnackBar("Wrong Password!");
           return;
         }

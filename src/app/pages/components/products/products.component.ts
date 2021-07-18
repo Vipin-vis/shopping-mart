@@ -43,6 +43,7 @@ export class ProductsComponent implements OnInit {
       this.categoryList = JSON.parse(JSON.stringify(res.product_categories));
       this.categoryList.unshift("ALL");
     });
+    
     this.noProducts = false;
   }
 

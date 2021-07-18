@@ -9,7 +9,7 @@ import { HttpService } from 'src/app/core/services/http.service';
 export class CustomerDetailsComponent implements OnInit {
 
   toPrint: boolean = true;
-  displayedColumns = ['slno', 'name', 'contact', 'email', 'address','shippingAddress', 'country'];
+  displayedColumns = ['slno', 'name', 'contact', 'email', 'address','shippingAddress'];
 
   customerDetails: any = [];
   constructor(private _http: HttpService) { }

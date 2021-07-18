@@ -36,6 +36,7 @@ export class OrderComponent implements OnInit {
   currentUserType: string = "";
   selectedPresenter: string = "";
   presenters: any = [];
+  shippingCharge: any=[];
   @HostListener('window:scroll') watchScroll() {
     this.scroll.next(window.scrollY);
   }
@@ -87,6 +88,9 @@ export class OrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.getOrderData();
+    this._http.getShippingTypes().subscribe((res: any) => {
+      this.shippingCharge = JSON.parse(JSON.stringify(res));
+    })
   }
 
   getProduct(oderID: any) {
@@ -104,6 +108,11 @@ export class OrderComponent implements OnInit {
           order.cargo_type = JSON.parse(JSON.stringify(res['cargo_type']));
           order.products['customer_name'] = JSON.parse(JSON.stringify(res['order_customer_data']))['customer_name'];
           order.shipping_vendor = JSON.parse(JSON.stringify(res['shipping_vendor']));
+          order.vat = JSON.parse(JSON.stringify(res['VAT']));
+          order.delivery = JSON.parse(JSON.stringify(res['deliveryCharge']));
+          order.discount = JSON.parse(JSON.stringify(res['discount']));
+          order.deliveryMode = JSON.parse(JSON.stringify(res['deliveryMode']));
+          order.totalCost = JSON.parse(JSON.stringify(res['totalCost']));
           this.currentCustId = JSON.parse(JSON.stringify(res['order_customer_data']))['cust_id'];
 
         })
@@ -294,8 +303,13 @@ export class OrderComponent implements OnInit {
    * 
    * 
    */
-   openDiscount(orderId:string) {
-     const discountData = null;
+   openDiscount(order:any) {
+    const discountData = {
+      delivery: order.delivery,
+      vat: order.vat,
+      discount: order.discount
+    };
+    const orderId = order.order_id;
     const dialogRef = this.dialog.open(DiscountComponent, {
       width: '700px',
       data: { "orderId": orderId, "data": JSON.parse(JSON.stringify(discountData)) }
@@ -405,13 +419,15 @@ export class DiscountComponent {
   vat: any = "";
   delivery: any = [];
   orderId: string = "";
-  selectedDelivery: any = "";
+  selectedDeliveryCharge: any = "";
   constructor(public dialogRef: MatDialogRef<DiscountComponent>,
     @Inject(MAT_DIALOG_DATA) public discountData: any,
-    private _http: HttpService) {
-      this.vat = discountData.vat;
-      this.delivery = discountData.delivery;
+    private _http: HttpService,
+    private _sharedService: SharedService) {
+      this.vat = discountData.data.vat;
+      this.selectedDeliveryCharge = discountData.data.delivery;
       this.orderId = discountData.orderId;
+      this.discount = discountData.data.discount;
   }
 
   close(): void {
@@ -422,10 +438,10 @@ export class DiscountComponent {
     const discountData = {
       "vat": this.vat,
       "discount": this.discount,
-      "delivery": this.selectedDelivery
+      "delivery": this.selectedDeliveryCharge
     }
     this._http.updateDiscount( this.orderId, discountData).subscribe((res) =>{
-      console.log("discount updated");
+      this._sharedService.openSnackBar("Discount and Vat updated!!!");
     });
   }
 }

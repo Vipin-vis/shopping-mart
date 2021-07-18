@@ -151,7 +151,7 @@
                         <mat-menu #menu="matMenu">
                             <button mat-menu-item (click)="openRemarkPopup(order.order_id)">Remarks</button>
                             <button mat-menu-item (click)="openOrderSummary(order.order_id)">Get Order Summary</button>
-                            <button mat-menu-item (click)="openDiscount(order.order_id)">Add Discount</button>
+                            <button mat-menu-item (click)="openDiscount(order)">Add Discount</button>
                             <button mat-menu-item (click)="goToInvoice(order.order_id)">Get Invoice</button>
                             <button mat-menu-item (click)="addFromCart(order.order_id)"
                                 [disabled]="!(currentUserType=='admin'|| currentUserType=='agent')">Add From
@@ -167,6 +167,13 @@
                     </div>
                 </div>
                 <br>
+                <mat-form-field appearance="fill" style="width: 30%;float:right;margin-right: 109px;">
+                    <mat-label>Delivery Mode</mat-label>
+                    <mat-select  [(value)]="order.deliveryMode">
+                        <mat-option *ngFor="let type of shippingCharge" [value]="type.name">{{type.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
                 <mat-form-field appearance="fill" style="width: 30%;float:right;margin-right: 109px;">
                     <mat-label>Shipping vendor Details</mat-label>
                     <textarea matInput [(ngModel)]="order.shipping_vendor"
@@ -228,7 +235,7 @@
                                 <mat-icon (click)="removeItemFromOrder(product.id,order.order_id)">remove</mat-icon>
                             </button>
                         </td>
-                        <td mat-footer-cell *matFooterCellDef> {{getTotalCost(order.products) | currency:'AED'}} </td>
+                        <td mat-footer-cell *matFooterCellDef> {{order.totalCost | currency:'AED'}} </td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

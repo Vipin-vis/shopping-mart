@@ -14,6 +14,9 @@ export class InvoiceComponent implements OnInit {
   products: any = [];
   userDetails: any = {};
   totalCost: number = 0;
+  vat: any = "";
+  deliveryCharge:any = "";
+  discount:any = "";
   displayedColumns = ['item', 'category', 'quantity', 'cost', 'tCost'];
   shipment: any = {
     mode: "Normal",
@@ -37,16 +40,21 @@ export class InvoiceComponent implements OnInit {
     this._http.getUserOrderDetails(cust_id, orderID,'INVOICE').subscribe((res: any) => {
       this.products = JSON.parse(JSON.stringify(res['order_product_data']));   
       let userDetails:any = JSON.parse(JSON.stringify(res['order_customer_data']));
-      this.userDetails.customer_shipping_address = userDetails.cust_billing_address;
-      this.userDetails.customer_billing_address = userDetails.customer_shipping_adress;
-      this.userDetails.delivery_mode = JSON.parse(JSON.stringify(res['delivery_mode']));
-      this.userDetails.customer_email_id = userDetails.cust_email;
-      this.userDetails.customer_name = userDetails.cus_name;
-     // this.userDetails.agent = JSON.parse(JSON.stringify(res['agent']));
+      this.userDetails.customer_shipping_address = userDetails.customer_billing_address;
+      this.userDetails.customer_billing_address = userDetails.customer_shipping_address;
+      this.userDetails.delivery_mode = JSON.parse(JSON.stringify(res['deliveryMode']));
+      this.userDetails.customer_email_id = userDetails.customer_email_id;
+      this.userDetails.customer_name = userDetails.customer_name;
+      this.userDetails.agent = JSON.parse(JSON.stringify(res['agent']));
                
       let shippingcharges:any =  JSON.parse(JSON.stringify(res['order_shipping_charges']));
       this.shipment.cost = parseInt(shippingcharges[this.userDetails.delivery_mode]);
-      this.getTotalCost();
+      //this.getTotalCost();
+      this.totalCost = JSON.parse(JSON.stringify(res['totalCost']));
+      this.vat = JSON.parse(JSON.stringify(res['VAT']));
+      this.deliveryCharge = JSON.parse(JSON.stringify(res['deliveryCharge']));
+      this.discount = JSON.parse(JSON.stringify(res['discount']));
+
     })
   }
   /**

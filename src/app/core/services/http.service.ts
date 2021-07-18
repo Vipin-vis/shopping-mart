@@ -184,6 +184,14 @@ export class HttpService {
     const httpOptions = this.setHttpOptions();
     return this.http.get(this.serviceURI + '/getproductCategory ', httpOptions);
   }
+  
+  /**
+   * 
+   */
+   getFabOneproductCategory() {
+    const httpOptions = this.setFabOneHttpOptions();
+    return this.http.get(CONFIG.fab_one_uri + '/categories', httpOptions);
+  }
 
   /**
    * 
@@ -280,7 +288,7 @@ export class HttpService {
   */
    getCustomerDetails() {
     const httpOptions = this.setHttpOptions();
-    return this.http.get(this.serviceURI + `/customerDetails`, httpOptions);
+    return this.http.get(this.serviceURI + `/getAllCustomers`, httpOptions);
   }
   /**
    * 
@@ -288,7 +296,7 @@ export class HttpService {
    */
   updateDiscount(orderID: string, discountData: any) {
     const httpOptions = this.setHttpOptions();
-    return this.http.post(this.serviceURI + `/customerDetails?orderId=${orderID}`, discountData,
+    return this.http.post(this.serviceURI + `/updateDeliveryCharges?orderId=${orderID}`, discountData,
      httpOptions);
  
   }
@@ -303,5 +311,37 @@ export class HttpService {
         'x-access-token': this._auth.getToken()
       })
     };
+  }
+  /**
+   * One Fab httpotions
+   */
+   setFabOneHttpOptions() {
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'x-access-token': `Bearer ${this._auth.getOneFabtoken()}`,
+        'Access-Control-Allow-origin': '*',
+        'Access-Control-Allow-credentials': 'true'
+      })
+    };
+  }
+  /**
+   * One Fab
+   */
+  /**
+   * Method to authenticate One Fab API
+   */
+  authenticateFabOne() {
+    const userName = "ss.shahabas@gmail.com";
+    const password = "fbl~1}RwvFcQ";
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-origin': '*',
+        'Access-Control-Allow-credentials': 'true'
+
+      })
+    }
+    return this.http.get(`${CONFIG.fab_one_uri}/client-oauth?client_id=${CONFIG.client_id}&client_secret=${CONFIG.client_secret}&username=${userName}&password=${password}`, httpOptions);
   }
 }

@@ -79,3 +79,11 @@ export class OrderPipeStatus implements PipeTransform {
   }
 
 }
+@Pipe({
+  name: 'multiline'
+})
+export class MultliLine implements PipeTransform {
+  transform(value: any[]) {
+    return value.toString().replace(new RegExp('\n', 'g'), "<br />")
+  }
+}

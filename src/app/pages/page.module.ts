@@ -47,7 +47,7 @@ import { PackingPanelComponent } from './components/packing-panel/packing-panel.
 import { ConfirmPopupComponent } from './components/confirm-popup/confirm-popup.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { InvoiceComponent } from './components/invoice/invoice.component';
-import { OrderPipe, OrderPipeOrder, OrderPipePayment, OrderPipeStatus } from '../core/filter/order-pipe.pipe';
+import { MultliLine, OrderPipe, OrderPipeOrder, OrderPipePayment, OrderPipeStatus } from '../core/filter/order-pipe.pipe';
 import { SalesReportComponent } from './components/sales-report/sales-report.component';
 import { BoxidReportComponent } from './components/boxid-report/boxid-report.component';
 import { PackingManifestComponent } from './components/packing-manifest/packing-manifest.component';
@@ -78,7 +78,8 @@ import { CustomerDetailsComponent } from './components/customer-details/customer
     BoxidReportComponent,
     PackingManifestComponent,
     CustomerDetailsComponent,
-    DiscountComponent
+    DiscountComponent,
+    MultliLine
   ],
   imports: [
     CommonModule,

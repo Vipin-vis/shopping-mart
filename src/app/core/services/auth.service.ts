@@ -58,4 +58,15 @@ export class AuthService {
     let auth = (this.getIsauthcatedLs() == 'true');
     return auth;
   }
+
+  
+  authenticateOneFabtoLS(accesToken: string) {
+    localStorage.setItem("fabOneAuthToken", accesToken);
+  }
+
+  getOneFabtoken() {
+    let token: any = "";
+    token = localStorage.getItem("fabOneAuthToken")?.toString();
+    return token;
+  }
 }

@@ -12,13 +12,11 @@
     </mat-form-field>
     <mat-form-field class="User-full-width">
         <mat-label>Delivery</mat-label>
-        <mat-select [(value)]="selectedDelivery">
-            <mat-option *ngFor="let mode of delivery" [value]="mode.value">{{mode.name}}</mat-option>
-        </mat-select>
+        <input matInput [(ngModel)]="selectedDeliveryCharge">
     </mat-form-field>
 </div>
 
 <div mat-dialog-actions>
-    <button mat-raised-button cdkFocusInitial (click)="close()"  color="accent">Update</button>
+    <button mat-raised-button cdkFocusInitial (click)="updateDetails()"  color="accent">Update</button>
     <button mat-button cdkFocusInitial (click)="close()">Close</button>
 </div>
