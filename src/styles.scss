@@ -1,1 +1,91 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import "~@angular/material/theming";
+// Plus imports for other components in your app.
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$shopping-mart-primary: mat-palette($mat-brown);
+$shopping-mart-accent: mat-palette($mat-deep-orange, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$shopping-mart-warn: mat-palette($mat-red);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$shopping-mart-theme: mat-light-theme(
+  (
+    color: (
+      primary: $shopping-mart-primary,
+      accent: $shopping-mart-accent,
+      warn: $shopping-mart-warn,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($shopping-mart-theme);
+
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.header-tool-bar {
+  z-index: 999 !important;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+@mixin box-shadow {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-track
+{
+  background-color: #F5F5F5;
+  @include box-shadow();
+}
+
+::-webkit-scrollbar
+{
+	width: 5px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+	background-color: #50412c;
+	border: 2px solid #555555;
+}
+
+.label-title {
+  color: #55555594;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.card-label {
+  color: #6e573d;
+  font-size: 12px;
+}
+.snackbar-style {
+  color: #eea97a;
+}
+@page {
+  size: auto;   /* auto is the initial value */
+  margin: 0;  /* this affects the margin in the printer settings */
+}

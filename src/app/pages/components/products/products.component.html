@@ -1,0 +1,44 @@
+<div class="search-div">
+    <mat-form-field class="search-box" appearance="fill">
+        <mat-icon matPrefix class="search-icon">search</mat-icon>
+        <mat-label>Search Products</mat-label>
+        <input matInput [(ngModel)]="searchKey" #search>
+    </mat-form-field>
+    <mat-form-field style="padding-left: 12px;" appearance="fill">
+        <mat-label>Product category</mat-label>
+        <mat-select [(value)]="selectedCategory">
+            <mat-option *ngFor="let categories of categoryList" [value]="categories">{{categories}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button class="search-btn" mat-flat-button color="accent" (click)="searchProduct()">Search</button>
+</div>
+<br>
+<div class="no-products" *ngIf="noProducts">
+    No Products Found!!!
+</div>
+<div class="container">
+    <mat-card class="product-card" *ngFor="let item of productList">
+        <mat-icon>shopping_bag_outline</mat-icon>
+        <h2><span>{{item.prod_name}}</span></h2>
+        <br>
+        <br>
+        <h4>Rs. {{item.prod_price}}</h4>
+        <div class="product-action-footer">
+            <!-- <img src="item.imageUrl" > -->
+            <button mat-icon-button color="primary" class="prod-qty">
+                <mat-icon (click)="incrementProd(item)">add_circle_outline</mat-icon>
+            </button>
+            <button mat-icon-button color="primary" class="prod-qty">
+                <mat-icon (click)="decrementProd(item)">remove_circle_outline</mat-icon>
+            </button>
+            <button mat-mini-fab color="primary" matTooltip="Add to Cart">
+                <mat-icon (click)="addProduct(item)" [matBadge]="item.tempQuan" matBadgeColor="accent">add_shopping_cart
+                </mat-icon>
+            </button>
+        </div>
+    </mat-card>
+</div>
+
+<button *ngIf="showSearchButton" mat-fab color="accent" class="fixed-btn" (click)="gotoSearch()">
+    <mat-icon>search</mat-icon>
+</button>

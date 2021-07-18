@@ -1,0 +1,29 @@
+.cart-container {
+    position: relative;
+    overflow: auto;
+    max-height: calc(100vh - 250px);
+    width: 100%;
+}
+.User-full-width {
+    width: 100%;
+}
+.fab-invoice {
+    width: 600px;
+    margin-left: 15%;
+    .fab-invoice-tool-bar {
+        .print-btn {
+            display: none;
+        }
+        &:hover {
+            .print-btn {
+                display: block;
+            }
+        }
+    }
+}
+
+@media print { 
+    .print-btn, .packing-btn {
+        display: none;
+    }
+}

@@ -1,0 +1,81 @@
+<div class="manifest-container">
+    <mat-toolbar class="fab-invoice-tool-bar" color="primary">
+        <span>ONE FAB SHOP | Packing Report</span>
+        <span style="flex: 1 1 auto;"></span>
+        <button mat-icon-button class="packing-btn" [routerLink]="'/home'">
+            <mat-icon matTooltip="Packing Panel">home</mat-icon>
+        </button>
+        <mat-icon (click)="captureScreen()" class="print-btn" style="cursor: pointer;" *ngIf="toPrint" matTooltip="Print Invoice">print
+        </mat-icon>
+    </mat-toolbar>
+    <br>
+    <mat-label class="card-label" style="margin-top: 50px;">Packing Manifest</mat-label>
+    <ng-container *ngIf="reportType != 'boxidSalesReport'">
+        <span style="color: rgb(165, 161, 161) !important; min-width: 50px;" style="margin-left: 24px;">From: </span>
+        <mat-label>{{startDat}}</mat-label>
+        <span style="color: rgb(165, 161, 161); min-width: 50px; margin-left: 48px;">To: </span>
+        <mat-label>{{endDat}}</mat-label>
+    </ng-container>
+    <span style="color: rgb(165, 161, 161); min-width: 50px; margin-left: 24px;" *ngIf="isCountry"> Country: </span>
+    <mat-label *ngIf="isCountry">{{country}}</mat-label>
+
+    <span style="color: rgb(165, 161, 161); min-width: 50px; margin-left: 24px;" *ngIf="isBoxid"> Box ID: </span>
+    <mat-label>{{boxID}}</mat-label>
+
+    <span style="color: rgb(165, 161, 161); min-width: 50px; margin-left: 24px;" *ngIf="isOrderStatus"> Order status: </span>
+    <mat-label>{{orderStatus}}</mat-label>
+    <br>
+
+    <table mat-table class="order-table" [dataSource]="packingDetails">
+        <!-- SL NO Column -->
+        <ng-container matColumnDef="slno">
+            <th mat-header-cell *matHeaderCellDef> Sl No </th>
+            <td mat-cell *matCellDef="let packing"> {{packing.index}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+        <!-- Booking date Column -->
+        <ng-container matColumnDef="bookedon">
+            <th mat-header-cell *matHeaderCellDef> Booking Date </th>
+            <td mat-cell *matCellDef="let packing"> {{packing.booking_date}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+        <!-- Oder No Column -->
+        <ng-container matColumnDef="orderNo">
+            <th mat-header-cell class="order-td" *matHeaderCellDef> Order Number </th>
+            <td mat-cell class="order-td" *matCellDef="let packing">
+                {{packing.order_number}}</td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+        <!-- Custmer Name Column -->
+        <ng-container matColumnDef="customerName">
+            <th mat-header-cell *matHeaderCellDef> Customer Name</th>
+            <td mat-cell *matCellDef="let packing"> {{packing.customer_name}} </td>
+            <td mat-footer-cell *matFooterCellDef> Total </td>
+        </ng-container>
+        <!-- Address Column -->
+        <ng-container matColumnDef="address">
+            <th mat-header-cell *matHeaderCellDef> Address/Location</th>
+            <td mat-cell class="address-td" *matCellDef="let packing">
+                {{packing.address}}
+            </td>
+        </ng-container>
+        <!-- Boxid Column -->
+        <ng-container matColumnDef="boxId">
+            <th mat-header-cell *matHeaderCellDef> Box-id</th>
+            <td mat-cell class="tcost-td" *matCellDef="let packing">
+                {{packing.boxid}}
+            </td>
+        </ng-container>
+        <!-- Cargo Column -->
+        <ng-container matColumnDef="cargo">
+            <th mat-header-cell *matHeaderCellDef> Cargo Type</th>
+            <td mat-cell class="tcost-td" *matCellDef="let packing">
+                {{packing.cargotype}}
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+        <tr mat-row class="tcost-tr" *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>

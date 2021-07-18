@@ -1,0 +1,19 @@
+.fab-customer-details-tool-bar {
+    .print-btn, .customer-btn {
+        display: none;
+    }
+    &:hover {
+        .print-btn, .customer-btn {
+            display: block;
+        }
+    }
+}
+@media print { 
+    .print-btn, .customer-btn {
+        display: none;
+    }
+}
+
+.order-table {
+    width: 100%;
+}

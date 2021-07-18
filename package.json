@@ -7,18 +7,27 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "generate": "node ./server/generate.js > ./server/database.json",
+    "server": "json-server --watch ./server/database.json"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "~11.0.3",
+    "@angular/cdk": "^11.0.1",
     "@angular/common": "~11.0.3",
     "@angular/compiler": "~11.0.3",
     "@angular/core": "~11.0.3",
     "@angular/forms": "~11.0.3",
+    "@angular/material": "^11.0.1",
     "@angular/platform-browser": "~11.0.3",
     "@angular/platform-browser-dynamic": "~11.0.3",
     "@angular/router": "~11.0.3",
+    "faker": "^5.1.0",
+    "html2canvas": "^1.0.0-rc.7",
+    "json-server": "^0.16.3",
+    "jspdf": "^2.2.0",
+    "ngx-clipboard": "^14.0.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

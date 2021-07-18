@@ -1,0 +1,39 @@
+<div class="fab-invoice" id="invoiceToPrint">
+
+    <mat-toolbar class="fab-invoice-tool-bar" color="primary">
+        <span>ONE FAB SHOP | Sales Report</span>
+        <span style="flex: 1 1 auto;"></span>
+        <mat-icon (click)="captureScreen()" class="print-btn" *ngIf="toPrint" style="cursor: pointer;" matTooltip="Print Invoice">print
+        </mat-icon>
+    </mat-toolbar>
+    <br>
+    <div>
+        <span style="color: rgb(165, 161, 161); min-width: 50px;">From: </span>
+        <mat-label>{{startDat}}</mat-label>
+        <span style="color: rgb(165, 161, 161); min-width: 50px; margin-left: 48px;">To: </span>
+        <mat-label>{{endDat}}</mat-label>
+        <span style="color: rgb(165, 161, 161); min-width: 50px; margin-left: 48px;" *ngIf="isUser">User: </span>
+        <mat-label *ngIf="isUser">{{user}}</mat-label>
+        <span style="color: rgb(165, 161, 161); min-width: 50px; margin-left: 48px;" *ngIf="!isUser">User Type: </span>
+        <mat-label *ngIf="!isUser">{{userType}}</mat-label>
+        <br>
+        <br>
+    </div>
+    <div class="cart-container">
+        <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <!-- Position Column -->
+            <ng-container matColumnDef="orders">
+                <mat-header-cell *matHeaderCellDef> TOTAL ORDERS </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.orders}} </mat-cell>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="cost">
+                <mat-header-cell *matHeaderCellDef> COST </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.cost | currency:'AED'}} </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+    </div>
+</div>

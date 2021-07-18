@@ -1,0 +1,36 @@
+.order-table {
+    width: 100%;
+}
+
+.User-full-width {
+    width: 100%;
+}
+
+.order-td,
+.address-td {
+    max-width: calc(100vw / 6 - 20px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.fab-invoice-tool-bar {
+    .print-btn,
+    .packing-btn {
+        display: none;
+    }
+    &:hover {
+        .print-btn,
+        .packing-btn {
+            display: block;
+        }
+    }
+}
+@media print {
+    .print-btn,
+    .packing-btn {
+        display: none;
+    }
+}

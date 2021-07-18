@@ -1,0 +1,16 @@
+.add-shipping, .add-new {
+    top: 100px;
+    position: relative;
+    margin: 12px;
+}
+.add-shipping {
+    width: 60%;
+}
+.User-full-width {
+    width: 100%;
+}
+
+.shipping-container {
+    overflow-y: scroll;
+    max-height: 250px;
+}

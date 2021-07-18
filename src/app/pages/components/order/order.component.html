@@ -1,0 +1,253 @@
+<div class="order-main">
+    <div class="order-header">
+        <mat-icon class="my-order">text_snippet</mat-icon>
+
+        <div class="my-order-filter" name="fontStyle" aria-label="Font Style">
+            <div class="filter-grp">
+                <mat-form-field class="order-desc filter-field" appearance="fill">
+                    <mat-label>Search Box ID</mat-label>
+                    <input matInput [(ngModel)]="boxIDFilter">
+                </mat-form-field>
+                <mat-form-field class="order-desc  filter-field" appearance="fill">
+                    <mat-label>Search Order ID</mat-label>
+                    <input matInput [(ngModel)]="orderIDFilter">
+                </mat-form-field>
+                <mat-form-field class="order-field filter-field" appearance="fill">
+                    <mat-label>Payment Filter</mat-label>
+                    <mat-select [(value)]="paymentFilter">
+                        <mat-option [value]="'ALL'">All</mat-option>
+                        <mat-option [value]="'COMPLETED'">Paid</mat-option>
+                        <mat-option [value]="'PENDING'">Not Paid</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="order-field filter-field" appearance="fill">
+                    <mat-label>Order Filter</mat-label>
+                    <mat-select [(value)]="orderFilter">
+                        <mat-option [value]="'ALL'">All</mat-option>
+                        <mat-option [value]="'PLACED'">Placed</mat-option>
+                        <mat-option [value]="'CONFIRMED'">Confirmed</mat-option>
+                        <mat-option [value]="'RD_PACK'">Packing</mat-option>
+                        <mat-option [value]="'RD_SHIP'">Shipping</mat-option>
+                        <mat-option [value]="'SHIPPED'">Shipped</mat-option>
+                        <mat-option [value]="'COMPLETED'">Completed</mat-option>
+                        <mat-option [value]="'CANCELLED'">Cancelled</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+
+                <button mat-button mat-mini-fab style="z-index: 9999 !important" (click)="accordion.closeAll()" color="accent" matRipple matTooltip="Collapse All">
+                    <mat-icon>close_fullscreen</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="order-list">
+
+        <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel (opened)=" openPanel(order.order_id)" *ngFor="let order of orders | orderPipe : boxIDFilter 
+            | orderPipeOrder : orderIDFilter | orderPipePayment : paymentFilter | orderPipeStatus :  orderFilter">
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="order">
+                        <span class="label-title">Order:</span> {{order.order_id}}
+                    </mat-panel-title>
+                    <!-- <mat-panel-title class="agent">
+                        <span class="label-title">Agent: </span> {{order.ordered_by}}
+                    </mat-panel-title> -->
+                    <mat-chip-list class="payment-chip-list" aria-label="Payment selection">
+                        <mat-chip class="payment-chip paid" *ngIf="order.payment_status === 'COMPLETED'"
+                            style="background-color: rgb(7, 126, 100);" selected>Paid
+                        </mat-chip>
+                        <mat-chip class="payment-chip not-paid" *ngIf="order.payment_status === 'PENDING'"
+                            style="background-color: rgb(219, 64, 59);" selected>Not Paid
+                        </mat-chip>
+                    </mat-chip-list>
+                    <mat-chip-list class="shipment-chip-list" aria-label="Order Status selection">
+                        <mat-chip class="shipment-chip" *ngIf="order.order_status === 'CONFIRMED'"
+                            style="background-color: rgb(175, 97, 66);" selected>Confirmed
+                        </mat-chip>
+                        <mat-chip class="shipment-chip" *ngIf="order.order_status === 'PLACED'"
+                            style="background-color: rgb(168, 175, 66);" selected>Placed
+                        </mat-chip>
+                        <mat-chip class="shipment-chip" *ngIf="order.order_status === 'RD_PACK'"
+                            style="background-color: rgb(146, 144, 9);" selected>Packing
+                        </mat-chip>
+                        <mat-chip class="shipment-chip" *ngIf="order.order_status === 'RD_SHIP'"
+                            style="background-color:  rgb(20, 114, 94);" selected>Shipping
+                        </mat-chip>
+                        <mat-chip class="shipment-chip" *ngIf="order.order_status === 'SHIPPED'"
+                            style="background-color: rgb(26, 119, 14);" selected>Shipped
+                        </mat-chip>
+                        <mat-chip class="shipment-chip" *ngIf="order.order_status === 'COMPLETED'"
+                            style="background-color: rgb(8, 44, 4);" selected>Completed
+                        </mat-chip>
+                        <mat-chip class="shipment-chip" *ngIf="order.order_status === 'CANCELLED'"
+                            style="background-color: rgb(155, 15, 8);" selected>Cancelled
+                        </mat-chip>
+                    </mat-chip-list>
+
+                    <div style="margin-left: 18px; margin-top: 5px;">
+                        <mat-label>Ordered on:</mat-label>
+                        <mat-label>{{order.order_date}}</mat-label>
+                    </div>
+                </mat-expansion-panel-header>
+                <mat-divider style="margin-bottom: 12px;"></mat-divider>
+                <div class="order-options">
+                    <mat-panel-title class="order">
+                        <span class="label-title">Customer:</span> {{order.products['customer_name']}}
+                    </mat-panel-title>
+                    <mat-form-field class="order-field" appearance="fill">
+                        <mat-label>Payment Status</mat-label>
+                        <mat-select (selectionChange)="onChangePayment(order)" [(value)]="order.payment_status"
+                            [disabled]="!displayPayment">
+                            <mat-option [value]="'COMPLETED'">Paid</mat-option>
+                            <mat-option [value]="'PENDING'">Not Paid</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="order-field" appearance="fill">
+                        <mat-label>Order Status</mat-label>
+                        <mat-select (selectionChange)="onChangeOrder(order)" [(value)]="order.order_status">
+                            <mat-option [value]="'PLACED'" *ngIf="currentUserType==='admin'">Placed</mat-option>
+                            <mat-option [value]="'CONFIRMED'" *ngIf="currentUserType==='admin'">Confirmed</mat-option>
+                            <mat-option [value]="'RD_PACK'"
+                                *ngIf="(currentUserType==='admin')||(currentUserType==='packing')">
+                                Packing
+                            </mat-option>
+                            <mat-option [value]="'RD_SHIP'"
+                                *ngIf="(currentUserType==='admin')||(currentUserType==='packing')||(currentUserType==='shipping')">
+                                Shipping
+                            </mat-option>
+                            <mat-option [value]="'SHIPPED'"
+                                *ngIf="(currentUserType==='admin')||(currentUserType==='shipping')">
+                                Shipped
+                            </mat-option>
+                            <mat-option [value]="'COMPLETED'"
+                                *ngIf="(currentUserType==='admin')||(currentUserType==='shipping')">
+                                Completed
+                            </mat-option>
+                            <mat-option [value]="'CANCELLED'" *ngIf="(currentUserType==='admin')">
+                                Cancelled
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="order-field" appearance="fill">
+                        <mat-label>Cargo Type</mat-label>
+                        <mat-select (selectionChange)="onChangeOrder(order)" [(value)]="order.cargo_type"
+                            [disabled]="!(currentUserType=='admin'|| currentUserType=='shipping')">
+                            <mat-option [value]="'AIR'">Air</mat-option>
+                            <mat-option [value]="'Sea'">Sea</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="order-field" appearance="fill">
+                        <mat-label>Box ID</mat-label>
+                        <input [disabled]="!(currentUserType=='admin'|| currentUserType=='shipping')" matInput
+                            [(ngModel)]="order.box_id">
+                    </mat-form-field>
+                    <div>
+                        <button mat-button [matMenuTriggerFor]="menu">
+                            <mat-icon matRipple matTooltip="More Options">more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="openRemarkPopup(order.order_id)">Remarks</button>
+                            <button mat-menu-item (click)="openOrderSummary(order.order_id)">Get Order Summary</button>
+                            <button mat-menu-item (click)="openDiscount(order)">Add Discount</button>
+                            <button mat-menu-item (click)="goToInvoice(order.order_id)">Get Invoice</button>
+                            <button mat-menu-item (click)="addFromCart(order.order_id)"
+                                [disabled]="!(currentUserType=='admin'|| currentUserType=='agent')">Add From
+                                Cart</button>
+                            <button mat-menu-item (click)="saveChanges(order)"
+                                [disabled]="(currentUserType=='accountant'|| currentUserType=='packing')">Save Order
+                            </button>
+                            <button mat-menu-item  (click)="deleteOrder(order.order_id)"
+                                [disabled]="!(currentUserType=='admin'|| currentUserType=='agent')">Delete
+                                Order</button>
+                        </mat-menu>
+
+                    </div>
+                </div>
+                <br>
+                <mat-form-field appearance="fill" style="width: 30%;float:right;margin-right: 109px;">
+                    <mat-label>Delivery Mode</mat-label>
+                    <mat-select  [(value)]="order.deliveryMode">
+                        <mat-option *ngFor="let type of shippingCharge" [value]="type.name">{{type.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="fill" style="width: 30%;float:right;margin-right: 109px;">
+                    <mat-label>Shipping vendor Details</mat-label>
+                    <textarea matInput [(ngModel)]="order.shipping_vendor"
+                        [disabled]="!(currentUserType=='admin'|| currentUserType=='shipping')"></textarea>
+                </mat-form-field>
+                <table mat-table class="order-table" [dataSource]="order.products">
+                    <!-- Item Column -->
+                    <ng-container matColumnDef="item">
+                        <th mat-header-cell *matHeaderCellDef> Item </th>
+                        <td mat-cell *matCellDef="let product"> {{product.prod_name}} </td>
+                        <td mat-footer-cell *matFooterCellDef> </td>
+                    </ng-container>
+                    <!-- Category Column -->
+                    <ng-container matColumnDef="category">
+                        <th mat-header-cell *matHeaderCellDef> Category </th>
+                        <td mat-cell *matCellDef="let product"> {{product.prod_category}} </td>
+                        <td mat-footer-cell *matFooterCellDef> </td>
+                    </ng-container>
+                    <!-- Cost Column -->
+                    <ng-container matColumnDef="quantity">
+                        <th mat-header-cell class="qty-td" *matHeaderCellDef> Quantity </th>
+                        <td mat-cell class="qty-td" *matCellDef="let product">
+                            <input min="1" matInput type=number [(ngModel)]="product.prod_quantity"
+                                [disabled]="!(currentUserType=='admin'|| currentUserType=='agent')">
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef> </td>
+                    </ng-container>
+                    <!-- Packer column-->
+                    <ng-container matColumnDef="presenter">
+                        <th mat-header-cell class="qty-td" *matHeaderCellDef> Presenter </th>
+                        <td mat-cell *matCellDef="let product">
+                            <!-- <input min="1" matInput  [(ngModel)]="product.prod_quantity"
+                                [disabled]="!(currentUserType=='admin'|| currentUserType=='agent')"> -->
+                            <mat-form-field appearance="fill">
+                                <mat-label>Presenter</mat-label>
+                                <mat-select [(ngModel)]="product.presenter">
+                                    <mat-option *ngFor="let presenter of presenters" [value]="presenter.user_name">
+                                        {{presenter.user_name}}
+                                        <!-- {{product.presenter}} -->
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef> </td>
+                    </ng-container>
+                    <!-- Cost Column -->
+                    <ng-container matColumnDef="cost">
+                        <th mat-header-cell *matHeaderCellDef> Cost per piece</th>
+                        <td mat-cell *matCellDef="let product"> {{product.prod_price | currency:'AED'}} </td>
+                        <td mat-footer-cell *matFooterCellDef> Total </td>
+                    </ng-container>
+                    <!-- Total Cost Column -->
+                    <ng-container matColumnDef="tCost">
+                        <th mat-header-cell *matHeaderCellDef> Total Cost</th>
+                        <td mat-cell class="tcost-td" *matCellDef="let product">
+                            {{product.prod_price * product.prod_quantity | currency:'AED'}}
+                            <button mat-mini-fab matTooltip="Delete Item" class="del-prod" color="accent"
+                                *ngIf="(currentUserType=='admin'|| currentUserType=='agent')">
+                                <mat-icon (click)="removeItemFromOrder(product.id,order.order_id)">remove</mat-icon>
+                            </button>
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef> {{order.totalCost | currency:'AED'}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row class="tcost-tr" *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+                </table>
+
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</div>
+
+<button  *ngIf="showScrollTopButton" mat-fab matTooltip="Return to Top"  class="fixed-btn"  (click)="goToTop()">
+    <mat-icon>arrow_upward</mat-icon>
+</button>
